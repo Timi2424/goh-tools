@@ -20,6 +20,7 @@ Kończy werdyktem `>>> mozesz testowac` albo `>>> NIE ODPALAJ`.
 | niepodstawione `%param` | dosłowny `%crew8` poleciał jako nazwa jednostki i **wywalił grę** |
 | arność `squad_vehicleN` | makro na 10 załóg z siedmioma to ten sam crash |
 | `{spawn "X"}` bez encji | brak `.def` → null → **crash**, najczęstsza przyczyna |
+| nazwy akcji i termów warunków | nieznana nazwa to cisza albo **crash** — sprawdzane względem `data/slownik/tablice.txt` wyciągniętego z binarki (bez słownika kontrola się pomija z ostrzeżeniem) |
 | końce linii vs oryginał | część plików silnika wymaga CRLF |
 | pliki spoza patcha | eksperymenty nie mogą wyciec do wersji produkcyjnej |
 | czy gra chodzi | mody montują się przy starcie, zmiany w trakcie nie wejdą |

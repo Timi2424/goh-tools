@@ -10,12 +10,17 @@
 #   - zla liczba crewN wzgledem squad_vehicleN
 #   - zmieniony rodzaj koncow linii wzgledem oryginalu z paka
 #   - pliki w modzie, ktorych nie ma w paczce produkcyjnej
+#   - nazwa akcji albo termu, ktorej silnik nie zna (-> cisza albo crash)
 
 use strict; use warnings;
+use FindBin;
+use lib $FindBin::Bin;
+use gem2;
 
 my $MOD  = 'C:/Program Files (x86)/Steam/steamapps/workshop/content/400750/3359417100';
 my $GAME = 'C:/Program Files (x86)/Steam/steamapps/common/Call to Arms - Gates of Hell';
 my $PKG  = 'C:/Users/PC/Documents/HF_PATCH_PODMIANA/resource';
+my $DICT = "$FindBin::Bin/../data/slownik/tablice.txt";
 
 my ($err, $warn) = (0, 0);
 sub bad  { print "  BLAD  $_[0]\n";  $err++ }
@@ -118,7 +123,38 @@ for my $f (@mine) {
 }
 ok "wszystkie maja encje" unless $s;
 
-# ---------- 5. konce linii vs oryginal z paka ----------
+# ---------- 5. nazwy akcji i termow vs slownik z binarki ----------
+# Silnik nie sprawdza, czy nazwa akcji albo termu istnieje: literowka konczy sie
+# cisza, wpisem w logu albo dereferencja nulla. Slownik z pe/slownik.pl to jedyne
+# miejsce, gdzie te nazwy sa wypisane - konfrontacja z nim lapie to przed bitwa.
+print "\n--- nazwy akcji i termow vs slownik z binarki ---\n";
+my ($dict) = gem2::wczytaj_slownik($DICT);
+if (!$dict) {
+    warn_ "brak slownika (zbuduj: perl pe/slownik.pl) - pomijam kontrole nazw";
+} else {
+    my $z = 0;
+    for my $f (@mine) {
+        next unless $f =~ /\.(mi|inc|set)$/i;
+        open(my $h,'<:raw',$f) or next;
+        my $txt = do { local $/; <$h> };
+        close $h;
+        my $u = gem2::uzycia($txt);
+        my $nl;
+        for my $uz (@{$u->{uzycia}}) {
+            next if $dict->{$uz->{nazwa}};
+            # indeks linii budujemy dopiero przy pierwszym trafieniu - na czystym
+            # pliku nie ma za co placic
+            $nl ||= gem2::indeks_linii($txt);
+            my $co = $uz->{rodzaj} eq 'term_mi' ? 'term warunku' : 'akcja';
+            bad short($f) . ':' . gem2::linia($nl, $uz->{off})
+                . "  $co \"$uz->{nazwa}\" - silnik nie zna takiej nazwy";
+            $z++;
+        }
+    }
+    ok "wszystkie nazwy sa w slowniku" unless $z;
+}
+
+# ---------- 6. konce linii vs oryginal z paka ----------
 print "\n--- konce linii vs wersja z paka ---\n";
 my $c = 0;
 for my $f (@mine) {
@@ -137,7 +173,7 @@ for my $f (@mine) {
 }
 ok "zgodne" unless $c;
 
-# ---------- 6. mod vs paczka produkcyjna ----------
+# ---------- 7. mod vs paczka produkcyjna ----------
 print "\n--- mod vs paczka produkcyjna ---\n";
 if (-d $PKG) {
     my @pkg; walk_pkg($PKG, '', \@pkg);
@@ -177,7 +213,7 @@ sub in_own_pak {
     return 0;
 }
 
-# ---------- 7. czy gra chodzi ----------
+# ---------- 8. czy gra chodzi ----------
 print "\n--- proces gry ---\n";
 my $run = `tasklist /FI "IMAGENAME eq call_to_arms.exe" 2>/dev/null`;
 if ($run =~ /call_to_arms\.exe/) { warn_ "GRA CHODZI - zmiany nie zostana wczytane, mody montuja sie na starcie" }
