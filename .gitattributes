@@ -1,0 +1,4 @@
+# Pliki gry musza zachowac bajtowe konce linii - silnik wymaga CRLF.
+# Zadnej normalizacji, zadnego autocrlf.
+*               -text
+hf-patch/**     -text

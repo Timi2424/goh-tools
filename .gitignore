@@ -1,0 +1,7 @@
+*.exe
+*.pak
+*.log
+*.bak
+data/*.txt
+nul
+upstream-stary/
