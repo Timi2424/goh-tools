@@ -90,9 +90,10 @@ sprawdziła.
 
 ## Czego to nie umie
 
-**Nie dezasembluje.** `dump` daje hex, instrukcje trzeba czytać ręcznie. Do szukania
-nazw akcji, termów i enumów to wystarcza, bo one są stringami. Do analizy przepływu
-sterowania potrzebna byłaby Ghidra, a do niej Java.
+**Dezasembluje tylko częściowo** — `dis` poniżej pokrywa podzbiór instrukcji, nie całość.
+Do analizy przepływu sterowania w większej skali potrzebna byłaby Ghidra, a do niej Java.
+Jest też [rea](https://github.com/morluto/rea) na licencji MIT — MCP server spinający
+agenta z Ghidrą, IDA i Rizinem; wymaga Node i zainstalowanego dezasemblera.
 
 ---
 
