@@ -76,13 +76,18 @@ sub fn_of {                                   # wyszukiwanie binarne
 }
 
 # ---------- stringi ----------
+# Minimum 2 znaki, nie 4: "tag", "op", "no", "if", "on" to prawdziwe nazwy
+# klauzul i parametrow, a przy progu 4 nie bylo ich widac w ogole - stad czesc
+# wymyslonych skladni. Tabela puchnie z 23 tys. do 66 tys. wpisow; jesli to
+# przeszkadza w 'near', mozna wrocic przez GOH_MINSTR=4.
+my $MINSTR = $ENV{GOH_MINSTR} || 2;
 my %str;                                      # rva => tekst
 sub load_str {
     return if %str;
     for my $s (@sec) {
         next unless $s->{n} =~ /rdata|data/;
         my $blk = substr($buf, $s->{rp}, $s->{rsz});
-        while ($blk =~ /([\x20-\x7e]{4,400})\0/g) {
+        while ($blk =~ /([\x20-\x7e]{$MINSTR,400})\0/g) {
             my $t = $1;
             my $off = $s->{rp} + pos($blk) - length($t) - 1;
             my $r = off2rva($off);
@@ -97,7 +102,7 @@ sub lea_refs {                                # (od, do) => [[rva_instr, rva_cel
     my $o = rva2off($a) // return ();
     my $code = substr($buf, $o, $b - $a);
     my @out;
-    for my $i (0 .. length($code)-8) {
+    for my $i (0 .. length($code)-7) {   # LEA ma 7 B - przy -8 ginie ta na koncu funkcji
         my $p1 = ord(substr($code,$i,1));
         next unless $p1 == 0x48 || $p1 == 0x4c;
         next unless ord(substr($code,$i+1,1)) == 0x8d;
