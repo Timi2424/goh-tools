@@ -12,6 +12,17 @@ perl pe/goh.pl <exe> rtti  [regex]       klasy z RTTI
 perl pe/goh.pl <exe> dump  <rva> [n]     hexdump
 ```
 
+Do wyciągania składni skryptów jest osobny skrypt — patrz
+[Tablice rejestrów](#tablice-rejestrow-czyli-slownik-skladni) niżej:
+
+```bash
+perl pe/slownik.pl <exe> tablice           rejestry {nazwa -> klasa} + parametry
+perl pe/slownik.pl <exe> enumy             tablice nazw zakonczone NULL-em
+perl pe/slownik.pl <exe> modul <plik.cpp>  stringi wszystkich funkcji modulu
+perl pe/slownik.pl <exe> fn <rva> [glebia] stringi funkcji i jej wywolan
+perl pe/slownik.pl <exe> gen <katalog>     zapisuje tablice.txt i enumy.txt
+```
+
 Ścieżka do exe zwykle:
 `...\steamapps\common\Call to Arms - Gates of Hell\binaries\x64\call_to_arms.exe`
 
@@ -85,6 +96,48 @@ perl pe/goh.pl $EXE calls <adres tej funkcji>    # 116 wywolan
 Prawie wszystkie w bloku deserializacji komend. Wniosek: przychodząca komenda symulacji
 wskazywała encję, której lokalnie nie było, resolver zwrócił nulla, a fizyka go nie
 sprawdziła.
+
+---
+
+## Tablice rejestrów, czyli słownik składni
+
+`strblock` znajduje tablice nazw leżące obok siebie. Nie znajdzie natomiast
+rejestrów akcji i termów, bo te nie są ciągiem stringów — są tablicą **par**
+w `.data`:
+
+```
+{ const char* nazwa, Obiekt* (*fabryka)() }
+```
+
+Nazwa z takiej tablicy nie ma **żadnego** odwołania w kodzie. `xref cmp_i`
+zwraca zero trafień, chociaż `cmp_i` jest prawdziwym termem warunku — bo kod
+nigdy nie robi `LEA` na ten string, tylko czyta wskaźnik z tablicy. Trzeba
+szukać QWORD-a z adresem stringa w sekcjach danych.
+
+Dalej łańcuch jest mechaniczny i prowadzi aż do nazw parametrów:
+
+```
+tablica par -> fabryka -> LEA na vtable -> RTTI przed vtable -> nazwa klasy
+            -> metody wirtualne -> stringi w nich = przyjmowane parametry
+```
+
+Robi to `pe/slownik.pl`. Wynik w [data/slownik/](../data/slownik/): 110 rejestrów,
+738 nazw, 76 tablic enumów, z nazwami klas w rodzaju `Helper::eCmd_spawn`
+i `Interaction::eAction_Spawn`.
+
+Przy okazji wyszły dwa błędy w `goh.pl`, oba ciche:
+
+- skaner stringów miał **minimum 4 znaki**. `tag`, `op`, `no`, `if`, `on` nie
+  istniały dla harnessu w ogóle — `fn` na parserze selektora nie pokazywał
+  klauzuli `tag`. Teraz minimum to 2; `GOH_MINSTR=4` wraca do starego progu
+- `lea_refs` iterował do `length-8`, a `LEA` ma 7 bajtów — ginęła instrukcja
+  stojąca dokładnie na końcu funkcji. Małe fabryki kończą się właśnie na `LEA`
+  z vtable, więc część klas nie dawała się rozwiązać
+
+Nie każdy rejestr jest tablicą par. Predykaty trybu `advanced` w selektorze
+trzymają swoją nazwę w metodzie wirtualnej klasy — tam idzie się przez
+`slownik.pl modul <plik.cpp>`, który wypisuje stringi wszystkich funkcji
+przypisanych do modułu.
 
 ---
 

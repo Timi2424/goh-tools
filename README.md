@@ -22,6 +22,7 @@ docs/    jak to dziala i czego sie nauczylismy
 | [docs/testowanie.md](docs/testowanie.md) | pętla edycja → kontrola → gra → log |
 | [docs/proces.md](docs/proces.md) | co robić po patchu gry albo moda |
 | [docs/lekcje.md](docs/lekcje.md) | dziesięć rzeczy kupionych crashem |
+| [data/slownik/README.md](data/slownik/README.md) | składnia skryptów wyciągnięta z exe: akcje, termy, selektory, enumy |
 
 ## Start
 
@@ -29,6 +30,7 @@ docs/    jak to dziala i czego sie nauczylismy
 raport.bat                    # caly stan do data/raport.txt
 perl test/preflight.pl        # kontrola przed uruchomieniem gry
 perl pe/goh.pl <exe> info     # binarka
+perl pe/slownik.pl <exe> gen data/slownik   # slownik skladni z binarki
 ```
 
 Potrzebne: `perl`, `git`, `unzip`.
