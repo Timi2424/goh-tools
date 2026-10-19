@@ -9,8 +9,7 @@ i dereferencjonuje nulla. Te narzędzia służą do tego, żeby nie zgadywać.
 
 ```
 pe/      harness do binarki
-test/    kontrola plikow przed uruchomieniem, snapshot wersji zrodlowych
-gui/     maly panel na codzienna petle
+test/    kontrola plikow przed uruchomieniem, snapshot zrodel, raport
 patch/   skrypty do edycji plikow gry
 docs/    jak to dziala i czego sie nauczylismy
 ```
@@ -23,14 +22,12 @@ docs/    jak to dziala i czego sie nauczylismy
 | [docs/testowanie.md](docs/testowanie.md) | pętla edycja → kontrola → gra → log |
 | [docs/proces.md](docs/proces.md) | co robić po patchu gry albo moda |
 | [docs/lekcje.md](docs/lekcje.md) | dziesięć rzeczy kupionych crashem |
-| [gui/README.md](gui/README.md) | panel |
 
 ## Start
 
 ```bash
-gui\panel.bat                 # panel
 raport.bat                    # caly stan do data/raport.txt
-perl test/preflight.pl        # sama kontrola przed uruchomieniem
+perl test/preflight.pl        # kontrola przed uruchomieniem gry
 perl pe/goh.pl <exe> info     # binarka
 ```
 

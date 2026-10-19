@@ -89,3 +89,17 @@ plikow, delte, triage logu i slady naszych encji. Dodatkowo archiwizuje `game.lo
 do `data/logi/`, zanim skasuje go nastepny start gry.
 
 Potem wystarczy wskazac plik.
+## Raport dla drugiej osoby
+
+Gdy pracujesz z kimś, kto nie siedzi przy tym komputerze, wyniki trzeba jakoś
+przekazać. Opisywanie z pamięci gubi szczegóły, przeklejanie konsoli jest upierdliwe.
+
+```
+raport.bat
+```
+
+Jedno polecenie zbiera wszystko do `data/raport.txt`: wersje gry i moda, kontrolę
+plików, deltę, triage logu i ślady naszych encji. Dodatkowo archiwizuje `game.log`
+do `data/logi/`, zanim skasuje go następny start gry.
+
+Potem wystarczy wskazać plik.
