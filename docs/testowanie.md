@@ -71,3 +71,30 @@ z przesunięciem na innej osi, w odstępach po trzy sekundy. Jedno uruchomienie,
 jednoznaczna odpowiedź.
 
 Jeśli nie wiesz, jak zachowa się parametr — zrób test, który pokaże wszystkie warianty naraz.
+
+---
+
+## Gdy pracujesz z asystentem
+
+Panel pokazuje wyniki **tobie**. Asystent tego okna nie widzi, więc musiałbyś mu
+wszystko opisywać albo przeklejać — to zwęża przepływ zamiast go poszerzać.
+
+Do pracy we dwóch lepiej:
+
+```
+raport.bat        (dwuklik)
+```
+
+Jedno polecenie zbiera **wszystko** do `data/raport.txt`: wersje gry i moda, kontrolę
+plików, delta, triage logu i ślady naszych encji. Dodatkowo archiwizuje `game.log`
+do `data/logi/`, zanim skasuje go następny start gry.
+
+Potem wystarczy powiedzieć „raport gotowy" — asystent czyta plik z dysku, bez
+przeklejania i bez opowiadania z pamięci.
+
+Podział ról, który się sprawdza:
+
+| | |
+|---|---|
+| **panel** | gdy dłubiesz sam i chcesz szybko kliknąć |
+| **raport.bat** | gdy pracujesz z asystentem |

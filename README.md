@@ -29,7 +29,8 @@ docs/    jak to dziala i czego sie nauczylismy
 
 ```bash
 gui\panel.bat                 # panel
-perl test/preflight.pl        # kontrola przed uruchomieniem gry
+raport.bat                    # caly stan do data/raport.txt
+perl test/preflight.pl        # sama kontrola przed uruchomieniem
 perl pe/goh.pl <exe> info     # binarka
 ```
 
