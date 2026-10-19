@@ -10,6 +10,9 @@
 #   perl goh.pl <exe> cpp                  lista plikow zrodlowych silnika
 #   perl goh.pl <exe> rtti  [regex]        klasy z RTTI
 #   perl goh.pl <exe> dump  <rva> [n]      hexdump n bajtow od adresu
+#   perl goh.pl <exe> dis   <rva> [n]      czesciowy dezasembler, n instrukcji
+#   perl goh.pl <exe> pattern <hex>        szukanie po bajtach, ?? = dowolny
+#   perl goh.pl <exe> strblock <rva>       ciagly blok stringow = tablica nazw
 #
 # Metoda: PE ma .pdata z wpisami RUNTIME_FUNCTION (12 B: begin/end/unwind),
 # co daje DOKLADNE granice kazdej funkcji. Kod identyfikuje sie po LEA
@@ -17,6 +20,9 @@
 # D:\BUILDS\PROJECT_2\goh\GEM\source_work\*.cpp, wiec sasiedztwo zdradza modul.
 
 use strict; use warnings;
+use FindBin;
+require "$FindBin::Bin/dis.pl";
+require "$FindBin::Bin/cmds.pl";
 
 my ($exe, $cmd, @arg) = @ARGV;
 die usage() unless $exe && $cmd;
@@ -199,6 +205,19 @@ elsif ($cmd eq 'dump') {
             join(' ', map { sprintf '%02x', ord } split //, $c),
             join('', map { my $v=ord; ($v>=0x20 && $v<0x7f) ? chr($v) : '.' } split //, $c);
     }
+}
+elsif ($cmd eq 'dis' || $cmd eq 'pattern' || $cmd eq 'strblock') {
+    load_fn(); load_str();
+    my %ctx = (
+        buf     => $buf,
+        str     => \%str,
+        text    => text(),
+        fn_of   => \&fn_of,
+        rva2off => \&rva2off,
+    );
+    if    ($cmd eq 'dis')     { cmds::dis(\%ctx, hex2($arg[0]), $arg[1]) }
+    elsif ($cmd eq 'pattern') { cmds::pattern(\%ctx, $arg[0]) }
+    else                      { cmds::strblock(\%ctx, hex2($arg[0]), $arg[1]) }
 }
 else { die usage() }
 

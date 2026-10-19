@@ -93,3 +93,53 @@ sprawdziła.
 **Nie dezasembluje.** `dump` daje hex, instrukcje trzeba czytać ręcznie. Do szukania
 nazw akcji, termów i enumów to wystarcza, bo one są stringami. Do analizy przepływu
 sterowania potrzebna byłaby Ghidra, a do niej Java.
+
+---
+
+## Trzy komendy dołożone później
+
+```bash
+perl pe/goh.pl <exe> dis      <rva> [n]   czesciowy dezasembler
+perl pe/goh.pl <exe> pattern  <hex>       szukanie po bajtach, ?? = dowolny
+perl pe/goh.pl <exe> strblock <rva>       ciagly blok stringow
+```
+
+### `dis`
+
+Dekoduje podzbiór x86-64, który realnie występuje w prologach i wokół crashy:
+push/pop, mov, lea, arytmetyka, test, call, skoki, movzx/movsx, podstawowe SSE.
+Przy nieznanym opkodzie wypisuje `db XX` i idzie dalej o bajt — nie zapętla się,
+ale od tego miejsca może zgubić synchronizację.
+
+**To nie jest pełny dezasembler.** Do analizy przepływu sterowania w większej skali
+lepiej postawić Ghidrę. Tu chodzi o szybkie „co jest pod tym adresem", bez odpalania
+czegokolwiek.
+
+Adres w środku instrukcji da bzdurę w pierwszej linii i wyprostuje się w kolejnych —
+tak wygląda próba czytania adresu z innego builda.
+
+### `pattern`
+
+Szukanie po bajtach z maską. Kluczowe przy patchowaniu binarki: **offsety zmieniają się
+przy każdym update gry**, więc patch nie może być przypięty do adresu. Musi szukać
+unikalnego wzorca bajtów i dopiero wtedy wiedzieć, gdzie jest.
+
+```bash
+perl pe/goh.pl <exe> pattern "48895c2408 57"     # dokladne bajty
+perl pe/goh.pl <exe> pattern "4889??2408"        # ?? = dowolny bajt
+```
+
+Jedno trafienie = wzorzec nadaje się na kotwicę patcha. Czterdzieści = szukaj dłuższego.
+
+### `strblock`
+
+Wypisuje stringi leżące obok siebie, zaznaczając większe przerwy. Ciągły blok bez przerw
+to zwykle **tablica nazw** — a tak właśnie silnik trzyma listy akcji, termów warunków
+i enumów.
+
+Przykład: `strblock` wokół `eTargetSelectAmmo.cpp` daje od razu komplet flag amunicji —
+`in_bush`, `enable_for_ai`, `enable_for_user`, `enable_for_human_user`, `check_grenade`,
+`ready_for_shot`, `charging`, `ignore`.
+
+Metoda na szukanie takich tablic: znajdź `str` nazwę pliku `.cpp` odpowiedzialnego
+za dany system, potem `strblock` na jej adres.
