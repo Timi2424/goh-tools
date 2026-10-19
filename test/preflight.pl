@@ -153,10 +153,29 @@ if (-d $PKG) {
     } else { ok "mod == paczka, zero eksperymentow" }
     for my $rel (@pkg) {
         my $a = "$PKG/$rel"; my $b = "$MOD/resource/$rel";
-        if (!-f $b) { bad "brak w modzie: $rel" }
+        if (!-f $b) {
+            # Pliki pod map/ nie dzialaja luzno - wpis dolaczany z wnetrza paka
+            # jest szukany w tym samym paku. Takie trzymamy we wlasnym zz_*.pak.
+            if ($rel =~ m{^map/} && in_own_pak($rel)) {
+                ok short($rel) . "  w zz_multi.pak (luzno nie dziala pod map/)";
+            } else { bad "brak w modzie: $rel" }
+        }
         elsif (slurp($a) ne slurp($b)) { warn_ "rozni sie od paczki: $rel" }
     }
 } else { warn_ "nie znalazlem paczki $PKG" }
+
+# Czy sciezka siedzi w ktoryms z naszych wlasnych pakow w resource/map/.
+# Nasze to te, ktorych nie ma w oryginalnym modzie - u nas prefiks zz_.
+sub in_own_pak {
+    my $rel = shift;
+    (my $inner = $rel) =~ s{^map/}{};
+    for my $p (glob "'$MOD/resource/map/zz_*.pak'") {
+        my @e = `unzip -Z1 "$p" 2>/dev/null`;
+        chomp @e;
+        return 1 if grep { $_ eq $inner } @e;
+    }
+    return 0;
+}
 
 # ---------- 7. czy gra chodzi ----------
 print "\n--- proces gry ---\n";
