@@ -44,8 +44,6 @@ gwarantuje crash.
    każdym starcie gry
 6. **Przeczytaj log**
 
-Panel (`gui\panel.bat`) robi kroki 1, 3, 5 i 6 jednym kliknięciem.
-
 ---
 
 ## Co znaczą wpisy w logu
