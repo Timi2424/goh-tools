@@ -118,6 +118,11 @@ sub parse {
             push @stack, $n;
         }
         elsif (defined $2) { pop @stack if @stack > 1 }
+        # Odstep pasuje do pierwszej alternatywy bez zadnego przechwycenia.
+        # Wczesniej trafial tutaj i stawal sie pustym lisciem - przez to
+        # "pierwsze dziecko" bylo zawsze odstepem i obsluga akcji wylaczonych
+        # przez edytor ('##') nigdy nie zadzialala.
+        elsif (!defined $3 && !defined $4) { next }
         else {
             my ($v,$q,$off) = defined $3 ? ($3,1,$-[3]) : ($4,0,$-[4]);
             my $n = $stack[-1];
@@ -144,7 +149,60 @@ sub ident { my $v = shift; defined $v && $v =~ /^[a-z_][a-z0-9_]*$/ }
 # Tylko bezposrednie dzieci {on ...} i akcji sterujacych sa akcjami. Glebiej
 # siedza juz parametry danej akcji - {health_damage_pierce {effects ...}} to
 # parametr, nie akcja, i wrzucanie go do porownania zasmieca wynik.
-sub is_container { my $v = shift; $v =~ /^(?:on|if|else|elif|with_\w+|for_each_\w+)$/ }
+#
+# delay tez jest kontenerem: {delay 1.0 {crew_emit}} i {delay 0.6 "nazwa"
+# {impulse ...}} - dzieci to akcje odpalane z opoznieniem. Bez tego crew_emit
+# w naszym airborne-dodatki.inc byl dla kontroli niewidoczny.
+sub is_container { my $v = shift; $v =~ /^(?:on|if|else|elif|delay|with_\w+|for_each_\w+)$/ }
+
+# Akcje triggera bywaja zagniezdzone: {"switch" {"case" {condition ...} {"timer" ...}}},
+# {"if" ...}, {"while" ...}. Kazde DZIECKO W CUDZYSLOWIE akcji to w tej gramatyce
+# kolejna akcja (galaz case/default, cialo if). Dzieci bez cudzyslowu to jej
+# parametry. Warunek wewnatrz ({condition {type entities} ...}) to term.
+sub akcje_mi {
+    my ($c, $add) = @_;
+    return if $c->{leaf} || !defined $c->{head};
+    my ($nm, $q, $off) = ($c->{head}, $c->{q}, $c->{off});
+    # edytor wylacza akcje, wstawiajac '##' przed nazwa
+    if (!$q && $nm eq '##' && @{$c->{kids}} && $c->{kids}[0]{q}) {
+        ($nm, $q, $off) = ($c->{kids}[0]{head}, 1, $c->{kids}[0]{off});
+    }
+    return unless $q;
+    # "case" i "default" to galezie switch, nie akcje - w slowniku stoja jako
+    # PARAMETRY Helper::Thread::eStatementSwitch. Zgloszone jako akcje dalyby
+    # falszywy alarm na kazdym poprawnym switch.
+    $add->($nm, 'akcja_mi', $off) if ident($nm) && $nm !~ /^(?:case|default)$/;
+    for my $k (@{$c->{kids}}) {
+        next if $k->{leaf};
+        if ($k->{q}) { akcje_mi($k, $add) }
+        elsif (defined $k->{head} && $k->{head} eq 'condition') {
+            for my $ty (kids_named($k, 'type')) {
+                my ($v) = grep { $_->{leaf} } @{$ty->{kids}};
+                $add->($v->{head}, 'term_mi', $v->{off}) if $v && ident($v->{head});
+            }
+        }
+    }
+}
+
+# Trigger: {"nazwa" {condition ...} {actions ...}}. Rozpoznajemy po budowie,
+# a nie po tym, czy stoi pod {triggers}: nasze fragmenty (triggery.inc) sa
+# doklejane do dcg_script.inc bez opakowania i przez to w ogole nie byly
+# sprawdzane - a to wlasnie one trafiaja do gry przez zz_multi.pak.
+sub jeden_trigger {
+    my ($t, $add) = @_;
+    for my $acts (kids_named($t, 'actions')) {
+        akcje_mi($_, $add) for @{$acts->{kids}};
+    }
+    for my $cond (kids_named($t, 'condition')) {
+        for my $terms (kids_named($cond, 'terms')) {
+            for my $tm (@{$terms->{kids}}) {
+                next if $tm->{leaf} || !defined $tm->{head};
+                $add->($1, 'term_mi', $tm->{off})
+                    if $tm->{head} =~ /^\d+\.([a-z_][a-z0-9_]*)$/;
+            }
+        }
+    }
+}
 
 # ---------- wyluskiwanie nazw ----------
 # zwraca { mi => 0/1, ent => 0/1, uzycia => [ {nazwa, rodzaj, off}, ... ] }
@@ -161,31 +219,20 @@ sub uzycia {
         for my $trg (kids_named($n,'triggers')) {
             $out{mi} = 1;
             for my $t (@{$trg->{kids}}) {
-                next if $t->{leaf};
-                for my $acts (kids_named($t,'actions')) {
-                    for my $c (@{$acts->{kids}}) {
-                        next if $c->{leaf} || !defined $c->{head};
-                        my ($nm,$q,$off) = ($c->{head}, $c->{q}, $c->{off});
-                        # edytor wylacza akcje, wstawiajac '##' przed nazwa
-                        if (!$q && $nm eq '##' && @{$c->{kids}} && $c->{kids}[0]{q}) {
-                            ($nm,$q,$off) = ($c->{kids}[0]{head}, 1, $c->{kids}[0]{off});
-                        }
-                        $add->($nm,'akcja_mi',$off) if $q && ident($nm);
-                    }
-                }
-                # termy warunku
-                for my $cond (kids_named($t,'condition')) {
-                    for my $terms (kids_named($cond,'terms')) {
-                        for my $tm (@{$terms->{kids}}) {
-                            next if $tm->{leaf} || !defined $tm->{head};
-                            $add->($1,'term_mi',$tm->{off})
-                                if $tm->{head} =~ /^\d+\.([a-z_][a-z0-9_]*)$/;
-                        }
-                    }
-                }
+                jeden_trigger($t, $add) unless $t->{leaf};
             }
         }
     });
+
+    # Fragment bez opakowania {triggers}: trigger na najwyzszym poziomie.
+    unless ($out{mi}) {
+        for my $t (@{$root->{kids}}) {
+            next if $t->{leaf} || !$t->{q};
+            next unless kids_named($t, 'actions');
+            $out{mi} = 1;
+            jeden_trigger($t, $add);
+        }
+    }
 
     # skrypt encji: {"blok" {on ... {akcja ...}}}
     my $zbierz;
@@ -203,6 +250,13 @@ sub uzycia {
             $out{ent} = 1;
             $zbierz->($on);
         }
+    }
+    # Cialo makra (define "nazwa" {on ...}): nawias okragly to nie blok, wiec
+    # {on ...} z makra laduje na najwyzszym poziomie, a nie pod {"blok"}.
+    # Bez tego crew_emit z naszego hf_drop_stick byl niewidoczny.
+    for my $on (kids_named($root, 'on')) {
+        $out{ent} = 1;
+        $zbierz->($on);
     }
     \%out;
 }
