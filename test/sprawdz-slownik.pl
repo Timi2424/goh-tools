@@ -22,9 +22,15 @@ die "uzycie: perl test/sprawdz-slownik.pl <tablice.txt> <katalog> [...]\n"
     unless $dict && @dirs;
 
 # ---------- slownik ----------
-my ($known) = gem2::wczytaj_slownik($dict);
-die "$dict: $!\n" unless $known;
-printf "slownik : %d nazw (%s)\n", scalar keys %$known, $dict;
+# Kazda sekcja idzie przeciw swojemu rejestrowi. Plaski zbior wszystkich nazw
+# z tablice.txt przepuszczal nieistniejacy term "1.time", bo w tym samym
+# zrzucie siedza tablice Lua z os.time - patrz gem2::%REJESTRY.
+my $mod_of = gem2::wczytaj_slownik($dict);
+die "$dict: $!\n" unless $mod_of;
+my $gem2 = gem2::zestaw_gem2($mod_of);
+my %zest = map { $_ => gem2::zestaw($mod_of, $_) } keys %gem2::REJESTRY;
+printf "slownik : %d nazw (%s), w tym %d w rejestrach GEM2\n",
+    scalar keys %$mod_of, $dict, scalar keys %$gem2;
 
 # ---------- korpus ----------
 my @files;
@@ -51,8 +57,8 @@ printf "korpus  : %.1f MB, %d plikow misji, %d plikow interakcji\n\n",
 # ---------- raport ----------
 my $gaps = 0;
 sub report {
-    my ($title, $used, %o) = @_;
-    my @miss = sort grep { !$known->{$_} } keys %$used;
+    my ($title, $rodzaj, $used, %o) = @_;
+    my @miss = sort grep { !$zest{$rodzaj}{$_} } keys %$used;
     printf "## %s - uzyte: %d, w tym spoza slownika: %d\n", $title, scalar keys %$used, scalar @miss;
     for my $n (@miss) {
         my @f = sort keys %{$used->{$n}};
@@ -64,13 +70,14 @@ sub report {
 }
 sub short { my $p = shift; $p =~ s{.*[/\\]([^/\\]+[/\\][^/\\]+)$}{$1}; $p }
 
-report('AKCJE TRIGGEROW (.mi)', \%act_mi);
-report('TERMY WARUNKOW (.mi)',  \%term_mi);
-report('AKCJE SKRYPTOW ENCJI (.inc/.set)', \%act_ent);
+report('AKCJE TRIGGEROW (.mi)', 'akcja_mi', \%act_mi);
+report('TERMY WARUNKOW (.mi)',  'term_mi',  \%term_mi);
+report('AKCJE SKRYPTOW ENCJI (.inc/.set)', 'akcja_encji', \%act_ent);
 
 my %used = (%act_mi, %term_mi, %act_ent);
-my @conf = sort grep { $used{$_} } keys %$known;
-printf "## potwierdzone w plikach gry: %d z %d nazw slownika\n\n", scalar @conf, scalar keys %$known;
+my @conf = sort grep { $used{$_} } keys %$gem2;
+printf "## potwierdzone w plikach gry: %d z %d nazw w rejestrach GEM2\n\n",
+    scalar @conf, scalar keys %$gem2;
 
 printf "WYNIK: %s\n", $gaps ? "$gaps nazw uzytych poza slownikiem - ekstrakcja ma dziure"
                             : 'slownik pokrywa kazda nazwe uzyta w korpusie';

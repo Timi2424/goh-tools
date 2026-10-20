@@ -125,6 +125,11 @@ Robi to `pe/slownik.pl`. Wynik w [data/slownik/](../data/slownik/): 110 rejestr�
 738 nazw, 76 tablic enumów, z nazwami klas w rodzaju `Helper::eCmd_spawn`
 i `Interaction::eAction_Spawn`.
 
+Zrzut jest surowy i **nie wszystko w nim jest z GEM2** — 18 rejestrów to Lua
+i Xerces. Nazwa klasy rozdziela to na trzy rejestry silnika (272 nazwy):
+`Helper::eTerm_*` to termy warunków, reszta `Helper::*` to akcje triggerów,
+`Interaction::*` to akcje skryptów encji. Rozpisane w `test/gem2.pm`.
+
 Przy okazji wyszły dwa błędy w `goh.pl`, oba ciche:
 
 - skaner stringów miał **minimum 4 znaki**. `tag`, `op`, `no`, `if`, `on` nie

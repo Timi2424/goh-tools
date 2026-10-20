@@ -18,6 +18,15 @@ co kilka tygodni — po update przegeneruj, nie przepisuj.
 | `tablice.txt` | 110 rejestrów, 738 nazw: akcja/term → klasa C++ → przyjmowane parametry |
 | `enumy.txt` | 76 tablic nazw zakończonych NULL-em (wartości dla `{mode …}`, `{state …}` itp.) |
 
+> **Nie wszystko tu jest GEM2.** 18 rejestrów z modułem `?` (228 nazw) to biblioteka
+> standardowa Lua (`0x0115xxxx` — `io`, `os`, `string`, `bit32`) i parser XML Xerces
+> (`0x014aexxx`). Rejestry samego silnika to **270 nazw**: termy warunków
+> (`Helper::eTerm_*`), akcje triggerów (`Helper::*`) i akcje skryptów encji
+> (`Interaction::*`). Czytanie `tablice.txt` jako jednego płaskiego zbioru przykrywa
+> nieistniejące nazwy cudzymi — `os.time` przepuszczał zmyślony term `{"1.time"}`.
+> Porównuj po klasie C++, nie po samej obecności nazwy; `test/gem2.pm` ma to
+> rozpisane w `%REJESTRY`.
+
 ---
 
 ## Jak to zostało wyciągnięte
@@ -221,10 +230,13 @@ Korpus: 479 plików misji (214 MB) z `map/single.pak`, `map/multi.pak`,
 AKCJE TRIGGEROW (.mi)       - uzyte: 62, w tym spoza slownika: 0
 TERMY WARUNKOW (.mi)        - uzyte: 17, w tym spoza slownika: 0
 AKCJE SKRYPTOW ENCJI        - uzyte: 97, w tym spoza slownika: 0
-potwierdzone w plikach gry  - 164 z 738 nazw slownika
+potwierdzone w plikach gry  - 164 z 272 nazw w rejestrach GEM2
 ```
 
-Zero nazw użytych poza słownikiem. Druga strona — 574 nazwy ze słownika, których
+Każda sekcja idzie przeciw **swojemu** rejestrowi, nie przeciw całemu plikowi —
+inaczej `os.time` z tablic Lua przykrywa nieistniejący term `{"1.time"}`.
+
+Zero nazw użytych poza słownikiem. Druga strona — 108 nazw z rejestrów, których
 żadna misja z gry nie wywołuje — **nie jest błędem**: silnik zna więcej, niż
 kampania potrzebowała. To wciąż lepszy punkt wyjścia niż zgadywanie.
 

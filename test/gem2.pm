@@ -154,20 +154,85 @@ sub linia {
 }
 
 # ---------- slownik z binarki ----------
-# format: '=== 0x... <modul.cpp> wpisow: N', potem wpisy wciete dwiema spacjami
+# Plaski zbior wszystkich nazw z tablice.txt klamie: 18 tablic ma w naglowku '?'
+# i to nie jest GEM2, tylko biblioteka standardowa Lua (0x0115xxxx - io, os,
+# string, bit32) i parser XML Xerces (0x014aexxx). Przykryly nieistniejacy term
+# "1.time" nazwa os.time i kontrola go przepuszczala.
+#
+# Dlatego kazda gramatyka dostaje swoj rejestr. One naprawde sa rozlaczne, wiec
+# zawezenie lapie nie tylko nazwy z obcych bibliotek, ale i akcje wpisana w
+# miejsce termu.
+#
+# Rejestr rozpoznajemy po dwoch sygnalach: klasie C++ i module. Klasa jest tym,
+# co silnik naprawde instancjonuje, a tablica moze stac w dowolnym module. Tak
+# wchodza rail_switch i rail_break: siedza w eEntityRailway.cpp, ale sa
+# Interaction::eSwitchRail / eBreakRail, czyli tym samym rodzajem akcji co cale
+# eIA_*, i stoja w stockowym railway.inc. Z tej samej tablicy NIE wchodzi
+# railway (DDA::eServer) - i o to chodzi.
+#
+# Liczy sie suma obu kryteriow, nie samo ostrzejsze. Sama klasa wycielaby
+# 'if', 'actor_state' i pare rozkazow, ktore stoja w tablicach helperow z klasa
+# spoza rodziny albo bez rozpoznanej klasy ('-') - a to sa prawdziwe akcje
+# triggerow. Falszywy alarm na poprawnym pliku kosztuje wiecej niz przepuszczona
+# nazwa: wylaczona kontrola nie lapie juz niczego.
+our %REJESTRY = (
+    term_mi => {
+        klasa => qr/^Helper::eTerm_/,
+        modul => qr/^(?:eHelperConditionTerm\.cpp|eHelperWaypointSelector\.h)$/,
+    },
+    akcja_mi => {
+        klasa => qr/^Helper::(?!eTerm_)/,
+        modul => qr/^(?:eHelperCommand\w*\.cpp|eHelperThreadStatement\.cpp)$/,
+    },
+    akcja_encji => {
+        klasa => qr/^Interaction::/,
+        modul => qr/^eIA_\w+\.cpp$/,
+    },
+);
+
+# format: '=== 0x... <modul.cpp> wpisow: N', potem wpisy wciete dwiema spacjami:
+# nazwa, klasa C++ (albo '-'), reszta to przyjmowane parametry
 sub wczytaj_slownik {
     my $plik = shift;
     open my $d, '<', $plik or return undef;
-    my (%known, %mod_of);
+    my %wpisy;                          # nazwa => [ {modul, klasa}, ... ]
     my $mod = '?';
     while (<$d>) {
         if (/^=== 0x\w+\s+(\S+)/) { $mod = $1; next }
-        next unless /^  (\S+)\s/;
-        $known{$1} = 1;
-        $mod_of{$1}{$mod} = 1;
+        # klasa bywa nierozpoznana ('-'); wpis bez drugiej kolumny tez ma wejsc,
+        # bo pominiety wpis to falszywy alarm na poprawnej nazwie
+        next unless /^  (\S+)(?:\s+(\S+))?/;
+        push @{$wpisy{$1}}, { modul => $mod, klasa => defined $2 ? $2 : '-' };
     }
     close $d;
-    return (\%known, \%mod_of);
+    \%wpisy;
+}
+
+# Nazwy dopuszczalne dla danej gramatyki. Nazwa stoi w kilku tablicach naraz,
+# wiec wystarczy, ze jedno wystapienie pasuje do rejestru.
+sub zestaw {
+    my ($wpisy, $rodzaj) = @_;
+    my $r = $REJESTRY{$rodzaj} or die "gem2: nieznany rodzaj '$rodzaj'\n";
+    my %ok;
+    for my $nazwa (keys %$wpisy) {
+        for my $w (@{$wpisy->{$nazwa}}) {
+            next unless $w->{klasa} =~ $r->{klasa} || $w->{modul} =~ $r->{modul};
+            $ok{$nazwa} = 1;
+            last;
+        }
+    }
+    \%ok;
+}
+
+# Wszystkie trzy rejestry naraz - do licznikow i komunikatow.
+sub zestaw_gem2 {
+    my $wpisy = shift;
+    my %ok;
+    for my $r (keys %REJESTRY) {
+        my $z = zestaw($wpisy, $r);
+        $ok{$_} = 1 for keys %$z;
+    }
+    \%ok;
 }
 
 1;
