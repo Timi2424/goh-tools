@@ -52,19 +52,38 @@ zawsze wychodzi poprawnie, a moment wybiera ten, kto patrzy. `wynik` podaje
 tylko to, co doszło potem, więc przebiegi się nie mieszają. Ostrzega, gdy log
 się nie zmienił („czy Start na pewno został kliknięty?”).
 
-Pierwszy raz w sesji, po `start`:
+Pierwszy raz w sesji, po `start` — **sprawdzone 2026-10-20**:
 
-1. w opcjach modów włącz Hortena (i nasz patch, jeśli go testujesz)
-2. otwórz mapę `testing_ground_800x800`
-3. górna linia panelu (tytuł misji) → **Load other mission** → `hf_lab`
-4. **Start** — przycisk w prawym dolnym rogu panelu
+1. mody: `lab.pl wynik` / log pokazuje zamontowane (Horten = 25 paków)
+2. otwórz mapę `testing_ground_800x800` (edytor pamięta ostatnią)
+3. **F3** — edytor misji (**F2** to edytor mapy, **F1** chowa panel)
+4. tytuł misji na górze panelu → **Load other mission** → `hf_lab`
+5. **START** — zielony przycisk w **lewym górnym rogu** (podręcznik mówi
+   „prawy dolny”, ten build ma inaczej)
 
-Potem już tylko **Reload → Start**. Gry się nie restartuje.
+Potem: **Stop → Reload → START**. Gry się nie restartuje.
 
-Edytor sam pamięta ostatnią mapę i treść ostatniej misji
-(`profiles/<id>/editor_last_info`, `editor_last_mission.scn`). Podmiana tych
-plików pozwoliłaby otwierać naszą misję bez klikania, ale nie wiemy, skąd
-edytor robi wtedy Reload ani dokąd zapisuje — na razie nie ruszamy.
+### Pułapka: kopia misji edytora
+
+Po Stop edytor przywraca **własną kopię** misji
+(`profiles/<id>/editor_last_mission.scn`, zapisaną przy Start), a nie plik
+z dysku. **Bez Reload zmiany z dysku nie wchodzą** — a sondy trafiają dalej,
+tylko ze starej wersji, więc wynik wygląda poprawnie. `lab.pl wynik` rozpoznaje
+źródło po ścieżce w komunikatach silnika i mówi wprost, czy przebieg szedł
+z pliku, czy z kopii. Reload czyta plik (`Reloading mission ...`, potem wpisy
+z `/map/.../hf_lab.mi`).
+
+### Co już wiemy z laboratorium
+
+- `Enter game mode as user 255` — człowiek w edytorze to gracz **255**
+- `{player "255"}` w selektorze silnik odrzuca: `value "255" is invalid for enum`
+  (plik i wiersz w logu, misja działa dalej — sonda „wartość spoza enuma”)
+- **`{Player N}` w `.mi` == `{player "N"}` w selektorze** — odczyt właściciela
+  działa (`Waypoint 900001 not found` → gracz 1)
+- zegar to zły wyświetlacz liczb: odlicza w dół, `11` znika po 11 s. Odczyt
+  przez numer nieistniejącego waypointa trafia do logu i nie ucieka
+- `Local string not found` przy tytule zegara leci przy **wczytaniu**, dla
+  wszystkich zegarów naraz — dowodzi, że plik dotarł, nie że trigger się wykonał
 
 W edytorze *view* (klawisz `1`) jest **regulacja prędkości gry** i **Diplomacy** —
 relacje między stronami. Zrzut, który trwa pół minuty, oglądasz w trzy sekundy.

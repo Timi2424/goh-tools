@@ -124,8 +124,12 @@ if ($cmd eq 'start') {
 if ($cmd eq 'przeladuj') {
     kontrola_i_instalacja() or do { print "\n>>> NIE PRZELADOWUJ, popraw bledy\n"; exit 1 };
     postaw_znacznik();
-    print "\n>>> w edytorze: tytul misji -> Reload -> Start\n";
-    print "    (pierwszy raz w sesji: Load other mission -> hf_lab)\n";
+    # Po Stop edytor wraca do WLASNEJ kopii misji (editor_last_mission.scn) -
+    # bez Reload zmiany z dysku nie wchodza. Reload czyta plik (sprawdzone:
+    # "Reloading mission ..." i potem wpisy z /map/.../hf_lab.mi).
+    print "\n>>> w edytorze: Stop (jesli chodzi) -> F3 -> tytul misji -> Reload -> START\n";
+    print "    START to zielony przycisk w lewym gornym rogu\n";
+    print "    (pierwszy raz w sesji: zamiast Reload - Load other mission -> hf_lab)\n";
     exit 0;
 }
 
@@ -153,6 +157,41 @@ if ($cmd eq 'wynik') {
             if (stat $LOG)[9] < $z->{czas};
         my @crash = grep { /\*{5} Exception/ } @nowe;
         $p->("  CRASH w game.log: " . scalar(@crash) . "\n") if @crash;
+
+        # Etapy przebiegu. Pierwszy przebieg pokazal, ze "misja wczytana" i "misja
+        # uruchomiona" to dwie rozne rzeczy: Load dawal "ok", a Start nie zostal
+        # klikniety - i bez tego rozroznienia wynik wygladal jak cisza sond.
+        my ($wczyt) = map { /Loading mission '([^']+)'/ ? $1 : /Reloading mission/ ? 'Reload' : () } @nowe;
+        my $start   = grep { /Enter game mode/ } @nowe;
+        $p->("  misja wczytana : " . ($wczyt // 'NIE') . "\n");
+        $p->("  misja ruszyla  : " . ($start ? 'tak' : 'NIE - kliknij START (zielony, lewy gorny rog)') . "\n");
+        # "Local string not found" przy tytule zegara leci przy WCZYTANIU misji,
+        # dla wszystkich zegarow naraz (takze z galezi switch, ktore nie moga
+        # wykonac sie jednoczesnie). Dowodzi, ze plik dotarl do silnika - nie
+        # ze trigger sie wykonal.
+        my $tyt = grep { /Local string not found - "hf_/ } @nowe;
+        $p->("  tytuly zegarow wczytane: $tyt (to parsowanie, nie wykonanie)\n") if $tyt;
+
+        # Skad edytor wzial misje. Drugi przebieg pokazal pulapke: po Stop edytor
+        # przywraca WLASNA kopie (profiles/<id>/editor_last_mission.scn, zapisana
+        # przy Start), a nie plik z dysku. Nasze zmiany wtedy w ogole nie wchodza,
+        # a wynik wyglada na poprawny - sondy trafiaja, tylko ze starej wersji.
+        # Liczy sie OSTATNIE wczytanie w oknie: w jednym przebiegu bywa i kopia
+        # (po Stop), i plik (po Reload). Trzeci przebieg pokazal, ze Reload czyta
+        # plik z dysku - alarm dla calego okna byl falszywy.
+        # I liczy sie wczytanie PRZED ostatnim Startem: po Stop edytor znow
+        # przywraca kopie i dopisuje to do logu, wiec "ostatnie w logu" mowi,
+        # co jest wczytane teraz, a nie co naprawde chodzilo.
+        my ($ost_start) = grep { $nowe[$_] =~ /Enter game mode/ } reverse 0 .. $#nowe;
+        my @przed = defined $ost_start ? @nowe[0 .. $ost_start] : @nowe;
+        my ($zrodlo) = map { m{\(@/profiles/[^)]*editor_last_mission\.scn} ? 'kopia'
+                           : m{\(/map/[^)]*\.mi,}                         ? 'plik' : () } reverse @przed;
+        if (($zrodlo // '') eq 'kopia') {
+            $p->("  !!! MISJA Z KOPII EDYTORA (editor_last_mission.scn), NIE Z PLIKU\n");
+            $p->("      Zmiany NIE weszly. W edytorze: Stop -> F3 -> tytul -> Reload -> START\n");
+        } elsif (($zrodlo // '') eq 'plik') {
+            $p->("  misja z pliku - zmiany weszly\n");
+        }
     } else { $p->("\nbrak game.log\n") }
 
     # --- crash od znacznika ---
@@ -179,6 +218,18 @@ if ($cmd eq 'wynik') {
         }
     }
     $p->("  zadna - sondy z HUD (zegar) widac tylko na zrzucie\n") unless $traf;
+
+    # Odczyt liczby przez numer waypointa: 9xxxxx. Zegar okazal sie zlym
+    # wyswietlaczem (odlicza w dol, "11" znika po 11 s). Konwencja z hf_lab.mi:
+    # 900000+N = gracz N, 909999 = selektor nie zlapal nikogo.
+    # Tylko 900000-909999 - szerszy wzorzec lapal sonde B (999999) jako "gracz 99999".
+    my %kody;
+    for (@nowe) { $kody{$1}++ if /Waypoint 90(\d{4}) not found/ }
+    for my $k (sort keys %kody) {
+        my $n = $k + 0;
+        $p->(sprintf "  ODCZYT: %s  (%d x)\n",
+             $n == 9999 ? 'zaden - selektor z {player "N"} nie zlapal nikogo' : "gracz $n", $kody{$k});
+    }
 
     # --- zrzuty ekranu od znacznika ---
     $p->("\n--- zrzuty ekranu (PrintScreen) od znacznika ---\n");
