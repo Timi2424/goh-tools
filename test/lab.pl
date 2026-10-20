@@ -1,0 +1,216 @@
+#!/usr/bin/perl
+# lab.pl - petla laboratorium: edytor misji zamiast konkwisty
+#
+#   perl test/lab.pl start [-- <opcje edytora>]   kontrola + instalacja + znacznik + uruchomienie edytora
+#   perl test/lab.pl przeladuj                    kontrola + instalacja + nowy znacznik
+#   perl test/lab.pl wynik                        co sie stalo od ostatniego znacznika
+#   perl test/lab.pl stan                         czy edytor chodzi, kiedy byl znacznik
+#   perl test/lab.pl stop                         zamknij edytor (grzecznie, jak krzyzykiem)
+#
+# PODZIAL PRACY
+# Asystent poprawia misje i czyta wyniki; czlowiek klika w edytorze. Narzedzie
+# nie steruje gra - w tej sesji nie ma czym klikac w okna, a zrzut ekranu
+# z PowerShella zablokowal Windows Defender (i dobrze, ze nie obchodzimy go).
+#
+# Jeden przebieg:
+#   asystent: poprawka, potem  lab.pl przeladuj
+#   czlowiek: w edytorze  tytul misji -> Reload -> Start;  PrintScreen w ciekawym momencie
+#   asystent: lab.pl wynik  -> sondy z logu, crash, zrzuty ekranu od znacznika
+#
+# Zrzuty robi sama gra (PrintScreen -> screenshots/). Obraz z DirectX zawsze
+# wychodzi poprawnie, a moment wybiera ten, kto patrzy.
+#
+# ZNACZNIK: przeladuj zapisuje rozmiar game.log i czas. wynik czyta tylko to,
+# co doszlo potem - inaczej kazdy wynik mieszalby przebiegi. Gdy log jest
+# krotszy niz w znaczniku, edytor zostal uruchomiony od nowa i czytamy calosc.
+
+use strict; use warnings;
+use FindBin;
+use lib $FindBin::Bin;
+use sondy;
+use POSIX qw(strftime);
+
+my $ROOT   = "$FindBin::Bin/..";
+my $STAN   = "$ROOT/data/lab";
+my $ZNACZ  = "$STAN/znacznik.txt";
+my $WYNIK  = "$STAN/wynik.txt";
+
+my $GRA    = '/c/Program Files (x86)/Steam/steamapps/common/Call to Arms - Gates of Hell';
+my $EXE_ED = "$GRA/binaries/x64/call_to_arms_ed.exe";
+my $MOJE   = "$ENV{USERPROFILE}/Documents/My Games/gates of hell";
+$MOJE =~ s{\\}{/}g; $MOJE =~ s{^([A-Za-z]):}{'/' . lc $1}e;
+my $LOG    = "$MOJE/log/game.log";
+my $DUMPS  = "$MOJE/log/minidumps";
+my $ZRZUTY = "$MOJE/screenshots";
+
+my $PATCH  = '/c/Users/PC/Documents/goh-hf-patch';
+my $LABSRC = "$PATCH/eksperymenty/lab";
+
+my ($cmd, @arg) = @ARGV;
+$cmd //= 'stan';
+mkdir "$ROOT/data" unless -d "$ROOT/data";
+mkdir $STAN unless -d $STAN;
+
+# ---------- pomocnicze ----------
+sub win { my $p = shift; $p =~ s{^/([a-z])/}{\U$1:\\}; $p =~ s{/}{\\}g; $p }
+
+sub dziala {
+    my $obraz = shift;
+    # Git Bash zamienia argumenty zaczynajace sie od "/" na sciezki: "/FI" robi
+    # sie "C:/Program Files/Git/FI" i tasklist zwraca puste - wszystko wygladalo
+    # na wylaczone, nawet dzialajacy Steam. Wylaczamy te konwersje.
+    local $ENV{MSYS2_ARG_CONV_EXCL} = '*';
+    my $out = `tasklist /FI "IMAGENAME eq $obraz" /NH 2>NUL`;
+    $out =~ /\Q$obraz\E/i;
+}
+
+sub czytaj_znacznik {
+    open my $h, '<', $ZNACZ or return;
+    my %z = map { chomp; split /=/, $_, 2 } grep { /=/ } <$h>;
+    close $h; \%z;
+}
+
+sub kontrola_i_instalacja {
+    print "--- kontrola i instalacja misji laboratorium ---\n";
+    # zainstaluj.sh wola wspolna kontrole (sprawdz-plik.pl) i nie kopiuje
+    # niczego, jesli jest blad
+    my $rc = system('bash', "$LABSRC/zainstaluj.sh");
+    return 0 if $rc;
+    # Nazwy akcji i termow wzgledem slownika - ta sama kontrola co preflight.
+    # Misja z nieznana nazwa akcji to w najlepszym razie cisza, w najgorszym crash.
+    my $out = `perl "$FindBin::Bin/sprawdz-slownik.pl" "$ROOT/data/slownik/tablice.txt" "$LABSRC" 2>&1`;
+    my ($wynik) = $out =~ /^(WYNIK:.*)$/m;
+    print "  slownik: ", ($wynik // 'brak wyniku'), "\n";
+    if ($?) { print $out; return 0 }
+    1;
+}
+
+sub postaw_znacznik {
+    my $rozm = -f $LOG ? -s $LOG : 0;
+    open my $w, '>', $ZNACZ or die "$ZNACZ: $!";
+    print $w "czas=", time, "\nlog=$rozm\n";
+    close $w;
+    printf "--- znacznik: %s, game.log %d B ---\n", strftime('%H:%M:%S', localtime), $rozm;
+}
+
+# ---------- komendy ----------
+if ($cmd eq 'start') {
+    if (dziala('call_to_arms.exe')) {
+        print "BLAD: chodzi gra (call_to_arms.exe). Zamknij ja - mody montuja sie przy starcie.\n";
+        exit 1;
+    }
+    if (dziala('call_to_arms_ed.exe')) {
+        print "edytor juz chodzi - robie tylko przeladowanie\n";
+        $cmd = 'przeladuj';
+    } else {
+        print "UWAGA: Steam nie dziala - edytor moze nie wystartowac\n" unless dziala('steam.exe');
+        kontrola_i_instalacja() or do { print "\n>>> NIE URUCHAMIAM, popraw bledy\n"; exit 1 };
+        postaw_znacznik();
+        shift @arg if @arg && $arg[0] eq '--';
+        my @ps = ('-FilePath', "'" . win($EXE_ED) . "'",
+                  '-WorkingDirectory', "'" . win("$GRA/binaries/x64") . "'");
+        push @ps, '-ArgumentList', "'" . join(' ', @arg) . "'" if @arg;
+        system('powershell.exe', '-NoProfile', '-Command', "Start-Process @ps");
+        print "\n>>> edytor uruchomiony", (@arg ? " z opcjami: @arg" : ''), "\n";
+        print "  1. opcje modow: Horten wlaczony (i patch, jesli testujesz)\n";
+        print "  2. mapa testing_ground_800x800\n";
+        print "  3. tytul misji (gorna linia) -> Load other mission -> hf_lab\n";
+        print "  4. Start (prawy dolny rog)\n";
+        print "  PrintScreen w ciekawym momencie - zrzut trafi do wyniku\n";
+        exit 0;
+    }
+}
+
+if ($cmd eq 'przeladuj') {
+    kontrola_i_instalacja() or do { print "\n>>> NIE PRZELADOWUJ, popraw bledy\n"; exit 1 };
+    postaw_znacznik();
+    print "\n>>> w edytorze: tytul misji -> Reload -> Start\n";
+    print "    (pierwszy raz w sesji: Load other mission -> hf_lab)\n";
+    exit 0;
+}
+
+if ($cmd eq 'wynik') {
+    my $z = czytaj_znacznik() or do { print "brak znacznika - najpierw: lab.pl przeladuj\n"; exit 1 };
+    my @out;
+    my $p = sub { push @out, @_ };
+    $p->(sprintf "WYNIK od znacznika %s (%d s temu)\n",
+         strftime('%H:%M:%S', localtime $z->{czas}), time - $z->{czas});
+    $p->(sprintf "edytor: %s\n", dziala('call_to_arms_ed.exe') ? 'chodzi' : 'NIE CHODZI');
+
+    # --- game.log od znacznika ---
+    my @nowe;
+    if (-f $LOG) {
+        my $rozm = -s $LOG;
+        my $od = $z->{log} // 0;
+        my $restart = $rozm < $od;
+        $od = 0 if $restart;
+        open my $h, '<:raw', $LOG or die;
+        seek $h, $od, 0; local $/ = "\n"; @nowe = <$h>; close $h;
+        $p->(sprintf "\ngame.log: %d nowych wierszy%s, zmieniony %s\n", scalar @nowe,
+             ($restart ? ' (log krotszy niz w znaczniku - edytor uruchomiony od nowa, czytam calosc)' : ''),
+             strftime('%H:%M:%S', localtime((stat $LOG)[9])));
+        $p->("  UWAGA: log nie zmienil sie od znacznika - czy Start na pewno zostal klikniety?\n")
+            if (stat $LOG)[9] < $z->{czas};
+        my @crash = grep { /\*{5} Exception/ } @nowe;
+        $p->("  CRASH w game.log: " . scalar(@crash) . "\n") if @crash;
+    } else { $p->("\nbrak game.log\n") }
+
+    # --- crash od znacznika ---
+    my @crashlog;
+    if (opendir(my $dh, $DUMPS)) {
+        my @f = grep { /\.crash\.mdmp\.log$/ && (stat "$DUMPS/$_")[9] >= $z->{czas} } readdir $dh;
+        closedir $dh;
+        for my $f (sort @f) {
+            $p->("\nCRASH od znacznika: " . win("$DUMPS/$f") . "\n");
+            open my $h, '<', "$DUMPS/$f" or next; push @crashlog, <$h>; close $h;
+        }
+    }
+
+    # --- sondy ---
+    $p->("\n--- sondy ---\n");
+    my $traf = 0;
+    for my $zr (['game.log', \@nowe], ['crash', \@crashlog]) {
+        my ($skad, $w) = @$zr;
+        next unless @$w;
+        for my $t (sondy::szukaj($w)) {
+            $traf += $t->{ile};
+            $p->(sprintf "  [%s] %d x w %s - %s\n", $t->{nazwa}, $t->{ile}, $skad, $t->{znaczy});
+            $p->("      $_\n") for @{$t->{kontekst}};
+        }
+    }
+    $p->("  zadna - sondy z HUD (zegar) widac tylko na zrzucie\n") unless $traf;
+
+    # --- zrzuty ekranu od znacznika ---
+    $p->("\n--- zrzuty ekranu (PrintScreen) od znacznika ---\n");
+    my @zr;
+    if (opendir(my $dh, $ZRZUTY)) {
+        @zr = sort grep { /\.(jpg|png|bmp)$/i && (stat "$ZRZUTY/$_")[9] >= $z->{czas} } readdir $dh;
+        closedir $dh;
+    }
+    $p->(@zr ? map { '  ' . win("$ZRZUTY/$_") . "\n" } @zr : "  brak\n");
+
+    print @out;
+    if (open my $w, '>', $WYNIK) { print $w @out; close $w }
+    exit 0;
+}
+
+if ($cmd eq 'stan') {
+    my $z = czytaj_znacznik();
+    printf "edytor : %s\n", dziala('call_to_arms_ed.exe') ? 'chodzi' : 'nie chodzi';
+    printf "gra    : %s\n", dziala('call_to_arms.exe') ? 'CHODZI' : 'nie chodzi';
+    printf "steam  : %s\n", dziala('steam.exe') ? 'chodzi' : 'NIE CHODZI';
+    printf "znacznik: %s\n", $z ? strftime('%Y-%m-%d %H:%M:%S', localtime $z->{czas}) : 'brak';
+    exit 0;
+}
+
+if ($cmd eq 'stop') {
+    unless (dziala('call_to_arms_ed.exe')) { print "edytor nie chodzi\n"; exit 0 }
+    # CloseMainWindow = jak klikniecie krzyzyka: edytor moze zapytac o zapis.
+    # Bez zabijania procesu - niezapisana misja przepadlaby bez pytania.
+    system('powershell.exe', '-NoProfile', '-Command',
+           'Get-Process call_to_arms_ed -ErrorAction SilentlyContinue | ForEach-Object { [void]$_.CloseMainWindow() }');
+    print "wyslane zamkniecie okna edytora - jesli pyta o zapis, odpowiedz w oknie\n";
+    exit 0;
+}
+
+die "nieznana komenda '$cmd'. Komendy: start, przeladuj, wynik, stan, stop\n";

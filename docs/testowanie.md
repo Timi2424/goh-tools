@@ -22,20 +22,49 @@ Mapy testowe Hortena (`map/testing_ground/`, `map/testing_ground_800x800/`)
 a triggery siedzą w nim samym. Bez `zz_multi.pak`, bez `dcg_script.inc`,
 bez kupowania jednostek.
 
+### Narzędzie: `test/lab.pl`
+
 ```bash
-bash eksperymenty/lab/zainstaluj.sh        # z repo goh-hf-patch
+perl test/lab.pl start        # kontrole + instalacja misji + znacznik + uruchomienie edytora
+perl test/lab.pl przeladuj    # kontrole + instalacja + nowy znacznik
+perl test/lab.pl wynik        # co się stało od znacznika: sondy, crash, zrzuty ekranu
+perl test/lab.pl stan         # edytor / gra / Steam, czas znacznika
+perl test/lab.pl stop         # zamknij edytor jak krzyżykiem (może zapytać o zapis)
 ```
 
-Potem:
+**Podział pracy.** Asystent poprawia misję i czyta wyniki, człowiek klika
+w edytorze. Narzędzie nie steruje grą: nie ma czym klikać w okna, a zrzut
+ekranu z PowerShella zablokował Windows Defender (nie obchodzimy go).
 
-1. **Steam → Gates of Hell → Play → „Editor"**
-2. w opcjach modów włącz Hortena (i nasz patch, jeśli go testujesz)
-3. otwórz mapę `testing_ground_800x800`
-4. górna linia panelu (tytuł misji) → **Load other mission** → `hf_lab`
-5. **Start** — przycisk w prawym dolnym rogu panelu
+Jeden przebieg:
 
-Po każdej zmianie pliku: skrypt instalacyjny, potem w edytorze
-**Reload → Start**. Gry się nie restartuje.
+```
+asystent:  poprawka  ->  lab.pl przeladuj
+człowiek:  tytuł misji -> Reload -> Start;  PrintScreen w ciekawym momencie
+asystent:  lab.pl wynik  ->  sondy z logu, crash, ścieżki zrzutów ekranu
+```
+
+Zrzuty robi sama gra (PrintScreen → `screenshots/`), więc obraz z DirectX
+zawsze wychodzi poprawnie, a moment wybiera ten, kto patrzy. `wynik` podaje
+ścieżki zrzutów zrobionych od znacznika — asystent je ogląda.
+
+**Znacznik** to rozmiar `game.log` i czas w chwili `przeladuj`. `wynik` czyta
+tylko to, co doszło potem, więc przebiegi się nie mieszają. Ostrzega, gdy log
+się nie zmienił („czy Start na pewno został kliknięty?”).
+
+Pierwszy raz w sesji, po `start`:
+
+1. w opcjach modów włącz Hortena (i nasz patch, jeśli go testujesz)
+2. otwórz mapę `testing_ground_800x800`
+3. górna linia panelu (tytuł misji) → **Load other mission** → `hf_lab`
+4. **Start** — przycisk w prawym dolnym rogu panelu
+
+Potem już tylko **Reload → Start**. Gry się nie restartuje.
+
+Edytor sam pamięta ostatnią mapę i treść ostatniej misji
+(`profiles/<id>/editor_last_info`, `editor_last_mission.scn`). Podmiana tych
+plików pozwoliłaby otwierać naszą misję bez klikania, ale nie wiemy, skąd
+edytor robi wtedy Reload ani dokąd zapisuje — na razie nie ruszamy.
 
 W edytorze *view* (klawisz `1`) jest **regulacja prędkości gry** i **Diplomacy** —
 relacje między stronami. Zrzut, który trwa pół minuty, oglądasz w trzy sekundy.
