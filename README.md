@@ -33,6 +33,7 @@ perl test/preflight.pl        # kontrola przed uruchomieniem gry
 perl test/kontekst.pl <nazwa> # czy wolno uzyc tej nazwy i w jakim pliku
 perl test/sprawdz-plik.pl <plik>  # nawiasy, sklejki, ASCII - jedna kontrola dla wszystkich skryptow
 perl test/sprawdz-klucze.pl <plik> # klucze .ext/.def wzgledem plikow gry
+perl test/lab.pl start|przeladuj|wynik  # petla laboratorium w edytorze misji
 perl pe/goh.pl <exe> info     # binarka
 perl pe/slownik.pl <exe> gen data/slownik   # slownik skladni z binarki
 ```

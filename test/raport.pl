@@ -14,6 +14,8 @@ use strict; use warnings;
 use POSIX qw(strftime);
 
 use File::Basename; use Cwd qw(abs_path);
+use lib dirname(abs_path($0));
+use sondy;
 my $ROOT = abs_path(dirname(abs_path($0)) . "/..");
 $ROOT = '.' unless length $ROOT;
 my $PATCH = 'C:/Users/PC/Documents/goh-hf-patch';
@@ -44,8 +46,12 @@ for my $p ("$MOD/resource/gamelogic.pak", "$MOD/resource/map/multi.pak") {
     my @s = stat $p;
     say_(sprintf("  %-22s %s", (split m{/}, $p)[-1], strftime("%Y-%m-%d %H:%M", localtime $s[9])));
 }
-my $run = `tasklist /FI "IMAGENAME eq call_to_arms.exe" 2>/dev/null`;
-say_("  gra          : " . ($run =~ /call_to_arms/ ? "URUCHOMIONA" : "zamknieta"));
+# Bez MSYS2_ARG_CONV_EXCL Git Bash zamienia "/FI" na sciezke i tasklist
+# zwraca puste - raport zawsze pisal "zamknieta".
+my $run = do { local $ENV{MSYS2_ARG_CONV_EXCL} = '*';
+               `tasklist /FI "IMAGENAME eq call_to_arms*" /NH 2>NUL` };
+say_("  gra          : " . ($run =~ /call_to_arms\.exe/ ? "URUCHOMIONA" : "zamknieta"));
+say_("  edytor       : " . ($run =~ /call_to_arms_ed\.exe/ ? "URUCHOMIONY" : "zamkniety"));
 
 # ---------- kontrola plikow ----------
 hdr("KONTROLA PLIKOW (preflight)");
@@ -146,33 +152,18 @@ if (opendir(my $dh, $DUMPS)) {
 # ---------- sondy ----------
 # Osobna sekcja, bo to jedyne wpisy, ktore znacza "kod DOSZEDL tutaj".
 # Reszta logu mowi, co sie zepsulo; sondy mowia, co sie wykonalo.
-# Katalog blokow do wklejenia: test/sondy.inc
+# Katalog blokow do wklejenia: test/sondy.inc. Wzorce: test/sondy.pm - te same,
+# ktorych uzywa lab.pl.
 hdr("SONDY");
-my @sondy = (
-    ['plik zyje (blad parsowania)' => qr/unexpected token/,       'ladowanie dotarlo do pliku', 20],
-    ['sonda waypointa'             => qr/Waypoint \S+ not found/, 'akcja triggera sie wykonala', 0],
-    ['sonda kosci'                 => qr/Bone \S+ not found/,     'skrypt encji doszedl do spawnu', 0],
-    ['nieznana komenda skryptu'    => qr/unknown script command/, 'nazwa akcji nie istnieje', 0],
-    ['nieznany squad'              => qr/Squad "\S+" not found/,  'akcja squad sie wykonala', 0],
-    ['nasz znacznik hf_sonda'      => qr/hf_sonda/i,              'cokolwiek nazwanego hf_sonda', 0],
-);
 my $trafien = 0;
 for my $zrodlo (['game.log', $GAMELOG], ['crash.mdmp.log', \@crashlog]) {
     my ($skad, $lines) = @$zrodlo;
     next unless @$lines;
-    for my $s (@sondy) {
-        my ($nazwa, $re, $znaczy, $ctx) = @$s;
-        my @hit = grep { $_ =~ $re } @$lines;
-        next unless @hit;
-        $trafien += @hit;
+    for my $t (sondy::szukaj($lines)) {
+        $trafien += $t->{ile};
         say_('');
-        say_(sprintf("  [%s] %d x  w %s  - %s", $nazwa, scalar @hit, $skad, $znaczy));
-        for my $i (0 .. $#$lines) {
-            next unless $lines->[$i] =~ $re;
-            my $do = $i + $ctx; $do = $#$lines if $do > $#$lines;
-            say_("    " . ($_ =~ s/\s+$//r)) for @{$lines}[$i .. $do];
-            last;
-        }
+        say_(sprintf("  [%s] %d x  w %s  - %s", $t->{nazwa}, $t->{ile}, $skad, $t->{znaczy}));
+        say_("    $_") for @{$t->{kontekst}};
     }
 }
 say_('');
