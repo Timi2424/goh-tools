@@ -174,6 +174,40 @@ if (!$mod_of) {
                scalar keys %{ gem2::zestaw_gem2($mod_of) }) unless $z;
 }
 
+# ---------- 5b. klucze .ext / .def vs pliki gry ----------
+# Klasa bledu TravelAltitude: nazwa z binarki wpisana jako klucz .ext, crash
+# przy wczytywaniu kampanii. Slownik tego nie lapie - tablice w .rdata mieszaja
+# API skryptowe z kluczami plikow danych. Porownujemy z indeksem korpusu gry.
+#
+# Klucz, ktorego nie ma NIGDZIE w grze, to twardy blad. Zmierzone, nie
+# zalozone: na 12 naszych prawdziwych plikach .ext/.def zero falszywych
+# brakow, a odtworzony plik z crasha wskazuje dokladnie TravelAltitude
+# i MaxAltitude (ten drugi silnik by znalazl przy nastepnym uruchomieniu).
+# Inny typ pliku albo inna wielkosc liter to tylko uwaga - {altitude} stoi
+# w grze wylacznie w .mi, a w naszym .ext wczytywal sie bez problemu.
+print "\n--- klucze .ext/.def vs pliki gry ---\n";
+require korpus;
+my @dane = grep { /\.(ext|def)$/i } @mine;
+if (!@dane) {
+    ok "brak naszych plikow .ext/.def";
+} elsif (!korpus::jest_indeks()) {
+    warn_ "brak indeksu korpusu - pomijam (zbuduj: perl test/kontekst.pl --odswiez, ok. 3 min)";
+} else {
+    my ($kb, $ku) = (0, 0);
+    for my $f (@dane) {
+        open(my $h, '<:raw', $f) or next;
+        my $txt = do { local $/; <$h> }; close $h;
+        my ($ext) = $f =~ /\.(\w+)$/;
+        for my $p (korpus::sprawdz_klucze($txt, $ext)) {
+            my $msg = short($f) . ":$p->{linia}  {$p->{nazwa}}  $p->{opis}";
+            if ($p->{poziom} eq 'brak') { bad $msg; $kb++ } else { warn_ $msg; $ku++ }
+        }
+    }
+    warn_ "korpus starszy niz paki - odswiez: perl test/kontekst.pl --odswiez"
+        if korpus::nieaktualne_paki();
+    ok sprintf("%d plik(ow), kazdy klucz wystepuje w plikach gry", scalar @dane) unless $kb || $ku;
+}
+
 # ---------- 6. konce linii vs oryginal z paka ----------
 print "\n--- konce linii vs wersja z paka ---\n";
 my $c = 0;
