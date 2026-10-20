@@ -42,18 +42,41 @@ my @mine = grep { !m{/(interface/splash|map/testing_ground|message\.txt)} } @loo
 
 print "=== pliki luzne w modzie: ", scalar @loose, " (nasze: ", scalar @mine, ") ===\n\n";
 
-# ---------- 1. nawiasy ----------
+# ---------- 1. nawiasy i sklejone wiersze ----------
+# Komentarze wycinamy PRZED liczeniem: pliki GEM2 zawieraja wiersze w rodzaju
+# ";//{state", czyli komentarz z niesparowanym nawiasem. Silnik je pomija,
+# wiec liczenie surowego tekstu dawaloby falszywy alarm.
+#
+# Komentarzem jest SAM srednik do konca wiersza - ";//" i ";/*" to tylko
+# konwencja. Gra ma wiersze "; Presets for health..." i ';("elite_vision")'.
+# Srednik w stringu (" ;" wystepuje w plikach gry) komentarzem nie jest,
+# stad przepuszczanie stringow. Znaki nowej linii zostaja, zeby numery
+# wierszy w komunikatach zgadzaly sie z plikiem.
 print "--- nawiasy ---\n";
+my $sklejki = 0;
 for my $f (@mine) {
-    next unless $f =~ /\.(inc|set|reg|ext|pattern|def)$/i;
-    open(my $h,'<:raw',$f) or next; local $/; my $c = <$h>; close $h;
+    next unless $f =~ /\.(inc|set|reg|ext|pattern|def|mi)$/i;
+    open(my $h,'<:raw',$f) or next; local $/; my $raw = <$h>; close $h;
+    my $c = $raw;
+    $c =~ s/("(?:[^"\\\n]|\\.)*")|;[^\n]*/defined $1 ? $1 : ''/ge;
     my $o = ($c =~ tr/{//); my $z = ($c =~ tr/}//);
     my $p = ($c =~ tr/(//); my $q = ($c =~ tr/)//);
     my $n = short($f);
     if ($o != $z) { bad "$n  klamry $o/$z" }
     elsif ($p != $q) { bad "$n  nawiasy okragle $p/$q" }
+
+    # Sklejka }{"nazwa" BILANSUJE SIE POPRAWNIE i domyka do zera, wiec zadna
+    # kontrola glebokosci jej nie zlapie - a parser po cichu polyka caly blok.
+    # Zero bledow w logu, zero efektu w grze. Kosztowalo piec przebiegow.
+    my $ln = 0;
+    for my $line (split /\n/, $c) {
+        $ln++;
+        next unless $line =~ /\}[ \t]*\{"/;
+        bad "$n:$ln  sklejony wiersz }{\"nazwa\" - parser polknie ten blok";
+        $sklejki++;
+    }
 }
-ok "wszystkie zbilansowane" unless $err;
+ok "wszystkie zbilansowane, brak sklejek" unless $err;
 
 # ---------- 2. niepodstawione makra ----------
 print "\n--- niepodstawione parametry makr ---\n";
@@ -127,11 +150,16 @@ ok "wszystkie maja encje" unless $s;
 # Silnik nie sprawdza, czy nazwa akcji albo termu istnieje: literowka konczy sie
 # cisza, wpisem w logu albo dereferencja nulla. Slownik z pe/slownik.pl to jedyne
 # miejsce, gdzie te nazwy sa wypisane - konfrontacja z nim lapie to przed bitwa.
+#
+# Kazda gramatyka idzie przeciw swojemu rejestrowi, nie przeciw calemu plikowi.
+# Plaski zbior przepuszczal nieistniejacy term "1.time", bo tablice Lua w
+# tym samym zrzucie maja os.time - szczegoly w gem2::%REJESTRY.
 print "\n--- nazwy akcji i termow vs slownik z binarki ---\n";
-my ($dict) = gem2::wczytaj_slownik($DICT);
-if (!$dict) {
+my $mod_of = gem2::wczytaj_slownik($DICT);
+if (!$mod_of) {
     warn_ "brak slownika (zbuduj: perl pe/slownik.pl) - pomijam kontrole nazw";
 } else {
+    my %zest = map { $_ => gem2::zestaw($mod_of, $_) } keys %gem2::REJESTRY;
     my $z = 0;
     for my $f (@mine) {
         next unless $f =~ /\.(mi|inc|set)$/i;
@@ -141,7 +169,7 @@ if (!$dict) {
         my $u = gem2::uzycia($txt);
         my $nl;
         for my $uz (@{$u->{uzycia}}) {
-            next if $dict->{$uz->{nazwa}};
+            next if $zest{$uz->{rodzaj}}{$uz->{nazwa}};
             # indeks linii budujemy dopiero przy pierwszym trafieniu - na czystym
             # pliku nie ma za co placic
             $nl ||= gem2::indeks_linii($txt);
@@ -151,7 +179,8 @@ if (!$dict) {
             $z++;
         }
     }
-    ok "wszystkie nazwy sa w slowniku" unless $z;
+    ok sprintf("wszystkie nazwy sa w rejestrach silnika (%d znanych)",
+               scalar keys %{ gem2::zestaw_gem2($mod_of) }) unless $z;
 }
 
 # ---------- 6. konce linii vs oryginal z paka ----------

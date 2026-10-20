@@ -4,1058 +4,1058 @@
 # OFFSETY SA WAZNE TYLKO DLA TEGO BUILDA - po update gry przegeneruj
 
 === 0x0107fd10  eDeviceScreen.cpp                  wpisow: 3
-  print                            -                                      
-  log                              -                                      
-  module_exists                    -                                      
+  print                            -                                      ?          
+  log                              -                                      ?          
+  module_exists                    -                                      ?          
 
 === 0x011558e0  ?                                  wpisow: 23
-  assert                           -                                      
-  collectgarbage                   -                                      
-  dofile                           -                                      
-  error                            -                                      
-  getmetatable                     -                                      
-  ipairs                           -                                      
-  loadfile                         -                                      
-  load                             -                                      
-  loadstring                       -                                      
-  next                             -                                      
-  pairs                            -                                      
-  pcall                            -                                      
-  print                            -                                      
-  rawequal                         -                                      
-  rawlen                           -                                      
-  rawget                           -                                      
-  rawset                           -                                      
-  select                           -                                      
-  setmetatable                     -                                      
-  tonumber                         -                                      
-  tostring                         -                                      
-  type                             -                                      
-  xpcall                           -                                      
+  assert                           -                                      ?          
+  collectgarbage                   -                                      ?          
+  dofile                           -                                      ?          
+  error                            -                                      ?          
+  getmetatable                     -                                      ?          
+  ipairs                           -                                      ?          
+  loadfile                         -                                      ?          
+  load                             -                                      ?          
+  loadstring                       -                                      ?          
+  next                             -                                      ?          
+  pairs                            -                                      ?          
+  pcall                            -                                      ?          
+  print                            -                                      ?          
+  rawequal                         -                                      ?          
+  rawlen                           -                                      ?          
+  rawget                           -                                      ?          
+  rawset                           -                                      ?          
+  select                           -                                      ?          
+  setmetatable                     -                                      ?          
+  tonumber                         -                                      ?          
+  tostring                         -                                      ?          
+  type                             -                                      ?          
+  xpcall                           -                                      ?          
 
 === 0x01155e00  ?                                  wpisow: 10
-  _G                               -                                      
-  package                          -                                      
-  coroutine                        -                                      
-  table                            -                                      
-  io                               -                                      
-  os                               -                                      
-  string                           -                                      
-  bit32                            -                                      
-  math                             -                                      
-  debug                            -                                      
+  _G                               -                                      ?          
+  package                          -                                      ?          
+  coroutine                        -                                      ?          
+  table                            -                                      ?          
+  io                               -                                      ?          
+  os                               -                                      ?          
+  string                           -                                      ?          
+  bit32                            -                                      ?          
+  math                             -                                      ?          
+  debug                            -                                      ?          
 
 === 0x011569f0  ?                                  wpisow: 6
-  create                           -                                      
-  resume                           -                                      
-  running                          -                                      
-  status                           -                                      
-  wrap                             -                                      
-  yield                            -                                      
+  create                           -                                      ?          
+  resume                           -                                      ?          
+  running                          -                                      ?          
+  status                           -                                      ?          
+  wrap                             -                                      ?          
+  yield                            -                                      ?          
 
 === 0x01156b00  ?                                  wpisow: 7
-  concat                           -                                      
-  maxn                             -                                      
-  insert                           -                                      
-  pack                             -                                      
-  unpack                           -                                      
-  remove                           -                                      
-  sort                             -                                      
+  concat                           -                                      ?          
+  maxn                             -                                      ?          
+  insert                           -                                      ?          
+  pack                             -                                      ?          
+  unpack                           -                                      ?          
+  remove                           -                                      ?          
+  sort                             -                                      ?          
 
 === 0x01156ce0  ?                                  wpisow: 11
-  close                            -                                      
-  flush                            -                                      
-  input                            -                                      
-  lines                            -                                      
-  open                             -                                      
-  output                           -                                      
-  popen                            -                                      
-  read                             -                                      
-  tmpfile                          -                                      
-  type                             -                                      
-  write                            -                                      
+  close                            -                                      ?          
+  flush                            -                                      ?          
+  input                            -                                      ?          
+  lines                            -                                      ?          
+  open                             -                                      ?          
+  output                           -                                      ?          
+  popen                            -                                      ?          
+  read                             -                                      ?          
+  tmpfile                          -                                      ?          
+  type                             -                                      ?          
+  write                            -                                      ?          
 
 === 0x01156da0  ?                                  wpisow: 9
-  close                            -                                      
-  flush                            -                                      
-  lines                            -                                      
-  read                             -                                      
-  seek                             -                                      
-  setvbuf                          -                                      
-  write                            -                                      
-  __gc                             -                                      
-  __tostring                       -                                      
+  close                            -                                      ?          
+  flush                            -                                      ?          
+  lines                            -                                      ?          
+  read                             -                                      ?          
+  seek                             -                                      ?          
+  setvbuf                          -                                      ?          
+  write                            -                                      ?          
+  __gc                             -                                      ?          
+  __tostring                       -                                      ?          
 
 === 0x01157090  ?                                  wpisow: 11
-  clock                            -                                      
-  date                             -                                      
-  difftime                         -                                      
-  execute                          -                                      
-  exit                             -                                      
-  getenv                           -                                      
-  remove                           -                                      
-  rename                           -                                      
-  setlocale                        -                                      
-  time                             -                                      
-  tmpname                          -                                      
+  clock                            -                                      ?          
+  date                             -                                      ?          
+  difftime                         -                                      ?          
+  execute                          -                                      ?          
+  exit                             -                                      ?          
+  getenv                           -                                      ?          
+  remove                           -                                      ?          
+  rename                           -                                      ?          
+  setlocale                        -                                      ?          
+  time                             -                                      ?          
+  tmpname                          -                                      ?          
 
 === 0x011572c0  ?                                  wpisow: 14
-  byte                             -                                      
-  char                             -                                      
-  dump                             -                                      
-  find                             -                                      
-  format                           -                                      
-  gmatch                           -                                      
-  gsub                             -                                      
-  len                              -                                      
-  lower                            -                                      
-  match                            -                                      
-  rep                              -                                      
-  reverse                          -                                      
-  sub                              -                                      
-  upper                            -                                      
+  byte                             -                                      ?          
+  char                             -                                      ?          
+  dump                             -                                      ?          
+  find                             -                                      ?          
+  format                           -                                      ?          
+  gmatch                           -                                      ?          
+  gsub                             -                                      ?          
+  len                              -                                      ?          
+  lower                            -                                      ?          
+  match                            -                                      ?          
+  rep                              -                                      ?          
+  reverse                          -                                      ?          
+  sub                              -                                      ?          
+  upper                            -                                      ?          
 
 === 0x01157730  ?                                  wpisow: 12
-  arshift                          -                                      
-  band                             -                                      
-  bnot                             -                                      
-  bor                              -                                      
-  bxor                             -                                      
-  btest                            -                                      
-  extract                          -                                      
-  lrotate                          -                                      
-  lshift                           -                                      
-  replace                          -                                      
-  rrotate                          -                                      
-  rshift                           -                                      
+  arshift                          -                                      ?          
+  band                             -                                      ?          
+  bnot                             -                                      ?          
+  bor                              -                                      ?          
+  bxor                             -                                      ?          
+  btest                            -                                      ?          
+  extract                          -                                      ?          
+  lrotate                          -                                      ?          
+  lshift                           -                                      ?          
+  replace                          -                                      ?          
+  rrotate                          -                                      ?          
+  rshift                           -                                      ?          
 
 === 0x011578c0  ?                                  wpisow: 28
-  abs                              -                                      
-  acos                             -                                      
-  asin                             -                                      
-  atan2                            -                                      
-  atan                             -                                      
-  ceil                             -                                      
-  cosh                             -                                      
-  cos                              -                                      
-  deg                              -                                      
-  exp                              -                                      
-  floor                            -                                      
-  fmod                             -                                      
-  frexp                            -                                      
-  ldexp                            -                                      
-  log10                            -                                      
-  log                              -                                      
-  max                              -                                      
-  min                              -                                      
-  modf                             -                                      
-  pow                              -                                      
-  rad                              -                                      
-  random                           -                                      
-  randomseed                       -                                      
-  sinh                             -                                      
-  sin                              -                                      
-  sqrt                             -                                      
-  tanh                             -                                      
-  tan                              -                                      
+  abs                              -                                      ?          
+  acos                             -                                      ?          
+  asin                             -                                      ?          
+  atan2                            -                                      ?          
+  atan                             -                                      ?          
+  ceil                             -                                      ?          
+  cosh                             -                                      ?          
+  cos                              -                                      ?          
+  deg                              -                                      ?          
+  exp                              -                                      ?          
+  floor                            -                                      ?          
+  fmod                             -                                      ?          
+  frexp                            -                                      ?          
+  ldexp                            -                                      ?          
+  log10                            -                                      ?          
+  log                              -                                      ?          
+  max                              -                                      ?          
+  min                              -                                      ?          
+  modf                             -                                      ?          
+  pow                              -                                      ?          
+  rad                              -                                      ?          
+  random                           -                                      ?          
+  randomseed                       -                                      ?          
+  sinh                             -                                      ?          
+  sin                              -                                      ?          
+  sqrt                             -                                      ?          
+  tanh                             -                                      ?          
+  tan                              -                                      ?          
 
 === 0x01157bd0  ?                                  wpisow: 16
-  debug                            -                                      
-  getuservalue                     -                                      
-  gethook                          -                                      
-  getinfo                          -                                      
-  getlocal                         -                                      
-  getregistry                      -                                      
-  getmetatable                     -                                      
-  getupvalue                       -                                      
-  upvaluejoin                      -                                      
-  upvalueid                        -                                      
-  setuservalue                     -                                      
-  sethook                          -                                      
-  setlocal                         -                                      
-  setmetatable                     -                                      
-  setupvalue                       -                                      
-  traceback                        -                                      
+  debug                            -                                      ?          
+  getuservalue                     -                                      ?          
+  gethook                          -                                      ?          
+  getinfo                          -                                      ?          
+  getlocal                         -                                      ?          
+  getregistry                      -                                      ?          
+  getmetatable                     -                                      ?          
+  getupvalue                       -                                      ?          
+  upvaluejoin                      -                                      ?          
+  upvalueid                        -                                      ?          
+  setuservalue                     -                                      ?          
+  sethook                          -                                      ?          
+  setlocal                         -                                      ?          
+  setmetatable                     -                                      ?          
+  setupvalue                       -                                      ?          
+  traceback                        -                                      ?          
 
 === 0x01157f50  ?                                  wpisow: 3
-  loadlib                          -                                      
-  searchpath                       -                                      
-  seeall                           -                                      
+  loadlib                          -                                      ?          
+  searchpath                       -                                      ?          
+  seeall                           -                                      ?          
 
 === 0x0146e040  eOrder.h                           wpisow: 5
-  actor_client                     Actor::eBrainClient                    
-  human_client                     Actor::eHumanBrainClient               medic_zone2
-  vehicle_client                   Actor::eVehicleBrainClient             
-  airborne_client                  -                                      
-  helicopter_client                -                                      
+  actor_client                     Actor::eBrainClient                    rozkaz     
+  human_client                     Actor::eHumanBrainClient               rozkaz     medic_zone2
+  vehicle_client                   Actor::eVehicleBrainClient             rozkaz     
+  airborne_client                  -                                      rozkaz     
+  helicopter_client                -                                      rozkaz     
 
 === 0x0146e190  eOrder.h                           wpisow: 6
-  eFortification                   -                                      
-  eRepair                          -                                      
-  eHeal                            Order::eHeal                           eHeal all report stop_healing start_healing
-  eKitExchange                     Order::eKitExchange                    eKitExchange all report PutFromRight amount Xchange
-  eSmartRepair                     Order::eSmartRepair                    eSmartRepair all report
-  eMedic                           -                                      
+  eFortification                   -                                      rozkaz     
+  eRepair                          -                                      rozkaz     
+  eHeal                            Order::eHeal                           rozkaz     eHeal all report stop_healing start_healing
+  eKitExchange                     Order::eKitExchange                    rozkaz     eKitExchange all report PutFromRight amount Xchange
+  eSmartRepair                     Order::eSmartRepair                    rozkaz     eSmartRepair all report
+  eMedic                           -                                      rozkaz     
 
 === 0x0146e220  eActorResources.cpp                wpisow: 1
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
 
 === 0x0146e4e0  eBandPassFilter.cpp                wpisow: 3
-  smokescreen                      Entity::eSmokeScreenExtender           deploy_smoke
-  flare                            Entity::eFlareExtender                 
-  GetTexMods                       -                                      
+  smokescreen                      Entity::eSmokeScreenExtender           dane?      deploy_smoke
+  flare                            Entity::eFlareExtender                 dane?      
+  GetTexMods                       -                                      ?          
 
 === 0x0146f9c8  eHelperCommandActorOrder.cpp       wpisow: 10
-  eEmitToWaypoint                  Helper::eEmitToWaypoint                eEmitToWaypoint
-  emit                             Helper::eGameEntityCommand             selector command
-  actor_to_cover                   Helper::eGameEntityCommand             selector command
-  wait                             Helper::eGameEntityCommand             selector command
-  actor_fire                       Helper::eGameEntityCommand             selector command
-  actor_recon                      Helper::eGameEntityCommand             selector command
-  air_attack                       Helper::eGameEntityCommand             selector command
-  mine                             Helper::eGameEntityCommand             selector command
-  animation                        Helper::eGameEntityCommand             selector command
-  follow_animation                 Helper::eGameEntityCommand             selector command
+  eEmitToWaypoint                  Helper::eEmitToWaypoint                trigger    eEmitToWaypoint
+  emit                             Helper::eGameEntityCommand             trigger    selector command
+  actor_to_cover                   Helper::eGameEntityCommand             trigger    selector command
+  wait                             Helper::eGameEntityCommand             trigger    selector command
+  actor_fire                       Helper::eGameEntityCommand             trigger    selector command
+  actor_recon                      Helper::eGameEntityCommand             trigger    selector command
+  air_attack                       Helper::eGameEntityCommand             trigger    selector command
+  mine                             Helper::eGameEntityCommand             trigger    selector command
+  animation                        Helper::eGameEntityCommand             trigger    selector command
+  follow_animation                 Helper::eGameEntityCommand             trigger    selector command
 
 === 0x0146fa88  eHelperCommandManual.cpp           wpisow: 2
-  manual_lock                      Helper::eGameEntityCommand             selector command
-  third_person_control             Helper::eGameEntityCommand             selector command
+  manual_lock                      Helper::eGameEntityCommand             trigger    selector command
+  third_person_control             Helper::eGameEntityCommand             trigger    selector command
 
 === 0x0146fad8  eHelperCommandManual.cpp           wpisow: 1
-  talk                             Helper::eGameEntityCommand             selector command
+  talk                             Helper::eGameEntityCommand             trigger    selector command
 
 === 0x0146fb20  eHelperCommandWaypoint.cpp         wpisow: 2
-  waypoint                         Helper::eCmd_waypoint                  waypoint action type direction clone make_squad name_squad copy_squad approach As At Af Back Forw
-  actor_to_waypoint                Helper::eGameEntityCommand             selector command
+  waypoint                         Helper::eCmd_waypoint                  trigger    waypoint action type direction clone make_squad name_squad copy_squad approach As At Af Back Forw
+  actor_to_waypoint                Helper::eGameEntityCommand             trigger    selector command
 
 === 0x0146fed8  eQuantTaskManager.cpp              wpisow: 2
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
-  helicopter                       -                                      
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
+  helicopter                       -                                      ?          
 
 === 0x01472680  eEntityWeaponlightExtender.cpp     wpisow: 2
-  weaponlight                      DDA::eServer                           
-  edifice                          Entity::eEdificeExtender               edifice_enabled
+  weaponlight                      DDA::eServer                           dane?      
+  edifice                          Entity::eEdificeExtender               dane?      edifice_enabled
 
 === 0x01475ab0  eOceanDataManager.cpp              wpisow: 2
-  eMedic                           Order::eMedic                          eMedic all report stop_healing start_healing
-  eFortification                   Order::eFortification                  eFortification all report stop_repair start_repair
+  eMedic                           Order::eMedic                          rozkaz     eMedic all report stop_healing start_healing
+  eFortification                   Order::eFortification                  rozkaz     eFortification all report stop_repair start_repair
 
 === 0x014768d8  eHeap.h                            wpisow: 2
-  options_game                     User::eGameOptionsServer               
-  GetLanguages                     -                                      
+  options_game                     User::eGameOptionsServer               obce       
+  GetLanguages                     -                                      obce       
 
 === 0x01476920  eHeap.h                            wpisow: 1
-  options_sound                    User::eSoundOptionsServer              speaker_config rate buffers enable_hit_sound volume master effects emotions environment interface game_music narrator use_system_settings
+  options_sound                    User::eSoundOptionsServer              obce       speaker_config rate buffers enable_hit_sound volume master effects emotions environment interface game_music narrator use_system_settings
 
 === 0x01476960  eScenarioManager.cpp               wpisow: 1
-  game_progress                    User::eGameProgressServer              level missions tutorials
+  game_progress                    User::eGameProgressServer              dane?      level missions tutorials
 
 === 0x014769c0  eScenarioManager.cpp               wpisow: 2
-  keys                             User::eKeysOptionsServer               server_groups
-  settings                         -                                      
+  keys                             User::eKeysOptionsServer               dane?      server_groups
+  settings                         -                                      ?          
 
 === 0x014769e8  eSceneCommands.cpp                 wpisow: 1
-  render_tweaks                    Scene::Environment::eNamedParameters   
+  render_tweaks                    Scene::Environment::eNamedParameters   dane?      
 
 === 0x01476a38  eSceneEnvironmentOcean.cpp         wpisow: 1
-  glow                             Scene::Environment::eNamedParameters   
+  glow                             Scene::Environment::eNamedParameters   dane?      
 
 === 0x01476d30  eThirdPersonCamera.cpp             wpisow: 1
-  dof                              Scene::Environment::eNamedParameters   
+  dof                              Scene::Environment::eNamedParameters   dane?      
 
 === 0x01476f10  eTimedExtender.cpp                 wpisow: 1
-  timer                            DDA::eServer                           
+  timer                            DDA::eServer                           dane?      
 
 === 0x01476f78  eVisionModeExtender.cpp            wpisow: 2
-  vision_mode                      Entity::eVisionModeExtender            
-  GetAmmoParams                    -                                      
+  vision_mode                      Entity::eVisionModeExtender            dane?      
+  GetAmmoParams                    -                                      ?          
 
 === 0x01477360  NvidiaHBAOBridge.cpp               wpisow: 4
-  eBombDropOrder                   Order::eBombDropOrder                  eBombDropOrder eDestroyOrder eReconnaisance all report
-  eDestroyOrder                    Order::eDestroyOrder                   eDestroyOrder eReconnaisance all report
-  eAirstrike                       Order::eAirstrike                      eAirstrike eBombDropOrder eDestroyOrder eReconnaisance
-  eReconnaisance                   Order::eReconnaisance                  eReconnaisance all report
+  eBombDropOrder                   Order::eBombDropOrder                  rozkaz     eBombDropOrder eDestroyOrder eReconnaisance all report
+  eDestroyOrder                    Order::eDestroyOrder                   rozkaz     eDestroyOrder eReconnaisance all report
+  eAirstrike                       Order::eAirstrike                      rozkaz     eAirstrike eBombDropOrder eDestroyOrder eReconnaisance
+  eReconnaisance                   Order::eReconnaisance                  rozkaz     eReconnaisance all report
 
 === 0x01477588  eThirdPersonControl.cpp            wpisow: 1
-  grain                            Scene::Environment::eNamedParameters   
+  grain                            Scene::Environment::eNamedParameters   dane?      
 
 === 0x0147d420  eMaterial.cpp                      wpisow: 1
-  vertex_color                     Render::eMaterialVertexColor           bump
+  vertex_color                     Render::eMaterialVertexColor           dane?      bump
 
 === 0x0147d568  eMaterialMultiply.cpp              wpisow: 1
-  morph                            Render::eTwoTextureMorphMaterial       bump
+  morph                            Render::eTwoTextureMorphMaterial       dane?      bump
 
 === 0x0147d598  eMaterialMultiply.cpp              wpisow: 1
-  multiply                         Render::eTwoTextureMultiplyMaterial    bump
+  multiply                         Render::eTwoTextureMultiplyMaterial    dane?      bump
 
 === 0x0147ea40  eReferenced.h                      wpisow: 1
-  silhouette                       Render::eSilhouetteMaterial            bump DITHER_OPACITY HAZE TEXCOORDS silhouette_ps PS WIND_GLOBAL WIND INSTANCED BOUNDARY_HAZE VCOLOR VTANGENT VNORMAL VSKIN SKIN VTEXCOORDS vs VS PIXEL_SHADER
+  silhouette                       Render::eSilhouetteMaterial            obce       bump DITHER_OPACITY HAZE TEXCOORDS silhouette_ps PS WIND_GLOBAL WIND INSTANCED BOUNDARY_HAZE VCOLOR VTANGENT VNORMAL VSKIN SKIN VTEXCOORDS vs VS PIXEL_SHADER
 
 === 0x0147f2e8  eOptions.cpp                       wpisow: 1
-  options                          User::eOptions                         server_video server_sound server_game video sound game mods
+  options                          User::eOptions                         dane?      server_video server_sound server_game video sound game mods
 
 === 0x0147f940  eGameEntitySerialize.cpp           wpisow: 1
-  AniPlay                          eFunctionAniPlay                       
+  AniPlay                          eFunctionAniPlay                       dane?      
 
 === 0x0147f958  eGameEntitySerialize.cpp           wpisow: 1
-  AniStop                          eFunctionAniStop                       
+  AniStop                          eFunctionAniStop                       dane?      
 
 === 0x0147f970  eGameEntitySerialize.cpp           wpisow: 1
-  Clone                            eFunctionClone                         
+  Clone                            eFunctionClone                         dane?      
 
 === 0x0147f998  eBodySimulator.cpp                 wpisow: 3
-  generic                          eBodySimulator                         SimulateMovement water
-  grenade                          eBodySimulator                         SimulateMovement water
-  pillar                           eBodySimulator                         SimulateMovement water
+  generic                          eBodySimulator                         dane?      SimulateMovement water
+  grenade                          eBodySimulator                         dane?      SimulateMovement water
+  pillar                           eBodySimulator                         dane?      SimulateMovement water
 
 === 0x0147fa40  eIA_Actor.cpp                      wpisow: 42
-  component                        Interaction::eAction_CurrentComponent  break destroy repair
-  components                       Interaction::eAction_Components        
-  damage_report                    Interaction::eAction_DamageReport      
-  take_off                         Interaction::eAction_TakeOff           
-  stuff_detonate                   Interaction::eAction_StuffDetonate     
-  spawn_human                      Interaction::eAction_SpawnHuman        
-  die                              Interaction::eAction_Die               
-  health_damage_pierce             Interaction::eHealthDamagePierce       effects table explosive_treshold kill_neutral
-  health_damage_blast              Interaction::eHealthDamageBlast        effects table explosive_treshold kill_neutral
-  health_damage_count              Interaction::eHealthDamageCount        kill_neutral
-  health_damage_blow               Interaction::eHealthDamageBlow         effects table explosive_treshold kill_neutral
-  health_damage_crush              Interaction::eHealthDamageCrush        
-  chassis_work                     Interaction::eChassisWork              
-  weapon_work                      Interaction::eWeaponWork               
-  stunned                          Interaction::eStunned                  
-  crew_enable                      Interaction::eCrewEnable               place group
-  kill_crew                        Interaction::eKillCrew                 
-  clear_inventory                  Interaction::eClearInventory           
-  holder_drop                      Interaction::eHolderDrop               
-  talk                             Interaction::eTalk                     
-  attack_save                      Interaction::eAttackSave               
-  attack_load                      Interaction::eAttackLoad               
-  able                             Interaction::eAble                     
-  throw_off                        Interaction::eAction_ThrowOff          force forward turn rnd_die rotate_to_dir
-  crew_throw_off                   Interaction::eAction_CrewThrowOff      force forward turn rnd_die rotate_to_dir
-  throw_on_ground                  Interaction::eAction_ThrowOnGround     
-  knockdown                        Interaction::eKnockDown                
-  reset_manual_control             Interaction::eAction_ResetManualControl 
-  kill_flags                       Interaction::eAction_KillFlags         reset front back pistol rifle smg mgun blast piercing go run
-  drop_orders                      Interaction::eAction_DropOrders        
-  movement_limit                   Interaction::eAction_MovementLimit     
-  movement_type                    Interaction::eAction_MovementType      
-  animate_place                    Interaction::eAction_AnimatePlace      
-  auto_operatable                  Interaction::eAction_AutoOperatable    
-  smoke                            Interaction::eAction_Smoke             
-  set_idle_animation               Interaction::eAction_SetIdleAnimation  
-  unlink                           Interaction::eAction_Unlink            
-  crew_emit                        Interaction::eAction_CrewEmit          
-  player                           Interaction::eAction_Player            
-  unlink_trailer                   Interaction::eAction_UnlinkTrailer     
-  vehicle_health_damage_pierce     Interaction::eVehicleHealthDamagePierce 
-  vehicle_health_damage_blast      Interaction::eVehicleHealthDamageBlast 
+  component                        Interaction::eAction_CurrentComponent  encja      break destroy repair
+  components                       Interaction::eAction_Components        encja      
+  damage_report                    Interaction::eAction_DamageReport      encja      
+  take_off                         Interaction::eAction_TakeOff           encja      
+  stuff_detonate                   Interaction::eAction_StuffDetonate     encja      
+  spawn_human                      Interaction::eAction_SpawnHuman        encja      
+  die                              Interaction::eAction_Die               encja      
+  health_damage_pierce             Interaction::eHealthDamagePierce       encja      effects table explosive_treshold kill_neutral
+  health_damage_blast              Interaction::eHealthDamageBlast        encja      effects table explosive_treshold kill_neutral
+  health_damage_count              Interaction::eHealthDamageCount        encja      kill_neutral
+  health_damage_blow               Interaction::eHealthDamageBlow         encja      effects table explosive_treshold kill_neutral
+  health_damage_crush              Interaction::eHealthDamageCrush        encja      
+  chassis_work                     Interaction::eChassisWork              encja      
+  weapon_work                      Interaction::eWeaponWork               encja      
+  stunned                          Interaction::eStunned                  encja      
+  crew_enable                      Interaction::eCrewEnable               encja      place group
+  kill_crew                        Interaction::eKillCrew                 encja      
+  clear_inventory                  Interaction::eClearInventory           encja      
+  holder_drop                      Interaction::eHolderDrop               encja      
+  talk                             Interaction::eTalk                     encja      
+  attack_save                      Interaction::eAttackSave               encja      
+  attack_load                      Interaction::eAttackLoad               encja      
+  able                             Interaction::eAble                     encja      
+  throw_off                        Interaction::eAction_ThrowOff          encja      force forward turn rnd_die rotate_to_dir
+  crew_throw_off                   Interaction::eAction_CrewThrowOff      encja      force forward turn rnd_die rotate_to_dir
+  throw_on_ground                  Interaction::eAction_ThrowOnGround     encja      
+  knockdown                        Interaction::eKnockDown                encja      
+  reset_manual_control             Interaction::eAction_ResetManualControl encja      
+  kill_flags                       Interaction::eAction_KillFlags         encja      reset front back pistol rifle smg mgun blast piercing go run
+  drop_orders                      Interaction::eAction_DropOrders        encja      
+  movement_limit                   Interaction::eAction_MovementLimit     encja      
+  movement_type                    Interaction::eAction_MovementType      encja      
+  animate_place                    Interaction::eAction_AnimatePlace      encja      
+  auto_operatable                  Interaction::eAction_AutoOperatable    encja      
+  smoke                            Interaction::eAction_Smoke             encja      
+  set_idle_animation               Interaction::eAction_SetIdleAnimation  encja      
+  unlink                           Interaction::eAction_Unlink            encja      
+  crew_emit                        Interaction::eAction_CrewEmit          encja      
+  player                           Interaction::eAction_Player            encja      
+  unlink_trailer                   Interaction::eAction_UnlinkTrailer     encja      
+  vehicle_health_damage_pierce     Interaction::eVehicleHealthDamagePierce encja      
+  vehicle_health_damage_blast      Interaction::eVehicleHealthDamageBlast encja      
 
 === 0x0147fcf0  eIA_GameEntity.cpp                 wpisow: 35
-  volume                           Interaction::eAction_CurrentVolume     enable disable
-  inactive                         Interaction::eAction_Inactive          
-  volumes                          Interaction::eAction_Volumes           
-  impulse                          Interaction::eAction_Impulse           up dir cx cy cz fx fy fz forward rnd_dir no_position com
-  gravity                          Interaction::eAction_Gravity           
-  linear_damping                   Interaction::eAction_LinearDamping     
-  blastwave                        Interaction::eAction_Blastwave         bone offset position
-  fire                             Interaction::eAction_Fire              radius time heating effector volume follow
-  bullet_detonate                  Interaction::eAction_BulletDetonate    
-  explosive                        Interaction::eAction_Explosive         
-  area                             Interaction::eAction_Area              enable disable rebuild
-  hide                             Interaction::eAction_Hide              
-  update_visibility_patch          Interaction::eAction_UpdateVisibilityPatch 
-  pillar_fall                      Interaction::eAction_PillarFall        FallDown
-  pillar_up                        Interaction::eAction_PillarUp          
-  fall_down                        Interaction::eAction_FallDown          FallDown
-  set_heater                       Interaction::eAction_SetHeater         
-  burn                             Interaction::eAction_Burn              volume time fake even_law first_volume stop stop_retry
-  tags                             Interaction::eAction_Tags              add remove
-  constrain_velocity               Interaction::eAction_ConstrainVelocity 
-  change_obstacle                  Interaction::eAction_ChangeObstacle    die break leave burned
-  stat_notify                      Interaction::eAction_StatNotify        die break leave burned
-  for_each_link                    Interaction::eAction_ForEachLink       
-  for_each_volume                  Interaction::eAction_ForEachVolume     
-  land                             Interaction::eAction_Land              on off
-  kick_entity_manager              Interaction::eAction_KickEntityManager 
-  signal                           Interaction::eAction_Signal            
-  explode_inventory                Interaction::eAction_ExplodeInventory  shockwave
-  physics_work                     Interaction::ePhysicsWork              
-  with_linked_entity               Interaction::eAction_WithLinkedEntity  
-  link_grenade_to_nearest_human    Interaction::eAction_LinkGrenadeToNearestHuman teleport
-  break_window_in_hole             Interaction::eAction_BreakWindowInHole break_window
-  restore_volume_states            Interaction::eAction_RestoreVolumeStates 
-  mark_for_persistence             Interaction::eAction_MarkForPersistence 
-  volumes_queue                    DataStorage::::::Interaction::eAction_ForEachVolume::UeVolumesQueue::?$eData volumes_queue
+  volume                           Interaction::eAction_CurrentVolume     encja      enable disable
+  inactive                         Interaction::eAction_Inactive          encja      
+  volumes                          Interaction::eAction_Volumes           encja      
+  impulse                          Interaction::eAction_Impulse           encja      up dir cx cy cz fx fy fz forward rnd_dir no_position com
+  gravity                          Interaction::eAction_Gravity           encja      
+  linear_damping                   Interaction::eAction_LinearDamping     encja      
+  blastwave                        Interaction::eAction_Blastwave         encja      bone offset position
+  fire                             Interaction::eAction_Fire              encja      radius time heating effector volume follow
+  bullet_detonate                  Interaction::eAction_BulletDetonate    encja      
+  explosive                        Interaction::eAction_Explosive         encja      
+  area                             Interaction::eAction_Area              encja      enable disable rebuild
+  hide                             Interaction::eAction_Hide              encja      
+  update_visibility_patch          Interaction::eAction_UpdateVisibilityPatch encja      
+  pillar_fall                      Interaction::eAction_PillarFall        encja      FallDown
+  pillar_up                        Interaction::eAction_PillarUp          encja      
+  fall_down                        Interaction::eAction_FallDown          encja      FallDown
+  set_heater                       Interaction::eAction_SetHeater         encja      
+  burn                             Interaction::eAction_Burn              encja      volume time fake even_law first_volume stop stop_retry
+  tags                             Interaction::eAction_Tags              encja      add remove
+  constrain_velocity               Interaction::eAction_ConstrainVelocity encja      
+  change_obstacle                  Interaction::eAction_ChangeObstacle    encja      die break leave burned
+  stat_notify                      Interaction::eAction_StatNotify        encja      die break leave burned
+  for_each_link                    Interaction::eAction_ForEachLink       encja      
+  for_each_volume                  Interaction::eAction_ForEachVolume     encja      
+  land                             Interaction::eAction_Land              encja      on off
+  kick_entity_manager              Interaction::eAction_KickEntityManager encja      
+  signal                           Interaction::eAction_Signal            encja      
+  explode_inventory                Interaction::eAction_ExplodeInventory  encja      shockwave
+  physics_work                     Interaction::ePhysicsWork              encja      
+  with_linked_entity               Interaction::eAction_WithLinkedEntity  encja      
+  link_grenade_to_nearest_human    Interaction::eAction_LinkGrenadeToNearestHuman encja      teleport
+  break_window_in_hole             Interaction::eAction_BreakWindowInHole encja      break_window
+  restore_volume_states            Interaction::eAction_RestoreVolumeStates encja      
+  mark_for_persistence             Interaction::eAction_MarkForPersistence encja      
+  volumes_queue                    DataStorage::::::Interaction::eAction_ForEachVolume::UeVolumesQueue::?$eData encja      volumes_queue
 
 === 0x0147ff48  eIA_Generic.cpp                    wpisow: 18
-  log                              Interaction::eAction_Log               
-  set                              Interaction::eAction_SetFlag           
-  rtfunc                           Interaction::eAction_RTFunc            
-  delay                            -                                      
-  delay_ex                         Interaction::eAction_DelayEx           uniq
-  delay_effect                     Interaction::eAction_DelayEffect       
-  kill_delay                       Interaction::eAction_KillDelay         
-  call                             Interaction::eAction_Call              
-  call_synced                      Interaction::eAction_Call_Synced       
-  inherited                        Interaction::eAction_Inherited         
-  con                              Interaction::eCon                      
-  spawn                            Interaction::eAction_Spawn             no_normal inv_normal dir_velocity no_position random_position random_orientation terrain_texmod offset local_offset local constrain_after_dir scale volume texmod
-  delete                           Interaction::eAction_Delete            
-  link_sound                       Interaction::eAction_LinkSound         
-  start_sound                      Interaction::eAction_SoundSpawn        use_position ambient
-  play_sound                       Interaction::eAction_SoundPlay         use_position
-  stop_sound                       Interaction::eAction_SoundStop         use_position
-  with_effector                    Interaction::eAction_WithEffector      
+  log                              Interaction::eAction_Log               encja      
+  set                              Interaction::eAction_SetFlag           encja      
+  rtfunc                           Interaction::eAction_RTFunc            encja      
+  delay                            -                                      encja      
+  delay_ex                         Interaction::eAction_DelayEx           encja      uniq
+  delay_effect                     Interaction::eAction_DelayEffect       encja      
+  kill_delay                       Interaction::eAction_KillDelay         encja      
+  call                             Interaction::eAction_Call              encja      
+  call_synced                      Interaction::eAction_Call_Synced       encja      
+  inherited                        Interaction::eAction_Inherited         encja      
+  con                              Interaction::eCon                      encja      
+  spawn                            Interaction::eAction_Spawn             encja      no_normal inv_normal dir_velocity no_position random_position random_orientation terrain_texmod offset local_offset local constrain_after_dir scale volume texmod
+  delete                           Interaction::eAction_Delete            encja      
+  link_sound                       Interaction::eAction_LinkSound         encja      
+  start_sound                      Interaction::eAction_SoundSpawn        encja      use_position ambient
+  play_sound                       Interaction::eAction_SoundPlay         encja      use_position
+  stop_sound                       Interaction::eAction_SoundStop         encja      use_position
+  with_effector                    Interaction::eAction_WithEffector      encja      
 
 === 0x01480090  eIA_If.cpp                         wpisow: 82
-  if                               Interaction::eAction_If                
-  able                             Interaction::eCondition_Able           
-  tagged                           Interaction::eCondition_Tagged         
-  prop                             Interaction::eCondition_Prop           
-  volume                           Interaction::eCondition_Volume         
-  volume_any                       Interaction::eCondition_VolumeAny      
-  material                         Interaction::eCondition_Material       
-  volume_bone_level                Interaction::eCondition_VolumeBoneLevel 
-  volume_armored                   Interaction::eCondition_VolumeArmored  
-  component                        Interaction::eCondition_Component      multiple
-  bone                             Interaction::eCondition_Bone           visible
-  stuff                            Interaction::eCondition_Stuff          
-  no_stuff                         Interaction::eCondition_NoStuff        
-  rand                             Interaction::eCondition_Random         
-  active                           Interaction::eCondition_Active         
-  move_forward                     Interaction::eCondition_MoveForward    
-  move_backward                    Interaction::eCondition_MoveBackward   
-  turn_left                        Interaction::eCondition_TurnLeft       
-  turn_right                       Interaction::eCondition_TurnRight      
-  min_energy                       Interaction::eCondition_MinEnergy      
-  min_mass                         Interaction::eCondition_MinMass        
-  min_speed                        Interaction::eCondition_MinSpeed       
-  burned                           Interaction::eCondition_Burned         
-  effector                         Interaction::eCondition_Effector       
-  friendly_fire                    Interaction::eCondition_FriendlyFire   
-  mine_effector                    Interaction::eCondition_Effector       
-  can_crush                        Interaction::eCondition_Can_Crush      
-  name                             Interaction::eCondition_Name           
-  terrain_pp                       Interaction::eCondition_Terrain        
-  terrain_fx                       Interaction::eCondition_Terrain        
-  sunlight                         Interaction::eCondition_SunLight       
-  rain                             Interaction::eCondition_Rain           
-  velocity                         Interaction::eCondition_Velocity       
-  effector_velocity                Interaction::eCondition_EffectorVelocity 
-  contact_velocity                 Interaction::eCondition_ContactVelocity 
-  altitude                         Interaction::eCondition_Altitude       
-  air                              Interaction::eCondition_Air            
-  under_water                      Interaction::eCondition_UnderWater     
-  water_level                      Interaction::eCondition_WaterLevel     
-  dead                             Interaction::eCondition_Dead           
-  kill_flags                       Interaction::eCondition_KillFlags      blast piercing
-  senseless                        Interaction::eCondition_Senseless      
-  personage                        Interaction::eCondition_Personage      
-  operatable                       Interaction::eCondition_Operatable     
-  inactive                         Interaction::eCondition_Inactive       
-  linked                           Interaction::eCondition_Linked         
-  boarding                         Interaction::eCondition_Boarding       
-  stuff_filled                     Interaction::eCondition_StuffFilled    
-  stuff_activated                  Interaction::eCondition_StuffActivated 
-  swimming                         Interaction::eCondition_Swimming       
-  lying                            Interaction::eCondition_Lying          
-  standing                         Interaction::eCondition_Standing       
-  squatting                        Interaction::eCondition_Squatting      
-  in_cover                         Interaction::eCondition_InCover        
-  cover_type                       Interaction::eCondition_CoverType      
-  idle_low_health                  Interaction::eCondition_IdleLowHealth  
-  hold_strap                       Interaction::eCondition_HoldStrap      
-  work                             Interaction::eCondition_ComponentState 
-  broken                           Interaction::eCondition_ComponentState 
-  destroyed                        Interaction::eCondition_ComponentState 
-  hit_side                         Interaction::eCondition_HitSide        
-  mined                            Interaction::eCondition_Mined          
-  fallen                           Interaction::eCondition_Fallen         
-  user_control                     Interaction::eCondition_UserControl    
-  user_squad                       Interaction::eCondition_UserSquad      
-  chassis                          Interaction::eCondition_Chassis        
-  fogged                           Interaction::eCondition_Fogged         
-  tex_mod                          Interaction::eCondition_TexMod         
-  flora_regenerate                 Interaction::eCondition_FloraRegenerate 
-  gamemode                         Interaction::eCondition_GameMode       
-  simulating                       Interaction::eCondition_Simulating     
-  impregnable                      Interaction::eCondition_Impregnable    
-  place                            Interaction::eCondition_Place          
-  cannon_state                     Interaction::eCondition_CannonState    cannon
-  crew_in_place                    Interaction::eCondition_CrewInPlace    
-  has_place                        Interaction::eCondition_HasPlace       
-  weaponry_sealed                  Interaction::eCondition_WeaponrySealed 
-  difficulty                       Interaction::eCondition_Difficulty     
-  true                             Interaction::eCondition_True           
-  false                            Interaction::eCondition_False          
-  explosive_amount                 Interaction::eCondition_ExplosiveAmount 
-  season                           Interaction::eCondition_Season         
+  if                               Interaction::eAction_If                encja      
+  able                             Interaction::eCondition_Able           encja      
+  tagged                           Interaction::eCondition_Tagged         encja      
+  prop                             Interaction::eCondition_Prop           encja      
+  volume                           Interaction::eCondition_Volume         encja      
+  volume_any                       Interaction::eCondition_VolumeAny      encja      
+  material                         Interaction::eCondition_Material       encja      
+  volume_bone_level                Interaction::eCondition_VolumeBoneLevel encja      
+  volume_armored                   Interaction::eCondition_VolumeArmored  encja      
+  component                        Interaction::eCondition_Component      encja      multiple
+  bone                             Interaction::eCondition_Bone           encja      visible
+  stuff                            Interaction::eCondition_Stuff          encja      
+  no_stuff                         Interaction::eCondition_NoStuff        encja      
+  rand                             Interaction::eCondition_Random         encja      
+  active                           Interaction::eCondition_Active         encja      
+  move_forward                     Interaction::eCondition_MoveForward    encja      
+  move_backward                    Interaction::eCondition_MoveBackward   encja      
+  turn_left                        Interaction::eCondition_TurnLeft       encja      
+  turn_right                       Interaction::eCondition_TurnRight      encja      
+  min_energy                       Interaction::eCondition_MinEnergy      encja      
+  min_mass                         Interaction::eCondition_MinMass        encja      
+  min_speed                        Interaction::eCondition_MinSpeed       encja      
+  burned                           Interaction::eCondition_Burned         encja      
+  effector                         Interaction::eCondition_Effector       encja      
+  friendly_fire                    Interaction::eCondition_FriendlyFire   encja      
+  mine_effector                    Interaction::eCondition_Effector       encja      
+  can_crush                        Interaction::eCondition_Can_Crush      encja      
+  name                             Interaction::eCondition_Name           encja      
+  terrain_pp                       Interaction::eCondition_Terrain        encja      
+  terrain_fx                       Interaction::eCondition_Terrain        encja      
+  sunlight                         Interaction::eCondition_SunLight       encja      
+  rain                             Interaction::eCondition_Rain           encja      
+  velocity                         Interaction::eCondition_Velocity       encja      
+  effector_velocity                Interaction::eCondition_EffectorVelocity encja      
+  contact_velocity                 Interaction::eCondition_ContactVelocity encja      
+  altitude                         Interaction::eCondition_Altitude       encja      
+  air                              Interaction::eCondition_Air            encja      
+  under_water                      Interaction::eCondition_UnderWater     encja      
+  water_level                      Interaction::eCondition_WaterLevel     encja      
+  dead                             Interaction::eCondition_Dead           encja      
+  kill_flags                       Interaction::eCondition_KillFlags      encja      blast piercing
+  senseless                        Interaction::eCondition_Senseless      encja      
+  personage                        Interaction::eCondition_Personage      encja      
+  operatable                       Interaction::eCondition_Operatable     encja      
+  inactive                         Interaction::eCondition_Inactive       encja      
+  linked                           Interaction::eCondition_Linked         encja      
+  boarding                         Interaction::eCondition_Boarding       encja      
+  stuff_filled                     Interaction::eCondition_StuffFilled    encja      
+  stuff_activated                  Interaction::eCondition_StuffActivated encja      
+  swimming                         Interaction::eCondition_Swimming       encja      
+  lying                            Interaction::eCondition_Lying          encja      
+  standing                         Interaction::eCondition_Standing       encja      
+  squatting                        Interaction::eCondition_Squatting      encja      
+  in_cover                         Interaction::eCondition_InCover        encja      
+  cover_type                       Interaction::eCondition_CoverType      encja      
+  idle_low_health                  Interaction::eCondition_IdleLowHealth  encja      
+  hold_strap                       Interaction::eCondition_HoldStrap      encja      
+  work                             Interaction::eCondition_ComponentState encja      
+  broken                           Interaction::eCondition_ComponentState encja      
+  destroyed                        Interaction::eCondition_ComponentState encja      
+  hit_side                         Interaction::eCondition_HitSide        encja      
+  mined                            Interaction::eCondition_Mined          encja      
+  fallen                           Interaction::eCondition_Fallen         encja      
+  user_control                     Interaction::eCondition_UserControl    encja      
+  user_squad                       Interaction::eCondition_UserSquad      encja      
+  chassis                          Interaction::eCondition_Chassis        encja      
+  fogged                           Interaction::eCondition_Fogged         encja      
+  tex_mod                          Interaction::eCondition_TexMod         encja      
+  flora_regenerate                 Interaction::eCondition_FloraRegenerate encja      
+  gamemode                         Interaction::eCondition_GameMode       encja      
+  simulating                       Interaction::eCondition_Simulating     encja      
+  impregnable                      Interaction::eCondition_Impregnable    encja      
+  place                            Interaction::eCondition_Place          encja      
+  cannon_state                     Interaction::eCondition_CannonState    encja      cannon
+  crew_in_place                    Interaction::eCondition_CrewInPlace    encja      
+  has_place                        Interaction::eCondition_HasPlace       encja      
+  weaponry_sealed                  Interaction::eCondition_WeaponrySealed encja      
+  difficulty                       Interaction::eCondition_Difficulty     encja      
+  true                             Interaction::eCondition_True           encja      
+  false                            Interaction::eCondition_False          encja      
+  explosive_amount                 Interaction::eCondition_ExplosiveAmount encja      
+  season                           Interaction::eCondition_Season         encja      
 
 === 0x014805c0  eIA_Skeleton.cpp                   wpisow: 19
-  tear                             Interaction::eAction_Tear              bone copy
-  view                             Interaction::eAction_ProcessView       show hide start stop pause enemy ally neutral
-  bone                             Interaction::eAction_ProcessBone       show hide cut truncate
-  add_view                         Interaction::eAction_AddView           not_manual not_scenario in_manual in_zoom in_scenario
-  ani_stop                         Interaction::eAction_AniStop           
-  wind_detail_bending              Interaction::eAction_WindDetailBending 
-  ani_play                         Interaction::eAction_AniPlay           loop fake resume norestart callback
-  ani_wind                         Interaction::eAction_AniWind           begin end
-  ik_enable                        Interaction::eIKEnable                 
-  set_skeleton                     Interaction::eAction_SetSkeleton       sync nosync local
-  depend_on_wind                   Interaction::eAction_DependOnWind      
-  update_shadow                    Interaction::eAction_UpdateShadow      
-  tex_mod                          Interaction::eAction_TexMod            reset
-  tex_morph                        Interaction::eAction_TexMorph          
-  use_blend_tex                    Interaction::eAction_UseBlendTex       
-  use_local_light                  Interaction::eAction_UseLocalLight     
-  mtl_enable_skin                  Interaction::eAction_MtlEnableSkin     
-  scale                            Interaction::eAction_Scale             from time
-  tex_morph                        DataStorage::::::Interaction::eAction_TexMorph::UeTexMorph::?$eData tex_morph
+  tear                             Interaction::eAction_Tear              encja      bone copy
+  view                             Interaction::eAction_ProcessView       encja      show hide start stop pause enemy ally neutral
+  bone                             Interaction::eAction_ProcessBone       encja      show hide cut truncate
+  add_view                         Interaction::eAction_AddView           encja      not_manual not_scenario in_manual in_zoom in_scenario
+  ani_stop                         Interaction::eAction_AniStop           encja      
+  wind_detail_bending              Interaction::eAction_WindDetailBending encja      
+  ani_play                         Interaction::eAction_AniPlay           encja      loop fake resume norestart callback
+  ani_wind                         Interaction::eAction_AniWind           encja      begin end
+  ik_enable                        Interaction::eIKEnable                 encja      
+  set_skeleton                     Interaction::eAction_SetSkeleton       encja      sync nosync local
+  depend_on_wind                   Interaction::eAction_DependOnWind      encja      
+  update_shadow                    Interaction::eAction_UpdateShadow      encja      
+  tex_mod                          Interaction::eAction_TexMod            encja      reset
+  tex_morph                        Interaction::eAction_TexMorph          encja      
+  use_blend_tex                    Interaction::eAction_UseBlendTex       encja      
+  use_local_light                  Interaction::eAction_UseLocalLight     encja      
+  mtl_enable_skin                  Interaction::eAction_MtlEnableSkin     encja      
+  scale                            Interaction::eAction_Scale             encja      from time
+  tex_morph                        DataStorage::::::Interaction::eAction_TexMorph::UeTexMorph::?$eData encja      tex_morph
 
 === 0x01480810  eReferenced.h                      wpisow: 1
-  bone_rotator                     DDA::eServer                           
+  bone_rotator                     DDA::eServer                           obce       
 
 === 0x01480868  eEntityLightExtender.cpp           wpisow: 1
-  light                            DDA::eServer                           
+  light                            DDA::eServer                           dane?      
 
 === 0x01480890  eEntityMapPointExtender.cpp        wpisow: 4
-  map_point                        -                                      
-  spawn_point                      Entity::eSpawnPointExtender            mapPoint pos
-  waypoint                         Entity::eWaypointExtender              name team zone radius zoneId phase order show visor allow spawn capture enableCapture release enableRelease polyzoneview
-  mine                             DDA::eServer                           
+  map_point                        -                                      dane?      
+  spawn_point                      Entity::eSpawnPointExtender            dane?      mapPoint pos
+  waypoint                         Entity::eWaypointExtender              dane?      name team zone radius zoneId phase order show visor allow spawn capture enableCapture release enableRelease polyzoneview
+  mine                             DDA::eServer                           dane?      
 
 === 0x014808f0  eEntityPreview.cpp                 wpisow: 1
-  preview                          Entity::ePreviewExtender               
+  preview                          Entity::ePreviewExtender               dane?      
 
 === 0x01480918  eEntityRailway.cpp                 wpisow: 1
-  railway                          DDA::eServer                           
+  railway                          DDA::eServer                           dane?      
 
 === 0x014809a8  eEntityRailway.cpp                 wpisow: 2
-  rail_switch                      Interaction::eSwitchRail               
-  rail_break                       Interaction::eBreakRail                
+  rail_switch                      Interaction::eSwitchRail               encja      
+  rail_break                       Interaction::eBreakRail                encja      
 
 === 0x014809d8  eEntitySlicer.cpp                  wpisow: 1
-  speaker                          DDA::eServer                           
+  speaker                          DDA::eServer                           dane?      
 
 === 0x01480a80  eReferenced.h                      wpisow: 1
-  grass                            DDA::eServer                           
+  grass                            DDA::eServer                           obce       
 
 === 0x01480ae0  eEntityEnumerator.cpp              wpisow: 1
-  enumerator                       DDA::eServer                           
+  enumerator                       DDA::eServer                           dane?      
 
 === 0x01480b38  eReferenced.h                      wpisow: 5
-  inventory                        DDA::eServer                           
-  armor                            -                                      
-  hand_left                        Inventory::eHolderHandLeft             
-  hand_right                       Inventory::eHolderHandRight            SwapHands
-  weapon                           Inventory::eHolderWeapon               
+  inventory                        DDA::eServer                           obce       
+  armor                            -                                      obce       
+  hand_left                        Inventory::eHolderHandLeft             obce       
+  hand_right                       Inventory::eHolderHandRight            obce       SwapHands
+  weapon                           Inventory::eHolderWeapon               obce       
 
 === 0x01480d88  eActorWeaponry.cpp                 wpisow: 4
-  eRepair                          -                                      
-  eHeal                            Order::eHeal                           eHeal all report stop_healing start_healing
-  eKitExchange                     Order::eKitExchange                    eKitExchange all report PutFromRight amount Xchange
-  eSmartRepair                     Order::eSmartRepair                    eSmartRepair all report
+  eRepair                          -                                      dane?      
+  eHeal                            Order::eHeal                           rozkaz     eHeal all report stop_healing start_healing
+  eKitExchange                     Order::eKitExchange                    rozkaz     eKitExchange all report PutFromRight amount Xchange
+  eSmartRepair                     Order::eSmartRepair                    rozkaz     eSmartRepair all report
 
 === 0x01481080  eChassis.cpp                       wpisow: 4
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
-  airborne                         -                                      
-  airborne                         eBodySimulator                         SimulateMovement
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
+  airborne                         -                                      dane?      
+  airborne                         eBodySimulator                         dane?      SimulateMovement
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
 
 === 0x014811f0  eChassisManager.cpp                wpisow: 2
-  human_carrier                    Actor::eChassisHumanCarrier            SetMovementModeLimit fuel rate trackleft trackright roller
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
+  human_carrier                    Actor::eChassisHumanCarrier            dane?      SetMovementModeLimit fuel rate trackleft trackright roller
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
 
 === 0x01481280  eChassisVehicle.cpp                wpisow: 3
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
-  track                            -                                      
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
+  track                            -                                      dane?      
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
 
 === 0x01481390  eChassisVehicle.h                  wpisow: 4
-  water                            Actor::eChassisWater                   SetMovementModeLimit waterline wheel crashDrive main steerMax steer
-  water                            eBodySimulator                         SimulateMovement
-  torpedo                          Actor::eChassisTorpedo                 patherState SetMovementSpeed SetMovementMode SetMovementModeLimit
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
+  water                            Actor::eChassisWater                   dane?      SetMovementModeLimit waterline wheel crashDrive main steerMax steer
+  water                            eBodySimulator                         dane?      SimulateMovement
+  torpedo                          Actor::eChassisTorpedo                 dane?      patherState SetMovementSpeed SetMovementMode SetMovementModeLimit
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
 
 === 0x014825a0  eReferenced.h                      wpisow: 27
-  eWait                            Order::eWait                           eWait all report
-  eExamine                         Order::eExamine                        eExamine eFollowAnimation eHideout eMoveToCover all report
-  eCollect                         Order::eCollect                        eCollect eDetach eExamine eFollowAnimation all report PickupToRight
-  eMoveToCover                     Order::eMoveToCover                    eMoveToCover eWait all report
-  eHideout                         Order::eHideout                        eHideout eMoveToCover eWait all report
-  eBrainUpdate                     Order::eBrainUpdate                    eBrainUpdate eCollect eDetach eExamine all report
-  eAttach                          Order::eAttach                         eAttach eBrainUpdate eCollect eDetach all report
-  eDetach                          Order::eDetach                         eDetach eExamine eFollowAnimation eHideout all report
-  eFollowAnimation                 Order::eFollowAnimation                eFollowAnimation eHideout eMoveToCover eWait all report
-  eAdvance                         -                                      
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
-  ePlayAnimation                   Order::ePlayAnimation                  ePlayAnimation ePlayAnimations all report
-  ePlayAnimations                  -                                      
-  eFsmRequest                      Order::eFsmRequest                     eFsmRequest ePlayAnimation ePlayAnimations all report
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
-  eWeaponFire                      Order::eWeaponFire                     eWeaponFire eWeaponPrepare eWeaponTake eWeaponWaitReady all report
-  eWeaponAimTarget                 Order::eWeaponAimTarget                eWeaponAimTarget eWeaponAimTrajectory eWeaponAiming eWeaponFire all report
-  eWeaponWaitReady                 Order::eWeaponWaitReady                eWeaponWaitReady all report eAttackBySelector eCoverMove eLookAt
-  eWeaponAimTrajectory             Order::eWeaponAimTrajectory            eWeaponAimTrajectory eWeaponAiming eWeaponFire eWeaponPrepare all report
-  eWeaponPrepare                   Order::eWeaponPrepare                  eWeaponPrepare eWeaponTake eWeaponWaitReady all report UseItem PutFromRight
-  eAttackBySelector                Order::eAttackBySelector               eAttackBySelector eCoverMove eLookAt eSuppressionFire all report
-  eSuppressionFire                 -                                      
-  eLookAt                          Order::eLookAt                         eLookAt eSuppressionFire eWeaponAimTarget eWeaponAimTrajectory all report
-  eAirAttack                       Order::eAirAttack                      eAirAttack all report selector air_attack
-  eBindForBoard                    -                                      
-  eBindBone                        -                                      
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
+  eWait                            Order::eWait                           rozkaz     eWait all report
+  eExamine                         Order::eExamine                        rozkaz     eExamine eFollowAnimation eHideout eMoveToCover all report
+  eCollect                         Order::eCollect                        rozkaz     eCollect eDetach eExamine eFollowAnimation all report PickupToRight
+  eMoveToCover                     Order::eMoveToCover                    rozkaz     eMoveToCover eWait all report
+  eHideout                         Order::eHideout                        rozkaz     eHideout eMoveToCover eWait all report
+  eBrainUpdate                     Order::eBrainUpdate                    rozkaz     eBrainUpdate eCollect eDetach eExamine all report
+  eAttach                          Order::eAttach                         rozkaz     eAttach eBrainUpdate eCollect eDetach all report
+  eDetach                          Order::eDetach                         rozkaz     eDetach eExamine eFollowAnimation eHideout all report
+  eFollowAnimation                 Order::eFollowAnimation                rozkaz     eFollowAnimation eHideout eMoveToCover eWait all report
+  eAdvance                         -                                      obce       
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
+  ePlayAnimation                   Order::ePlayAnimation                  rozkaz     ePlayAnimation ePlayAnimations all report
+  ePlayAnimations                  -                                      obce       
+  eFsmRequest                      Order::eFsmRequest                     rozkaz     eFsmRequest ePlayAnimation ePlayAnimations all report
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
+  eWeaponFire                      Order::eWeaponFire                     rozkaz     eWeaponFire eWeaponPrepare eWeaponTake eWeaponWaitReady all report
+  eWeaponAimTarget                 Order::eWeaponAimTarget                rozkaz     eWeaponAimTarget eWeaponAimTrajectory eWeaponAiming eWeaponFire all report
+  eWeaponWaitReady                 Order::eWeaponWaitReady                rozkaz     eWeaponWaitReady all report eAttackBySelector eCoverMove eLookAt
+  eWeaponAimTrajectory             Order::eWeaponAimTrajectory            rozkaz     eWeaponAimTrajectory eWeaponAiming eWeaponFire eWeaponPrepare all report
+  eWeaponPrepare                   Order::eWeaponPrepare                  rozkaz     eWeaponPrepare eWeaponTake eWeaponWaitReady all report UseItem PutFromRight
+  eAttackBySelector                Order::eAttackBySelector               rozkaz     eAttackBySelector eCoverMove eLookAt eSuppressionFire all report
+  eSuppressionFire                 -                                      obce       
+  eLookAt                          Order::eLookAt                         rozkaz     eLookAt eSuppressionFire eWeaponAimTarget eWeaponAimTrajectory all report
+  eAirAttack                       Order::eAirAttack                      rozkaz     eAirAttack all report selector air_attack
+  eBindForBoard                    -                                      obce       
+  eBindBone                        -                                      obce       
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
 
 === 0x01482760  eOrderBoard.cpp                    wpisow: 12
-  eBindTight                       Order::eBind                           eBind eBindBone eBindForBoard eBindHand all report
-  eBindVolume                      Order::eBind                           eBind eBindBone eBindForBoard eBindHand all report
-  eBindPosition                    Order::eBind                           eBind eBindBone eBindForBoard eBindHand all report
-  eBindHand                        Order::eBind                           eBind eBindBone eBindForBoard eBindHand all report
-  eBindForBoard                    Order::eBind                           eBind eBindBone eBindForBoard eBindHand all report
-  eBindBone                        Order::eBind                           eBind eBindBone eBindForBoard eBindHand all report
-  eBoard                           Order::eBoard                          eBoard eMoveToPlace all report
-  eMoveToPlace                     -                                      
-  eEmitToPoint                     eReferenced                            
-  eEmit                            Order::eEmit                           eEmit eEmitToPoint eLeave all report
-  eLeave                           Order::eLeave                          eLeave all report
-  eFight                           Order::eFight                          eFight all report
+  eBindTight                       Order::eBind                           rozkaz     eBind eBindBone eBindForBoard eBindHand all report
+  eBindVolume                      Order::eBind                           rozkaz     eBind eBindBone eBindForBoard eBindHand all report
+  eBindPosition                    Order::eBind                           rozkaz     eBind eBindBone eBindForBoard eBindHand all report
+  eBindHand                        Order::eBind                           rozkaz     eBind eBindBone eBindForBoard eBindHand all report
+  eBindForBoard                    Order::eBind                           rozkaz     eBind eBindBone eBindForBoard eBindHand all report
+  eBindBone                        Order::eBind                           rozkaz     eBind eBindBone eBindForBoard eBindHand all report
+  eBoard                           Order::eBoard                          rozkaz     eBoard eMoveToPlace all report
+  eMoveToPlace                     -                                      rozkaz     
+  eEmitToPoint                     eReferenced                            rozkaz     
+  eEmit                            Order::eEmit                           rozkaz     eEmit eEmitToPoint eLeave all report
+  eLeave                           Order::eLeave                          rozkaz     eLeave all report
+  eFight                           Order::eFight                          rozkaz     eFight all report
 
 === 0x01482830  eOrderFortify.cpp                  wpisow: 1
-  eFortifySequence                 Order::eFortifySequence                eFortifySequence all report
+  eFortifySequence                 Order::eFortifySequence                rozkaz     eFortifySequence all report
 
 === 0x01482868  eReferenced.h                      wpisow: 16
-  eTakeItem                        Order::eTakeItem                       eTakeItem eWeaponPreload eWeaponShot all report TakeToRight
-  eWeaponPreload                   Order::eWeaponPreload                  eWeaponPreload eWeaponShot all report
-  eAimedShot                       Order::eAimedShot                      eAimedShot eAttack eAttackBasic eAttackProximityCharge all report
-  eAttackProximityCharge           Order::eAttackProximityCharge          eAttackProximityCharge ePutOn eTakeItem eWeaponPreload all report
-  eAttackBasic                     Order::eAttackBasic                    eAttackBasic eAttackProximityCharge ePutOn eTakeItem all report
-  eWeaponShot                      -                                      
-  eAttack                          -                                      
-  ePutOn                           Order::ePutOn                          ePutOn eTakeItem eWeaponPreload eWeaponShot all report
-  eMine                            -                                      
-  eMineSingle                      Order::eMineSingle                     eMineSingle eMineZone all report
-  eMineSequence                    Order::eMineSequence                   eMineSequence eMineSingle eMineZone all report
-  eDefuseSequence                  Order::eDefuseSequence                 eDefuseSequence eMine eMineSequence eMineSingle all report PutFromRight
-  eChargeMiner                     Order::eChargeMiner                    eChargeMiner eDefuseSequence eMine eMineSequence all report Xchange
-  eMineZone                        -                                      
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
-  eRotate                          Order::eRotate                         eRotate all report
+  eTakeItem                        Order::eTakeItem                       rozkaz     eTakeItem eWeaponPreload eWeaponShot all report TakeToRight
+  eWeaponPreload                   Order::eWeaponPreload                  rozkaz     eWeaponPreload eWeaponShot all report
+  eAimedShot                       Order::eAimedShot                      rozkaz     eAimedShot eAttack eAttackBasic eAttackProximityCharge all report
+  eAttackProximityCharge           Order::eAttackProximityCharge          rozkaz     eAttackProximityCharge ePutOn eTakeItem eWeaponPreload all report
+  eAttackBasic                     Order::eAttackBasic                    rozkaz     eAttackBasic eAttackProximityCharge ePutOn eTakeItem all report
+  eWeaponShot                      -                                      obce       
+  eAttack                          -                                      obce       
+  ePutOn                           Order::ePutOn                          rozkaz     ePutOn eTakeItem eWeaponPreload eWeaponShot all report
+  eMine                            -                                      obce       
+  eMineSingle                      Order::eMineSingle                     rozkaz     eMineSingle eMineZone all report
+  eMineSequence                    Order::eMineSequence                   rozkaz     eMineSequence eMineSingle eMineZone all report
+  eDefuseSequence                  Order::eDefuseSequence                 rozkaz     eDefuseSequence eMine eMineSequence eMineSingle all report PutFromRight
+  eChargeMiner                     Order::eChargeMiner                    rozkaz     eChargeMiner eDefuseSequence eMine eMineSequence all report Xchange
+  eMineZone                        -                                      obce       
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
+  eRotate                          Order::eRotate                         rozkaz     eRotate all report
 
 === 0x01482998  eOrderMovement.cpp                 wpisow: 5
-  eMovementChange                  Order::eMovementChange                 eMovementChange eRotate all report
-  eRepair                          -                                      
-  eHeal                            Order::eHeal                           eHeal all report stop_healing start_healing
-  eKitExchange                     Order::eKitExchange                    eKitExchange all report PutFromRight amount Xchange
-  eSmartRepair                     Order::eSmartRepair                    eSmartRepair all report
+  eMovementChange                  Order::eMovementChange                 rozkaz     eMovementChange eRotate all report
+  eRepair                          -                                      rozkaz     
+  eHeal                            Order::eHeal                           rozkaz     eHeal all report stop_healing start_healing
+  eKitExchange                     Order::eKitExchange                    rozkaz     eKitExchange all report PutFromRight amount Xchange
+  eSmartRepair                     Order::eSmartRepair                    rozkaz     eSmartRepair all report
 
 === 0x01482a00  eOrder.cpp                         wpisow: 3
-  eAvoidGrenade                    Order::eAvoidGrenade                   eAvoidGrenade all report
-  eComplexOrder                    eComplexOrder                          eComplexOrder
-  eAdvance                         -                                      
+  eAvoidGrenade                    Order::eAvoidGrenade                   rozkaz     eAvoidGrenade all report
+  eComplexOrder                    eComplexOrder                          rozkaz     eComplexOrder
+  eAdvance                         -                                      rozkaz     
 
 === 0x01482a60  eActorBrain.cpp                    wpisow: 2
-  actor                            -                                      
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
+  actor                            -                                      dane?      
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
 
 === 0x01482b18  eActorShield.cpp                   wpisow: 1
-  shield                           DDA::eServer                           
+  shield                           DDA::eServer                           dane?      
 
 === 0x01482b48  eActorTalkExtender.cpp             wpisow: 7
-  talk                             Actor::eTalkExtender                   
-  health_level                     Actor::eConditionHealth                
-  seen                             Actor::eConditionSeenUnits             enemy ally tank car cannon airborne helicopter human vehicle any
-  enemy_ratio                      Actor::eConditionEnemyRatio            
-  broken                           Actor::eConditionBroken                
-  in_action                        Actor::eConditionInAction              
-  idle                             Actor::eConditionIdle                  
+  talk                             Actor::eTalkExtender                   dane?      
+  health_level                     Actor::eConditionHealth                dane?      
+  seen                             Actor::eConditionSeenUnits             dane?      enemy ally tank car cannon airborne helicopter human vehicle any
+  enemy_ratio                      Actor::eConditionEnemyRatio            dane?      
+  broken                           Actor::eConditionBroken                dane?      
+  in_action                        Actor::eConditionInAction              dane?      
+  idle                             Actor::eConditionIdle                  dane?      
 
 === 0x01482bd0  eActorSquad.cpp                    wpisow: 2
-  eAnimationCompleted              Order::eAnimationCompleted             eAnimationCompleted eCannonState all report
-  eCannonState                     Order::eCannonState                    eCannonState all report
+  eAnimationCompleted              Order::eAnimationCompleted             rozkaz     eAnimationCompleted eCannonState all report
+  eCannonState                     Order::eCannonState                    rozkaz     eCannonState all report
 
 === 0x01482cf0  eHumanSimulator.cpp                wpisow: 1
-  human                            eBodySimulator                         SimulateMovement
+  human                            eBodySimulator                         dane?      SimulateMovement
 
 === 0x01482e88  eHumanBreed.cpp                    wpisow: 1
-  soldier                          Human::eHS_RootSoldier                 soldier
+  soldier                          Human::eHS_RootSoldier                 dane?      soldier
 
 === 0x01482ea0  eHumanBreed.cpp                    wpisow: 1
-  civilian                         Human::eHS_RootCivilian                civilian
+  civilian                         Human::eHS_RootCivilian                dane?      civilian
 
 === 0x01483080  eHumanAbilities.cpp                wpisow: 1
-  skin                             eStuffSkin                             
+  skin                             eStuffSkin                             dane?      
 
 === 0x01484a58  eEntityAPI.cpp                     wpisow: 1
-  animal                           Actor::eBrainState                     
+  animal                           Actor::eBrainState                     dane?      
 
 === 0x01484a70  eEntityAPI.cpp                     wpisow: 1
-  animal                           Actor::eAnimalFsmHandler               idle stand walk dying
+  animal                           Actor::eAnimalFsmHandler               dane?      idle stand walk dying
 
 === 0x01484ad0  eEntityFX.cpp                      wpisow: 5
-  fx                               -                                      
-  eMoveTask                        Order::eMoveTask                       eMoveTask all report
-  airborne                         Actor::eAirborneBrain                  stateName
-  helicopter                       Actor::eHelicopterBrain                stateName
-  airborne                         Actor::eBrainState                     
+  fx                               -                                      dane?      
+  eMoveTask                        Order::eMoveTask                       rozkaz     eMoveTask all report
+  airborne                         Actor::eAirborneBrain                  dane?      stateName
+  helicopter                       Actor::eHelicopterBrain                dane?      stateName
+  airborne                         Actor::eBrainState                     dane?      
 
 === 0x01484b40  eReferenced.h                      wpisow: 11
-  vehicle                          -                                      
-  eResetWaypointOnly               Order::eResetWaypointOnly              eResetWaypointOnly all report
-  eEmitOnSink                      eEmitOnSink                            eEmitOnSink
-  eEmitOnAttack                    eEmitOnAttack                          eEmitOnAttack eEmitOnSink
-  eEmitAndBurn                     eEmitAndBurn                           tankman eEmitAndBurn eEmitOnAttack eEmitOnSink
-  eEmitAndRepair                   eEmitAndRepair                         eEmitAndRepair
-  eRepair                          -                                      
-  eHeal                            Order::eHeal                           eHeal all report stop_healing start_healing TakeToRight PutFromRight
-  eKitExchange                     Order::eKitExchange                    eKitExchange all report PutFromRight amount Xchange
-  eSmartRepair                     Order::eSmartRepair                    eSmartRepair all report TakeToRight
-  vehicle                          Actor::eBrainState                     
+  vehicle                          -                                      obce       
+  eResetWaypointOnly               Order::eResetWaypointOnly              rozkaz     eResetWaypointOnly all report
+  eEmitOnSink                      eEmitOnSink                            obce       eEmitOnSink
+  eEmitOnAttack                    eEmitOnAttack                          obce       eEmitOnAttack eEmitOnSink
+  eEmitAndBurn                     eEmitAndBurn                           obce       tankman eEmitAndBurn eEmitOnAttack eEmitOnSink
+  eEmitAndRepair                   eEmitAndRepair                         obce       eEmitAndRepair
+  eRepair                          -                                      obce       
+  eHeal                            Order::eHeal                           rozkaz     eHeal all report stop_healing start_healing TakeToRight PutFromRight
+  eKitExchange                     Order::eKitExchange                    rozkaz     eKitExchange all report PutFromRight amount Xchange
+  eSmartRepair                     Order::eSmartRepair                    rozkaz     eSmartRepair all report TakeToRight
+  vehicle                          Actor::eBrainState                     obce       
 
 === 0x01485110  eHelperCommandActor.cpp            wpisow: 7
-  actor_state                      -                                      
-  ables                            Helper::eGameEntityCommand             selector command
-  air_state                        Helper::eGameEntityCommand             selector command
-  player                           Helper::eGameEntityCommand             selector command
-  actor_component                  Helper::eGameEntityCommand             selector command
-  action                           Helper::eGameEntityCommand             selector command
-  throw_off                        Helper::eGameEntityCommand             selector command
+  actor_state                      -                                      trigger    
+  ables                            Helper::eGameEntityCommand             trigger    selector command
+  air_state                        Helper::eGameEntityCommand             trigger    selector command
+  player                           Helper::eGameEntityCommand             trigger    selector command
+  actor_component                  Helper::eGameEntityCommand             trigger    selector command
+  action                           Helper::eGameEntityCommand             trigger    selector command
+  throw_off                        Helper::eGameEntityCommand             trigger    selector command
 
 === 0x014851e8  eHelperCommandGameEntity.cpp       wpisow: 13
-  delete                           Helper::eGameEntityCommand             selector command
-  unlink                           Helper::eGameEntityCommand             selector command
-  rt_function                      Helper::eGameEntityCommand             selector command
-  effect                           Helper::eGameEntityCommand             selector command
-  animate                          Helper::eGameEntityCommand             selector command
-  entity_state                     Helper::eGameEntityCommand             selector command
-  linker                           Helper::eGameEntityCommand             selector command
-  board                            Helper::eGameEntityCommand             selector command
-  placement                        Helper::eGameEntityCommand             selector command
-  mine_state                       Helper::eGameEntityCommand             selector command
-  eOrderTake                       Order::eOrderTake                      eOrderTake all report Xchange TakeToRight
-  eOrderDrop                       Order::eOrderDrop                      eOrderDrop all report Xchange
-  inventory                        Helper::eGameEntityCommand             selector command
+  delete                           Helper::eGameEntityCommand             trigger    selector command
+  unlink                           Helper::eGameEntityCommand             trigger    selector command
+  rt_function                      Helper::eGameEntityCommand             trigger    selector command
+  effect                           Helper::eGameEntityCommand             trigger    selector command
+  animate                          Helper::eGameEntityCommand             trigger    selector command
+  entity_state                     Helper::eGameEntityCommand             trigger    selector command
+  linker                           Helper::eGameEntityCommand             trigger    selector command
+  board                            Helper::eGameEntityCommand             trigger    selector command
+  placement                        Helper::eGameEntityCommand             trigger    selector command
+  mine_state                       Helper::eGameEntityCommand             trigger    selector command
+  eOrderTake                       Order::eOrderTake                      trigger    eOrderTake all report Xchange TakeToRight
+  eOrderDrop                       Order::eOrderDrop                      trigger    eOrderDrop all report Xchange
+  inventory                        Helper::eGameEntityCommand             trigger    selector command
 
 === 0x014852d8  eHelperCommandInventory.cpp        wpisow: 5
-  music                            Helper::eCmd_music                     music file_browser start stop stop_all volume fade loop
-  sound                            Helper::eCmd_sound                     sound sound_browser name waypoint
-  autoassign                       Helper::eGameEntityCommand             selector command
-  extraspawn                       Helper::eGameEntityCommand             selector command
-  mp_event                         Helper::eCmd_mp_event                  mp_event event team
+  music                            Helper::eCmd_music                     trigger    music file_browser start stop stop_all volume fade loop
+  sound                            Helper::eCmd_sound                     trigger    sound sound_browser name waypoint
+  autoassign                       Helper::eGameEntityCommand             trigger    selector command
+  extraspawn                       Helper::eGameEntityCommand             trigger    selector command
+  mp_event                         Helper::eCmd_mp_event                  trigger    mp_event event team
 
 === 0x014853a8  eHelperCommandScenario.cpp         wpisow: 14
-  interface                        Helper::eCmd_interface                 interface type default game scenario manual
-  scenario                         Helper::eCmd_scenario                  scenario
-  camera_follow_bone               Helper::eCmd_camera_follow_bone        camera_follow_bone entity bone fov offest apply cancel
-  timer                            Helper::eCmd_timer                     timer hide time title
-  objective_progress               Helper::eCmd_objective_progress        objective_progress hide set add title
-  gameover                         Helper::eCmd_gameover                  gameover rD result message
-  gamestatus                       Helper::eCmd_gamestatus                gamestatus status
-  store_units                      Helper::eGameEntityCommand             selector command
-  load_units                       Helper::eCmd_load_units                load_units slot_name
-  task                             Helper::eCmd_task                      task name state
-  fog_mode                         Helper::eCmd_fog_mode                  fog_mode enable
-  fog_in_zone                      Helper::eCmd_fog_in_zone               fog_in_zone zone enable
-  game_speed                       Helper::eCmd_game_speed                game_speed mode
-  reinforcement                    Helper::eCmd_reinforcement             reinforcement operation score name
+  interface                        Helper::eCmd_interface                 trigger    interface type default game scenario manual
+  scenario                         Helper::eCmd_scenario                  trigger    scenario
+  camera_follow_bone               Helper::eCmd_camera_follow_bone        trigger    camera_follow_bone entity bone fov offest apply cancel
+  timer                            Helper::eCmd_timer                     trigger    timer hide time title
+  objective_progress               Helper::eCmd_objective_progress        trigger    objective_progress hide set add title
+  gameover                         Helper::eCmd_gameover                  trigger    gameover rD result message
+  gamestatus                       Helper::eCmd_gamestatus                trigger    gamestatus status
+  store_units                      Helper::eGameEntityCommand             trigger    selector command
+  load_units                       Helper::eCmd_load_units                trigger    load_units slot_name
+  task                             Helper::eCmd_task                      trigger    task name state
+  fog_mode                         Helper::eCmd_fog_mode                  trigger    fog_mode enable
+  fog_in_zone                      Helper::eCmd_fog_in_zone               trigger    fog_in_zone zone enable
+  game_speed                       Helper::eCmd_game_speed                trigger    game_speed mode
+  reinforcement                    Helper::eCmd_reinforcement             trigger    reinforcement operation score name
 
 === 0x014854c0  eHelperCommandScene.cpp            wpisow: 14
-  event                            Helper::eCmd_event                     event helper_event_browser mode delay
-  trigger                          Helper::eCmd_trigger                   trigger on off trigger_browser name
-  set_i                            Helper::eCmd_set_i                     set_i var op value
-  spawn                            Helper::eCmd_spawn                     spawn entity_browser entity waypoint disable_random_spawn_position in_camera
-  environment                      Helper::eCmd_environment               environment name time apply
-  fade                             Helper::eCmd_fade                      fade on off time color_browser color
-  set_clip                         Helper::eCmd_set_clip                  set_clip name
-  con                              Helper::eCmd_con                       con text
-  call                             Helper::eCmd_call                      call function context specified selector
-  thread                           Helper::eCmd_thread                    thread
-  autosave                         Helper::eCmd_autosave                  autosave
-  achievement                      Helper::eCmd_achievement               achievement name nation
-  entity_manager                   Helper::eCmd_entity_manager            entity_manager enabled count
-  benchmark                        Helper::eCmd_benchmark                 benchmark mode profile trigger_state camera camera_trigger
+  event                            Helper::eCmd_event                     trigger    event helper_event_browser mode delay
+  trigger                          Helper::eCmd_trigger                   trigger    trigger on off trigger_browser name
+  set_i                            Helper::eCmd_set_i                     trigger    set_i var op value
+  spawn                            Helper::eCmd_spawn                     trigger    spawn entity_browser entity waypoint disable_random_spawn_position in_camera
+  environment                      Helper::eCmd_environment               trigger    environment name time apply
+  fade                             Helper::eCmd_fade                      trigger    fade on off time color_browser color
+  set_clip                         Helper::eCmd_set_clip                  trigger    set_clip name
+  con                              Helper::eCmd_con                       trigger    con text
+  call                             Helper::eCmd_call                      trigger    call function context specified selector
+  thread                           Helper::eCmd_thread                    trigger    thread
+  autosave                         Helper::eCmd_autosave                  trigger    autosave
+  achievement                      Helper::eCmd_achievement               trigger    achievement name nation
+  entity_manager                   Helper::eCmd_entity_manager            trigger    entity_manager enabled count
+  benchmark                        Helper::eCmd_benchmark                 trigger    benchmark mode profile trigger_state camera camera_trigger
 
 === 0x014855d0  eHelperCommandSquad.cpp            wpisow: 5
-  squad_to_waypoint                Helper::eCmd_squad_to_waypoint         squad_to_waypoint squad waypoint
-  squad_state                      Helper::eCmd_squad_state               squad_state squad guard movement mode type
-  squad_create                     Helper::eCmd_squad_create              squad_create selector name
-  squad_dismiss                    Helper::eCmd_squad_dismiss             squad_dismiss squad
-  squad                            Helper::eCmd_squad                     squad operation name selector
+  squad_to_waypoint                Helper::eCmd_squad_to_waypoint         trigger    squad_to_waypoint squad waypoint
+  squad_state                      Helper::eCmd_squad_state               trigger    squad_state squad guard movement mode type
+  squad_create                     Helper::eCmd_squad_create              trigger    squad_create selector name
+  squad_dismiss                    Helper::eCmd_squad_dismiss             trigger    squad_dismiss squad
+  squad                            Helper::eCmd_squad                     trigger    squad operation name selector
 
 === 0x014857c0  eHelperConditionTerm.cpp           wpisow: 1
-  camera                           Helper::eTerm_camera                   zone appearance time advanced bound precision camera no mode
+  camera                           Helper::eTerm_camera                   warunek    zone appearance time advanced bound precision camera no mode
 
 === 0x01485848  eHelperConditionTerm.cpp           wpisow: 10
-  entities                         Helper::eTerm_entities                 selector count entities no mode
-  altitude                         Helper::eTerm_altitude                 selector altitude no mode
-  near                             Helper::eTerm_near                     units near_to distance high_precision near no mode
-  crew                             Helper::eTerm_crew                     vehicle vehicle_selector units at_least_one crew no mode
-  linked                           Helper::eTerm_linked                   source destination linked no mode
-  see_enemy                        Helper::eTerm_see_enemy                selector see_enemy no mode
-  see_actors                       Helper::eTerm_see_actors               selector enemy distance mode min max meters detection tag see_actors no
-  arrival                          Helper::eTerm_arrival                  arrival no mode
-  inventory                        Helper::eTerm_inventory                selector where item compare amount inventory no mode
-  reinforcements_score             Helper::eTerm_reinforcements_score     compare scoreCurrent reinforcements_score no mode
+  entities                         Helper::eTerm_entities                 warunek    selector count entities no mode
+  altitude                         Helper::eTerm_altitude                 warunek    selector altitude no mode
+  near                             Helper::eTerm_near                     warunek    units near_to distance high_precision near no mode
+  crew                             Helper::eTerm_crew                     warunek    vehicle vehicle_selector units at_least_one crew no mode
+  linked                           Helper::eTerm_linked                   warunek    source destination linked no mode
+  see_enemy                        Helper::eTerm_see_enemy                warunek    selector see_enemy no mode
+  see_actors                       Helper::eTerm_see_actors               warunek    selector enemy distance mode min max meters detection tag see_actors no
+  arrival                          Helper::eTerm_arrival                  warunek    arrival no mode
+  inventory                        Helper::eTerm_inventory                warunek    selector where item compare amount inventory no mode
+  reinforcements_score             Helper::eTerm_reinforcements_score     warunek    compare scoreCurrent reinforcements_score no mode
 
 === 0x01485928  eHelperWaypointSelector.h          wpisow: 12
-  event                            Helper::eTerm_event                    helper_event_browser id event
-  trigger                          Helper::eTerm_trigger                  trigger_browser name trigger
-  rand                             Helper::eTerm_rand                     value rand
-  signal                           Helper::eTerm_signal                   zone signals reset_signals signal
-  task                             Helper::eTerm_task                     name rD state task
-  difficulty                       Helper::eTerm_difficulty               level difficulty
-  cmp_i                            Helper::eTerm_cmp_i                    var op value cmp_i
-  mined                            Helper::eTerm_mined                    gih_player player type zone infill mined
-  waypoint_canmove                 Helper::eTerm_waypoint_canmove         waypoint_canmove
-  side                             Helper::eTerm_side                     side
-  mod                              Helper::eTerm_mod                      name mod
-  mission_option                   Helper::eTerm_mission_option           name mission_option
+  event                            Helper::eTerm_event                    warunek    helper_event_browser id event
+  trigger                          Helper::eTerm_trigger                  warunek    trigger_browser name trigger
+  rand                             Helper::eTerm_rand                     warunek    value rand
+  signal                           Helper::eTerm_signal                   warunek    zone signals reset_signals signal
+  task                             Helper::eTerm_task                     warunek    name rD state task
+  difficulty                       Helper::eTerm_difficulty               warunek    level difficulty
+  cmp_i                            Helper::eTerm_cmp_i                    warunek    var op value cmp_i
+  mined                            Helper::eTerm_mined                    warunek    gih_player player type zone infill mined
+  waypoint_canmove                 Helper::eTerm_waypoint_canmove         warunek    waypoint_canmove
+  side                             Helper::eTerm_side                     warunek    side
+  mod                              Helper::eTerm_mod                      warunek    name mod
+  mission_option                   Helper::eTerm_mission_option           warunek    name mission_option
 
 === 0x01485ce0  eHelperThreadStatement.cpp         wpisow: 6
-  if                               -                                      
-  while                            Helper::Thread::eStatementWhile        condition input command_browser2
-  switch                           Helper::Thread::eStatementSwitch       default case input command_browser2
-  loop                             Helper::Thread::eStatementLoop         count input command_browser2
-  delay                            Helper::Thread::eStatementDelay        delay time
-  select                           Helper::Thread::eStatementSelect       
+  if                               -                                      trigger    
+  while                            Helper::Thread::eStatementWhile        trigger    condition input command_browser2
+  switch                           Helper::Thread::eStatementSwitch       trigger    default case input command_browser2
+  loop                             Helper::Thread::eStatementLoop         trigger    count input command_browser2
+  delay                            Helper::Thread::eStatementDelay        trigger    delay time
+  select                           Helper::Thread::eStatementSelect       trigger    
 
 === 0x01487c30  eSceneEnvironment.cpp              wpisow: 4
-  haze                             Scene::Environment::eNamedParameters   
-  light                            -                                      
-  sky                              Scene::Environment::eNamedParameters   
-  sky                              Render::eMaterialSky                   bump
+  haze                             Scene::Environment::eNamedParameters   dane?      
+  light                            -                                      dane?      
+  sky                              Scene::Environment::eNamedParameters   dane?      
+  sky                              Render::eMaterialSky                   dane?      bump
 
 === 0x01487c78  eSceneEnvironmentSky.cpp           wpisow: 2
-  thunder                          Scene::Environment::eNamedParameters   
-  video_overlay                    Scene::Environment::eNamedParameters   
+  thunder                          Scene::Environment::eNamedParameters   dane?      
+  video_overlay                    Scene::Environment::eNamedParameters   dane?      
 
 === 0x01487cb0  eSceneEnvironmentWeather.cpp       wpisow: 1
-  weather                          Scene::Environment::eNamedParameters   
+  weather                          Scene::Environment::eNamedParameters   dane?      
 
 === 0x01487d00  eSceneEnvironmentWeather.cpp       wpisow: 1
-  wind                             Scene::Environment::eNamedParameters   
+  wind                             Scene::Environment::eNamedParameters   dane?      
 
 === 0x0148b380  ui_dda_properties.cpp              wpisow: 6
-  dda_value_editor                 eDDAValueEditor                        
-  dda_value_editor_check           eDDAValueEditorCheck                   main_menu_skin
-  dda_value_editor_combo           eDDAValueEditorCombo                   
-  dda_value_editor_set             eDDAValueEditorSet                     checked
-  dda_value_editor_multi_select    eDDAValueEditorMultiSelect             
-  dda_value_editor_multi_select2   eDDAValueEditorMultiSelect2            
+  dda_value_editor                 eDDAValueEditor                        interfejs  
+  dda_value_editor_check           eDDAValueEditorCheck                   interfejs  main_menu_skin
+  dda_value_editor_combo           eDDAValueEditorCombo                   interfejs  
+  dda_value_editor_set             eDDAValueEditorSet                     interfejs  checked
+  dda_value_editor_multi_select    eDDAValueEditorMultiSelect             interfejs  
+  dda_value_editor_multi_select2   eDDAValueEditorMultiSelect2            interfejs  
 
 === 0x0148b400  ui_dda_properties.cpp              wpisow: 2
-  dda_value_editor_input           eDDAValueEditorInput                   value server_box
-  dda_value_editor_slider          eDDAValueEditorSlider                  
+  dda_value_editor_input           eDDAValueEditorInput                   interfejs  value server_box
+  dda_value_editor_slider          eDDAValueEditorSlider                  interfejs  
 
 === 0x0148b768  eGC_PanelControl.cpp               wpisow: 3
-  gc_cp_command_use                GameControl::PanelControl::eCommandUse 
-  gc_cp_command_cancel             GameControl::PanelControl::eCommandCancel 
-  gc_cp_state_smoke_decoy          GameControl::PanelControl::eSmokeDecoy 
+  gc_cp_command_use                GameControl::PanelControl::eCommandUse dane?      
+  gc_cp_command_cancel             GameControl::PanelControl::eCommandCancel dane?      
+  gc_cp_state_smoke_decoy          GameControl::PanelControl::eSmokeDecoy dane?      
 
 === 0x0148b920  eGC_PanelControl.cpp               wpisow: 35
-  gc_cp_state_pose                 GameControl::PanelControl::ePoseControl 
-  gc_cp_state_fire                 GameControl::PanelControl::eFireControl fire
-  gc_cp_state_move                 GameControl::PanelControl::eMoveControl move
-  gc_cp_state_speed                GameControl::PanelControl::eSpeedControl speed
-  gc_cp_state_cannon               GameControl::PanelControl::eCannonControl 
-  gc_cp_state_hatch                GameControl::PanelControl::eHatchControl 
-  gc_cp_state_reverse              GameControl::PanelControl::eReverseControl 
-  gc_cp_lock_ammo                  GameControl::PanelControl::eLockAmmoControl lock_ammo
-  gc_cp_state_auto_medic           GameControl::PanelControl::eAutoMedicControl auto_medic
-  gc_cp_squad_control              GameControl::PanelControl::eSquadControl 
-  gc_cp_state_weapon               GameControl::PanelControl::eWeaponControl weapon_prepare
-  gc_cp_state_reload               GameControl::PanelControl::eAmmoControl weapon_reload
-  gc_cp_state_attach               GameControl::PanelControl::eAttachControl 
-  gc_cp_state_supply               GameControl::PanelControl::eSupplyZoneControl 
-  gc_cp_state_altitude             GameControl::PanelControl::eAltitudeControl 
-  gc_cp_state_manual_control       GameControl::PanelControl::eStateManualControl manual_control
-  gc_cp_state_manual_control_mode  GameControl::PanelControl::eStateManualControlMode control_type
-  gc_cp_state_inventory            GameControl::PanelControl::eStateInventory inventory
-  gc_cp_state_objectives           GameControl::PanelControl::eStateObjectives objectives
-  gc_cp_state_message_history      GameControl::PanelControl::eStateMessageHistory message_history
-  gc_cp_state_map                  GameControl::PanelControl::eStateMap   map
-  gc_cp_state_map_control          GameControl::PanelControl::eStateMapControl map_control
-  gc_cp_state_map_zoom_in          GameControl::PanelControl::eStateMapZoomIn map_zoom_in
-  gc_cp_state_map_zoom_out         GameControl::PanelControl::eStateMapZoomOut map_zoom_out
-  gc_cp_leave_unit                 GameControl::PanelControl::eLeaveUnit  leave_unit
-  gc_cp_game_menu                  GameControl::PanelControl::eGameMenu   game_menu
-  gc_cp_state_highlight_stuff      GameControl::PanelControl::eStateHighlightStuff highlight_stuff
-  gc_cp_state_highlight_corpses    GameControl::PanelControl::eStateHighlightCorpses highlight_corpses
-  gc_cp_state_highlight_silhouettes GameControl::PanelControl::eStateHighlightSilhouettes highlight_silhouettes
-  gc_cp_browse_attack              GameControl::PanelControl::eStateAttack cp_attack
-  gc_cp_browse_useitem             GameControl::PanelControl::eStateUseItem cp_use
-  gc_cp_browse_special             GameControl::PanelControl::eStateSpecialItem cp_special
-  gc_cp_browse_emplacement         GameControl::PanelControl::eStateEmplacementItem cp_emplacement
-  gc_cp_browse_back                GameControl::PanelControl::eStateBack  cp_back
-  gc_cp_dummy                      GameControl::PanelControl::eStateDummy dummy
+  gc_cp_state_pose                 GameControl::PanelControl::ePoseControl dane?      
+  gc_cp_state_fire                 GameControl::PanelControl::eFireControl dane?      fire
+  gc_cp_state_move                 GameControl::PanelControl::eMoveControl dane?      move
+  gc_cp_state_speed                GameControl::PanelControl::eSpeedControl dane?      speed
+  gc_cp_state_cannon               GameControl::PanelControl::eCannonControl dane?      
+  gc_cp_state_hatch                GameControl::PanelControl::eHatchControl dane?      
+  gc_cp_state_reverse              GameControl::PanelControl::eReverseControl dane?      
+  gc_cp_lock_ammo                  GameControl::PanelControl::eLockAmmoControl dane?      lock_ammo
+  gc_cp_state_auto_medic           GameControl::PanelControl::eAutoMedicControl dane?      auto_medic
+  gc_cp_squad_control              GameControl::PanelControl::eSquadControl dane?      
+  gc_cp_state_weapon               GameControl::PanelControl::eWeaponControl dane?      weapon_prepare
+  gc_cp_state_reload               GameControl::PanelControl::eAmmoControl dane?      weapon_reload
+  gc_cp_state_attach               GameControl::PanelControl::eAttachControl dane?      
+  gc_cp_state_supply               GameControl::PanelControl::eSupplyZoneControl dane?      
+  gc_cp_state_altitude             GameControl::PanelControl::eAltitudeControl dane?      
+  gc_cp_state_manual_control       GameControl::PanelControl::eStateManualControl dane?      manual_control
+  gc_cp_state_manual_control_mode  GameControl::PanelControl::eStateManualControlMode dane?      control_type
+  gc_cp_state_inventory            GameControl::PanelControl::eStateInventory dane?      inventory
+  gc_cp_state_objectives           GameControl::PanelControl::eStateObjectives dane?      objectives
+  gc_cp_state_message_history      GameControl::PanelControl::eStateMessageHistory dane?      message_history
+  gc_cp_state_map                  GameControl::PanelControl::eStateMap   dane?      map
+  gc_cp_state_map_control          GameControl::PanelControl::eStateMapControl dane?      map_control
+  gc_cp_state_map_zoom_in          GameControl::PanelControl::eStateMapZoomIn dane?      map_zoom_in
+  gc_cp_state_map_zoom_out         GameControl::PanelControl::eStateMapZoomOut dane?      map_zoom_out
+  gc_cp_leave_unit                 GameControl::PanelControl::eLeaveUnit  dane?      leave_unit
+  gc_cp_game_menu                  GameControl::PanelControl::eGameMenu   dane?      game_menu
+  gc_cp_state_highlight_stuff      GameControl::PanelControl::eStateHighlightStuff dane?      highlight_stuff
+  gc_cp_state_highlight_corpses    GameControl::PanelControl::eStateHighlightCorpses dane?      highlight_corpses
+  gc_cp_state_highlight_silhouettes GameControl::PanelControl::eStateHighlightSilhouettes dane?      highlight_silhouettes
+  gc_cp_browse_attack              GameControl::PanelControl::eStateAttack dane?      cp_attack
+  gc_cp_browse_useitem             GameControl::PanelControl::eStateUseItem dane?      cp_use
+  gc_cp_browse_special             GameControl::PanelControl::eStateSpecialItem dane?      cp_special
+  gc_cp_browse_emplacement         GameControl::PanelControl::eStateEmplacementItem dane?      cp_emplacement
+  gc_cp_browse_back                GameControl::PanelControl::eStateBack  dane?      cp_back
+  gc_cp_dummy                      GameControl::PanelControl::eStateDummy dane?      dummy
 
 === 0x0148bb70  eInterfaceActionCustom.cpp         wpisow: 8
-  eCustomActionOrder               Order::eCustomActionOrder              eCustomActionOrder all report
-  reserve_hands                    Interface::Action::eInstruction_reserve_hands 
-  unreserve_hands                  Interface::Action::eInstruction_unreserve_hands 
-  take_item                        Interface::Action::eInstruction_take_item 
-  free_hands                       Interface::Action::eInstruction_free_hands 
-  disable_action_restart           Interface::Action::eInstruction_disable_action_restart 
-  action_reset                     Interface::Action::eInstruction_action_reset 
-  remove_from_inventory            Interface::Action::eInstruction_remove_from_inventory 
+  eCustomActionOrder               Order::eCustomActionOrder              rozkaz     eCustomActionOrder all report
+  reserve_hands                    Interface::Action::eInstruction_reserve_hands interfejs  
+  unreserve_hands                  Interface::Action::eInstruction_unreserve_hands interfejs  
+  take_item                        Interface::Action::eInstruction_take_item interfejs  
+  free_hands                       Interface::Action::eInstruction_free_hands interfejs  
+  disable_action_restart           Interface::Action::eInstruction_disable_action_restart interfejs  
+  action_reset                     Interface::Action::eInstruction_action_reset interfejs  
+  remove_from_inventory            Interface::Action::eInstruction_remove_from_inventory interfejs  
 
 === 0x0148bc00  eInterfaceActionInstruction.cpp    wpisow: 20
-  bind                             Interface::Action::eInstruction_bind   bone volume range tolerance tries hand
-  place_on_bone                    Interface::Action::eNamedInstruction   
-  fsm_request                      Interface::Action::eNamedInstruction   
-  animation                        Interface::Action::eNamedInstruction   
-  animations                       Interface::Action::eInstruction_animations speed loop random totaltime paint cicledelay delay
-  pour_animation                   Interface::Action::eInstruction_pour_animation barrel can
-  effect                           Interface::Action::eNamedInstruction   
-  effect_object                    Interface::Action::eNamedInstruction   
-  rail_check_free                  Interface::Action::eInstruction_rail_check_free 
-  check_jump_location              Interface::Action::eInstruction_check_jump_location 
-  talk                             Interface::Action::eNamedInstruction   
-  pour_over                        Interface::Action::eInstruction_pour_over spherewater_small pour_over
-  matchbox_fire                    Interface::Action::eInstruction_matchbox_fire match SwapHands
-  injection                        Interface::Action::eInstruction_injection injection
-  undermine                        Interface::Action::eInstruction_undermine undermine SwapHands
-  plant                            Interface::Action::eInstruction_plant  default forward
-  install                          Interface::Action::eInstruction_install 
-  install_begin                    Interface::Action::eInstruction_install 
-  install_end                      Interface::Action::eInstruction_install_end 
-  if                               Interface::Action::eCustom::eInstructions 
+  bind                             Interface::Action::eInstruction_bind   interfejs  bone volume range tolerance tries hand
+  place_on_bone                    Interface::Action::eNamedInstruction   interfejs  
+  fsm_request                      Interface::Action::eNamedInstruction   interfejs  
+  animation                        Interface::Action::eNamedInstruction   interfejs  
+  animations                       Interface::Action::eInstruction_animations interfejs  speed loop random totaltime paint cicledelay delay
+  pour_animation                   Interface::Action::eInstruction_pour_animation interfejs  barrel can
+  effect                           Interface::Action::eNamedInstruction   interfejs  
+  effect_object                    Interface::Action::eNamedInstruction   interfejs  
+  rail_check_free                  Interface::Action::eInstruction_rail_check_free interfejs  
+  check_jump_location              Interface::Action::eInstruction_check_jump_location interfejs  
+  talk                             Interface::Action::eNamedInstruction   interfejs  
+  pour_over                        Interface::Action::eInstruction_pour_over interfejs  spherewater_small pour_over
+  matchbox_fire                    Interface::Action::eInstruction_matchbox_fire interfejs  match SwapHands
+  injection                        Interface::Action::eInstruction_injection interfejs  injection
+  undermine                        Interface::Action::eInstruction_undermine interfejs  undermine SwapHands
+  plant                            Interface::Action::eInstruction_plant  interfejs  default forward
+  install                          Interface::Action::eInstruction_install interfejs  
+  install_begin                    Interface::Action::eInstruction_install interfejs  
+  install_end                      Interface::Action::eInstruction_install_end interfejs  
+  if                               Interface::Action::eCustom::eInstructions interfejs  
 
 === 0x0148bd50  eInterfaceActionInstruction.cpp    wpisow: 26
-  eFortification                   -                                      
-  none                             Interface::Action::e_none              
-  select                           Interface::Action::e_select            
-  disable                          Interface::Action::e_disable           
-  move                             Interface::Action::e_move              SquadMove
-  rotate                           Interface::Action::e_rotate            
-  cover                            Interface::Action::e_cover             
-  accelerate                       Interface::Action::e_accelerate        
-  cancel                           Interface::Action::e_cancel            
-  drop                             Interface::Action::e_drop              XChange DropToGround
-  pour_in                          Interface::Action::e_pour_in           
-  pour_out                         Interface::Action::e_pour_out          spherewater_small
-  fortification                    Interface::Action::e_fortification     
-  board                            Interface::Action::e_board             
-  emit                             Interface::Action::e_emit              
-  enter                            Interface::Action::e_enter             
-  repair                           Interface::Action::e_repair            
-  collect                          Interface::Action::e_collect           
-  examine                          Interface::Action::e_examine           
-  care                             Interface::Action::e_care              
-  injection                        Interface::Action::e_injection         
-  attach                           Interface::Action::e_attach            
-  detach                           Interface::Action::e_detach            
-  reinforce                        Interface::Action::e_reinforce         
-  airstrike                        Interface::Action::e_airstrike         
-  teleport                         Interface::Action::e_teleport          
+  eFortification                   -                                      interfejs  
+  none                             Interface::Action::e_none              interfejs  
+  select                           Interface::Action::e_select            interfejs  
+  disable                          Interface::Action::e_disable           interfejs  
+  move                             Interface::Action::e_move              interfejs  SquadMove
+  rotate                           Interface::Action::e_rotate            interfejs  
+  cover                            Interface::Action::e_cover             interfejs  
+  accelerate                       Interface::Action::e_accelerate        interfejs  
+  cancel                           Interface::Action::e_cancel            interfejs  
+  drop                             Interface::Action::e_drop              interfejs  XChange DropToGround
+  pour_in                          Interface::Action::e_pour_in           interfejs  
+  pour_out                         Interface::Action::e_pour_out          interfejs  spherewater_small
+  fortification                    Interface::Action::e_fortification     interfejs  
+  board                            Interface::Action::e_board             interfejs  
+  emit                             Interface::Action::e_emit              interfejs  
+  enter                            Interface::Action::e_enter             interfejs  
+  repair                           Interface::Action::e_repair            interfejs  
+  collect                          Interface::Action::e_collect           interfejs  
+  examine                          Interface::Action::e_examine           interfejs  
+  care                             Interface::Action::e_care              interfejs  
+  injection                        Interface::Action::e_injection         interfejs  
+  attach                           Interface::Action::e_attach            interfejs  
+  detach                           Interface::Action::e_detach            interfejs  
+  reinforce                        Interface::Action::e_reinforce         interfejs  
+  airstrike                        Interface::Action::e_airstrike         interfejs  
+  teleport                         Interface::Action::e_teleport          interfejs  
 
 === 0x0148bf60  eIC.cpp                            wpisow: 16
-  throw_ap_grenade                 Interface::Action::e_throw_ap_grenade  
-  throw_at_grenade                 Interface::Action::e_throw_at_grenade  
-  throw_sk_grenade                 Interface::Action::e_throw_sk_grenade  
-  aimed_shot                       Interface::Action::e_aimed_shot        
-  bazooka_shot                     Interface::Action::e_bazooka_shot      
-  suppression_fire                 Interface::Action::e_suppression_fire  
-  attack                           Interface::Action::e_attack            
-  advance                          Interface::Action::e_advance           
-  attack_ground                    Interface::Action::e_attack_ground     
-  attack_melee                     Interface::Action::e_attack_melee      
-  heal                             Interface::Action::e_heal              
-  medic                            Interface::Action::e_medic             
-  call_ally                        Interface::Action::e_call_ally         
-  mine                             Interface::Action::e_mine              
-  mine_ap                          Interface::Action::e_mine_ap           
-  mine_at                          Interface::Action::e_mine_at           
+  throw_ap_grenade                 Interface::Action::e_throw_ap_grenade  encja      
+  throw_at_grenade                 Interface::Action::e_throw_at_grenade  encja      
+  throw_sk_grenade                 Interface::Action::e_throw_sk_grenade  encja      
+  aimed_shot                       Interface::Action::e_aimed_shot        encja      
+  bazooka_shot                     Interface::Action::e_bazooka_shot      encja      
+  suppression_fire                 Interface::Action::e_suppression_fire  encja      
+  attack                           Interface::Action::e_attack            encja      
+  advance                          Interface::Action::e_advance           encja      
+  attack_ground                    Interface::Action::e_attack_ground     encja      
+  attack_melee                     Interface::Action::e_attack_melee      encja      
+  heal                             Interface::Action::e_heal              encja      
+  medic                            Interface::Action::e_medic             encja      
+  call_ally                        Interface::Action::e_call_ally         encja      
+  mine                             Interface::Action::e_mine              encja      
+  mine_ap                          Interface::Action::e_mine_ap           encja      
+  mine_at                          Interface::Action::e_mine_at           encja      
 
 === 0x014ae3d8  ?                                  wpisow: 8
-  QName                            xercesc_3_2::QName                     
-  XMLAttDef                        xercesc_3_2::XMLAttDef                 
-  XMLStringPool                    -                                      
-  SchemaGrammar                    -                                      
-  DTDGrammar                       -                                      
-  XMLDTDDescriptionImpl            xercesc_3_2::XMLDTDDescriptionImpl     
-  XMLSchemaDescriptionImpl         xercesc_3_2::XMLSchemaDescriptionImpl  
-  XMLUri                           xercesc_3_2::XMLUri                    
+  QName                            xercesc_3_2::QName                     obce       
+  XMLAttDef                        xercesc_3_2::XMLAttDef                 obce       
+  XMLStringPool                    -                                      ?          
+  SchemaGrammar                    -                                      ?          
+  DTDGrammar                       -                                      ?          
+  XMLDTDDescriptionImpl            xercesc_3_2::XMLDTDDescriptionImpl     obce       
+  XMLSchemaDescriptionImpl         xercesc_3_2::XMLSchemaDescriptionImpl  obce       
+  XMLUri                           xercesc_3_2::XMLUri                    obce       
 
 === 0x014ae4a0  ?                                  wpisow: 1
-  DatatypeValidatorFactory         xercesc_3_2::DatatypeValidatorFactory  
+  DatatypeValidatorFactory         xercesc_3_2::DatatypeValidatorFactory  obce       
 
 === 0x014af748  ?                                  wpisow: 52
-  XSAnnotation                     -                                      
-  Grammar                          -                                      
-  SchemaElementDecl                xercesc_3_2::SchemaElementDecl         
-  XMLElementDecl                   xercesc_3_2::XMLElementDecl            
-  XMLNotationDecl                  xercesc_3_2::XMLNotationDecl           
-  XMLNumber                        xercesc_3_2::XMLNumber                 
-  DatatypeValidator                xercesc_3_2::DatatypeValidator         
-  DTDElementDecl                   xercesc_3_2::DTDElementDecl            
-  XMLEntityDecl                    xercesc_3_2::XMLEntityDecl             
-  DTDEntityDecl                    xercesc_3_2::DTDEntityDecl             
-  IdentityConstraint               -                                      
-  XMLRefInfo                       xercesc_3_2::XMLRefInfo                
-  KVStringPair                     xercesc_3_2::KVStringPair              
-  ContentSpecNode                  xercesc_3_2::ContentSpecNode           
-  DTDAttDef                        xercesc_3_2::DTDAttDef                 
-  SchemaAttDef                     xercesc_3_2::SchemaAttDef              
-  IC_Field                         xercesc_3_2::IC_Field                  
-  XercesGroupInfo                  -                                      
-  XercesAttGroupInfo               xercesc_3_2::XercesAttGroupInfo        
-  XercesNodeTest                   xercesc_3_2::XercesNodeTest            
-  XercesStep                       xercesc_3_2::XercesStep                
-  XercesLocationPath               xercesc_3_2::XercesLocationPath        
-  XercesXPath                      xercesc_3_2::XercesXPath               
-  XMLDTDDescription                xercesc_3_2::XMLDTDDescription         
-  XMLSchemaDescription             xercesc_3_2::XMLSchemaDescription      
-  StringDatatypeValidator          xercesc_3_2::StringDatatypeValidator   
-  BooleanDatatypeValidator         xercesc_3_2::BooleanDatatypeValidator  enumeration
-  DecimalDatatypeValidator         xercesc_3_2::DecimalDatatypeValidator  
-  HexBinaryDatatypeValidator       xercesc_3_2::HexBinaryDatatypeValidator 
-  Base64BinaryDatatypeValidator    xercesc_3_2::Base64BinaryDatatypeValidator 
-  IDDatatypeValidator              xercesc_3_2::IDDatatypeValidator       
-  IDREFDatatypeValidator           xercesc_3_2::IDREFDatatypeValidator    
-  NOTATIONDatatypeValidator        xercesc_3_2::NOTATIONDatatypeValidator 
-  ENTITYDatatypeValidator          xercesc_3_2::ENTITYDatatypeValidator   
-  QNameDatatypeValidator           xercesc_3_2::QNameDatatypeValidator    
-  NameDatatypeValidator            xercesc_3_2::NameDatatypeValidator     
-  NCNameDatatypeValidator          xercesc_3_2::NCNameDatatypeValidator   
-  ListDatatypeValidator            xercesc_3_2::ListDatatypeValidator     
-  UnionDatatypeValidator           xercesc_3_2::UnionDatatypeValidator    
-  DoubleDatatypeValidator          xercesc_3_2::DoubleDatatypeValidator   
-  FloatDatatypeValidator           xercesc_3_2::FloatDatatypeValidator    
-  AnyURIDatatypeValidator          xercesc_3_2::AnyURIDatatypeValidator   
-  AnySimpleTypeDatatypeValidator   xercesc_3_2::AnySimpleTypeDatatypeValidator 
-  DateTimeDatatypeValidator        xercesc_3_2::DateTimeDatatypeValidator 
-  DateDatatypeValidator            xercesc_3_2::DateDatatypeValidator     
-  TimeDatatypeValidator            xercesc_3_2::TimeDatatypeValidator     
-  DayDatatypeValidator             xercesc_3_2::DayDatatypeValidator      
-  MonthDatatypeValidator           xercesc_3_2::MonthDatatypeValidator    
-  MonthDayDatatypeValidator        xercesc_3_2::MonthDayDatatypeValidator 
-  YearDatatypeValidator            xercesc_3_2::YearDatatypeValidator     
-  YearMonthDatatypeValidator       xercesc_3_2::YearMonthDatatypeValidator 
-  DurationDatatypeValidator        xercesc_3_2::DurationDatatypeValidator 
+  XSAnnotation                     -                                      ?          
+  Grammar                          -                                      ?          
+  SchemaElementDecl                xercesc_3_2::SchemaElementDecl         obce       
+  XMLElementDecl                   xercesc_3_2::XMLElementDecl            obce       
+  XMLNotationDecl                  xercesc_3_2::XMLNotationDecl           obce       
+  XMLNumber                        xercesc_3_2::XMLNumber                 obce       
+  DatatypeValidator                xercesc_3_2::DatatypeValidator         obce       
+  DTDElementDecl                   xercesc_3_2::DTDElementDecl            obce       
+  XMLEntityDecl                    xercesc_3_2::XMLEntityDecl             obce       
+  DTDEntityDecl                    xercesc_3_2::DTDEntityDecl             obce       
+  IdentityConstraint               -                                      ?          
+  XMLRefInfo                       xercesc_3_2::XMLRefInfo                obce       
+  KVStringPair                     xercesc_3_2::KVStringPair              obce       
+  ContentSpecNode                  xercesc_3_2::ContentSpecNode           obce       
+  DTDAttDef                        xercesc_3_2::DTDAttDef                 obce       
+  SchemaAttDef                     xercesc_3_2::SchemaAttDef              obce       
+  IC_Field                         xercesc_3_2::IC_Field                  obce       
+  XercesGroupInfo                  -                                      ?          
+  XercesAttGroupInfo               xercesc_3_2::XercesAttGroupInfo        obce       
+  XercesNodeTest                   xercesc_3_2::XercesNodeTest            obce       
+  XercesStep                       xercesc_3_2::XercesStep                obce       
+  XercesLocationPath               xercesc_3_2::XercesLocationPath        obce       
+  XercesXPath                      xercesc_3_2::XercesXPath               obce       
+  XMLDTDDescription                xercesc_3_2::XMLDTDDescription         obce       
+  XMLSchemaDescription             xercesc_3_2::XMLSchemaDescription      obce       
+  StringDatatypeValidator          xercesc_3_2::StringDatatypeValidator   obce       
+  BooleanDatatypeValidator         xercesc_3_2::BooleanDatatypeValidator  obce       enumeration
+  DecimalDatatypeValidator         xercesc_3_2::DecimalDatatypeValidator  obce       
+  HexBinaryDatatypeValidator       xercesc_3_2::HexBinaryDatatypeValidator obce       
+  Base64BinaryDatatypeValidator    xercesc_3_2::Base64BinaryDatatypeValidator obce       
+  IDDatatypeValidator              xercesc_3_2::IDDatatypeValidator       obce       
+  IDREFDatatypeValidator           xercesc_3_2::IDREFDatatypeValidator    obce       
+  NOTATIONDatatypeValidator        xercesc_3_2::NOTATIONDatatypeValidator obce       
+  ENTITYDatatypeValidator          xercesc_3_2::ENTITYDatatypeValidator   obce       
+  QNameDatatypeValidator           xercesc_3_2::QNameDatatypeValidator    obce       
+  NameDatatypeValidator            xercesc_3_2::NameDatatypeValidator     obce       
+  NCNameDatatypeValidator          xercesc_3_2::NCNameDatatypeValidator   obce       
+  ListDatatypeValidator            xercesc_3_2::ListDatatypeValidator     obce       
+  UnionDatatypeValidator           xercesc_3_2::UnionDatatypeValidator    obce       
+  DoubleDatatypeValidator          xercesc_3_2::DoubleDatatypeValidator   obce       
+  FloatDatatypeValidator           xercesc_3_2::FloatDatatypeValidator    obce       
+  AnyURIDatatypeValidator          xercesc_3_2::AnyURIDatatypeValidator   obce       
+  AnySimpleTypeDatatypeValidator   xercesc_3_2::AnySimpleTypeDatatypeValidator obce       
+  DateTimeDatatypeValidator        xercesc_3_2::DateTimeDatatypeValidator obce       
+  DateDatatypeValidator            xercesc_3_2::DateDatatypeValidator     obce       
+  TimeDatatypeValidator            xercesc_3_2::TimeDatatypeValidator     obce       
+  DayDatatypeValidator             xercesc_3_2::DayDatatypeValidator      obce       
+  MonthDatatypeValidator           xercesc_3_2::MonthDatatypeValidator    obce       
+  MonthDayDatatypeValidator        xercesc_3_2::MonthDayDatatypeValidator obce       
+  YearDatatypeValidator            xercesc_3_2::YearDatatypeValidator     obce       
+  YearMonthDatatypeValidator       xercesc_3_2::YearMonthDatatypeValidator obce       
+  DurationDatatypeValidator        xercesc_3_2::DurationDatatypeValidator obce       
 
 === 0x014afaa0  ?                                  wpisow: 2
-  XMLBigDecimal                    xercesc_3_2::XMLBigDecimal             
-  XMLAbstractDoubleFloat           xercesc_3_2::XMLAbstractDoubleFloat    
+  XMLBigDecimal                    xercesc_3_2::XMLBigDecimal             obce       
+  XMLAbstractDoubleFloat           xercesc_3_2::XMLAbstractDoubleFloat    obce       
 
 === 0x014afac8  ?                                  wpisow: 4
-  XMLFloat                         xercesc_3_2::XMLFloat                  
-  XMLDouble                        xercesc_3_2::XMLDouble                 
-  XMLDateTime                      -                                      
-  SchemaAttDefList                 xercesc_3_2::SchemaAttDefList          
+  XMLFloat                         xercesc_3_2::XMLFloat                  obce       
+  XMLDouble                        xercesc_3_2::XMLDouble                 obce       
+  XMLDateTime                      -                                      ?          
+  SchemaAttDefList                 xercesc_3_2::SchemaAttDefList          obce       
 
 === 0x014afb58  ?                                  wpisow: 11
-  DTDAttDefList                    xercesc_3_2::DTDAttDefList             
-  IC_Selector                      xercesc_3_2::IC_Selector               
-  IC_Unique                        xercesc_3_2::IC_Unique                 
-  IC_Key                           xercesc_3_2::IC_Key                    
-  IC_KeyRef                        xercesc_3_2::IC_KeyRef                 
-  XMLGrammarDescription            xercesc_3_2::XMLGrammarDescription     
-  AbstractStringValidator          xercesc_3_2::AbstractStringValidator   
-  AbstractNumericFacetValidator    xercesc_3_2::AbstractNumericFacetValidator 
-  AbstractNumericValidator         xercesc_3_2::AbstractNumericValidator  
-  DateTimeValidator                xercesc_3_2::DateTimeValidator         
-  XMLAttDefList                    -                                      
+  DTDAttDefList                    xercesc_3_2::DTDAttDefList             obce       
+  IC_Selector                      xercesc_3_2::IC_Selector               obce       
+  IC_Unique                        xercesc_3_2::IC_Unique                 obce       
+  IC_Key                           xercesc_3_2::IC_Key                    obce       
+  IC_KeyRef                        xercesc_3_2::IC_KeyRef                 obce       
+  XMLGrammarDescription            xercesc_3_2::XMLGrammarDescription     obce       
+  AbstractStringValidator          xercesc_3_2::AbstractStringValidator   obce       
+  AbstractNumericFacetValidator    xercesc_3_2::AbstractNumericFacetValidator obce       
+  AbstractNumericValidator         xercesc_3_2::AbstractNumericValidator  obce       
+  DateTimeValidator                xercesc_3_2::DateTimeValidator         obce       
+  XMLAttDefList                    -                                      ?          
 
 razem tablic: 110

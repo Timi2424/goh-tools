@@ -19,7 +19,8 @@ docs/    jak to dziala i czego sie nauczylismy
 | | |
 |---|---|
 | [docs/harness.md](docs/harness.md) | praca z binarką: polecenia, metoda, przykłady |
-| [docs/testowanie.md](docs/testowanie.md) | pętla edycja → kontrola → gra → log |
+| [docs/testowanie.md](docs/testowanie.md) | **dwie pętle testowe, sondy, kontrola przed startem** |
+| [docs/edytor-misji.md](docs/edytor-misji.md) | **oficjalny podręcznik edytora: selektory, warunki, komendy** |
 | [docs/proces.md](docs/proces.md) | co robić po patchu gry albo moda |
 | [docs/lekcje.md](docs/lekcje.md) | dziesięć rzeczy kupionych crashem |
 | [data/slownik/README.md](data/slownik/README.md) | składnia skryptów wyciągnięta z exe: akcje, termy, selektory, enumy |
@@ -29,9 +30,20 @@ docs/    jak to dziala i czego sie nauczylismy
 ```bash
 raport.bat                    # caly stan do data/raport.txt
 perl test/preflight.pl        # kontrola przed uruchomieniem gry
+perl test/kontekst.pl <nazwa> # czy wolno uzyc tej nazwy i w jakim pliku
 perl pe/goh.pl <exe> info     # binarka
 perl pe/slownik.pl <exe> gen data/slownik   # slownik skladni z binarki
 ```
+
+Dwie rzeczy, które oszczędzają najwięcej czasu:
+
+- **[`test/sondy.inc`](test/sondy.inc)** — gotowe bloki, które zmuszają silnik
+  do potwierdzenia, że kod się wykonał. Cisza w logu nie odróżnia sukcesu od
+  porażki, więc zanim zaczniesz debugować zachowanie, udowodnij, że kod
+  w ogóle dociera do silnika.
+- **laboratorium na luźnej mapie** zamiast konkwisty — pętla skraca się
+  z kilku minut do kilkunastu sekund. Opis w
+  [docs/testowanie.md](docs/testowanie.md), misje w `goh-hf-patch/eksperymenty/lab/`.
 
 Potrzebne: `perl`, `git`, `unzip`.
 
