@@ -227,14 +227,23 @@ if ($cmd eq 'wynik') {
     #   91NNNN  samolot A: N skoczkow na spadochronach                    - hf_lab_zrzut.mi
     #   92NNNN  samolot B: N skoczkow na spadochronach                    - hf_lab_zrzut.mi
     # 999999 to sonda B, nie odczyt - stad jawna lista prefiksow, nie "9xxxxx".
-    my %CO = ('90' => 'wlasciciel: gracz', '91' => 'samolot A - skoczkow na spadochronach:',
-              '92' => 'samolot B - skoczkow na spadochronach:');
+    #   93/94   A/B: ilu ludzi z tagiem po 60 s (kontrolne, bez filtra)
+    #   95/96   A/B: ilu ludzi z tagiem po 25 s (w powietrzu)
+    my %CO = ('90' => 'wlasciciel: gracz',
+              '91' => 'A, 60 s, ze spadochronem (eject_null):',  '92' => 'B, 60 s, ze spadochronem (eject_null):',
+              '93' => 'A, 60 s, wszyscy z tagiem:',               '94' => 'B, 60 s, wszyscy z tagiem:',
+              '95' => 'A, 25 s, wszyscy z tagiem (w powietrzu):', '96' => 'B, 25 s, wszyscy z tagiem (w powietrzu):');
+    # Konkwista (goh-hf-patch/eksperymenty/generuj-wlasciciel.pl):
+    #   81 wlasciciel znacznika, 82 id_1st_player$, 83/84 wlasciciel skoczkow przed/po
+    %CO = (%CO, '81' => 'znacznik zrzutu nalezy do gracza', '82' => 'id_1st_player$ =',
+                '83' => 'skoczkowie PRZED ustawieniem: gracz', '84' => 'skoczkowie PO set+autoassign: gracz');
     my %kody;
-    for (@nowe) { $kody{"$1$2"}++ if /Waypoint (9[0-2])(\d{4}) not found/ }
+    for (@nowe) { $kody{"$1$2"}++ if /Waypoint (9[0-6]|8[1-4])(\d{4}) not found/ }
     for my $k (sort keys %kody) {
         my ($pre, $n) = (substr($k, 0, 2), substr($k, 2) + 0);
-        my $opis = ($pre eq '90' && $n == 9999) ? 'wlasciciel: zaden - selektor z {player "N"} nie zlapal nikogo'
-                                                : "$CO{$pre} $n";
+        my $opis = $n != 9999        ? "$CO{$pre} $n"
+                 : $pre eq '82'      ? "$CO{$pre} poza zakresem 0..16"
+                 :                     "$CO{$pre} ZADEN - selektor z {player \"N\"} nie zlapal nikogo";
         $p->(sprintf "  ODCZYT: %s  (%d x)\n", $opis, $kody{$k});
     }
 
