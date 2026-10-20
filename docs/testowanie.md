@@ -104,6 +104,7 @@ Kończy werdyktem `>>> mozesz testowac` albo `>>> NIE ODPALAJ`.
 | arność `squad_vehicleN` | makro na 10 załóg z siedmioma to ten sam crash |
 | `{spawn "X"}` bez encji | brak `.def` → null → **crash**, najczęstsza przyczyna |
 | nazwy akcji i termów warunków | sprawdzane względem `data/slownik/tablice.txt` z binarki |
+| **klucze `.ext` / `.def`** | **klucz, którego nie ma nigdzie w grze = błąd** — klasa `TravelAltitude` |
 | końce linii vs oryginał | część plików silnika wymaga CRLF |
 | pliki spoza patcha | eksperymenty nie mogą wyciec do wersji produkcyjnej |
 | czy gra chodzi | mody montują się przy starcie, zmiany w trakcie nie wejdą |
@@ -136,9 +137,13 @@ gwarantuje crash.
 ## Czy wolno tego użyć w tym pliku?
 
 ```bash
-perl test/kontekst.pl <nazwa>
-perl test/kontekst.pl --odswiez      # przebuduj korpus z paków (~2 min, 330 MB)
+perl test/kontekst.pl <nazwa>                # jedna nazwa, ułamek sekundy
+perl test/sprawdz-klucze.pl <plik.ext|.def>  # wszystkie klucze pliku naraz
+perl test/kontekst.pl --odswiez              # po update gry albo Hortena
 ```
+
+Pierwsza budowa korpusu trwa ok. 3 minuty (rozpakowanie paków + indeks nazw,
+330 MB). Kolejne przebudowują tylko paki, które się zmieniły.
 
 Słownik z binarki mówi, **co silnik zna**. Nie mówi, **w jakim pliku wolno tego
 użyć**. `TravelAltitude` z tablicy podwozia `airborne` wyglądał jak klucz `.ext` —
@@ -158,6 +163,42 @@ Maxspeed        ->  nie ma w binarce, ale 2 użycia w .ext  ->  wolno
 Zasada: **wystąpienie w prawdziwym pliku tego samego typu jest jedynym pewnym
 dowodem na dopuszczalność.** Binarka służy do zawężania listy kandydatów i do
 obalania — jeśli nazwy nie ma w exe, nie istnieje.
+
+### Co jest dowodem, a co nie
+
+| | |
+|---|---|
+| pliki z paków gry, DLC i Hortena | **tak** |
+| mapy testowe Hortena (`testing_ground*`) | tak, poza naszymi `hf_lab*` |
+| **każdy inny luźny plik w katalogu moda** | **nie** — tam lądują nasze nadpisania i eksperymenty |
+| treść komentarzy | **nie** — `;{TravelAltitude 1}` to nie użycie |
+
+Plik z `TravelAltitude` leżał w modzie luzem. Zaindeksowany, sam by siebie
+„potwierdził”.
+
+### Kontrola całego pliku
+
+`sprawdz-klucze.pl` porównuje każdy klucz `{nazwa …}` z indeksem — w rodzinie
+`.ext` + `.def`, bo `.def` dołącza `.ext` i te same bloki stoją w obu. Działa
+na **dowolnym** pliku, nie tylko w modzie: `TravelAltitude` urodził się
+w eksperymencie. Preflight robi to samo dla naszych plików w modzie.
+
+Na odtworzonym z gita pliku, który wywalił grę:
+
+```
+BRAK  airborne_drop_plane.ext:42  {TravelAltitude}  NIGDZIE w plikach gry
+BRAK  airborne_drop_plane.ext:43  {MaxAltitude}     NIGDZIE w plikach gry
+inny  airborne_drop_plane.ext:41  {altitude}        w grze tylko: .mi (klucz)
+```
+
+Z 27 kluczy dwa nieistniejące. **`MaxAltitude` silnik by znalazł dopiero przy
+następnym uruchomieniu** — zatrzymuje się na pierwszym nieznanym tokenie.
+`{altitude}` to tylko podpowiedź: w grze stoi wyłącznie w `.mi`, a w naszym
+`.ext` wczytywał się bez problemu. Na 12 naszych prawdziwych plikach
+`.ext`/`.def`: zero fałszywych braków.
+
+Inna wielkość liter (`maxspeed` → w grze `Maxspeed`, `MaxSpeed`) to też tylko
+podpowiedź — nie wiemy, czy silnik ją rozróżnia.
 
 ---
 
