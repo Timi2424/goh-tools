@@ -813,7 +813,7 @@
   mission_option                   Helper::eTerm_mission_option           warunek    name mission_option
 
 === 0x01485ce0  eHelperThreadStatement.cpp         wpisow: 6
-  if                               -                                      ?          
+  if                               -                                      trigger    
   while                            Helper::Thread::eStatementWhile        trigger    condition input command_browser2
   switch                           Helper::Thread::eStatementSwitch       trigger    default case input command_browser2
   loop                             Helper::Thread::eStatementLoop         trigger    count input command_browser2

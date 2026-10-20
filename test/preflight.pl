@@ -46,14 +46,19 @@ print "=== pliki luzne w modzie: ", scalar @loose, " (nasze: ", scalar @mine, ")
 # Komentarze wycinamy PRZED liczeniem: pliki GEM2 zawieraja wiersze w rodzaju
 # ";//{state", czyli komentarz z niesparowanym nawiasem. Silnik je pomija,
 # wiec liczenie surowego tekstu dawaloby falszywy alarm.
+#
+# Komentarzem jest SAM srednik do konca wiersza - ";//" i ";/*" to tylko
+# konwencja. Gra ma wiersze "; Presets for health..." i ';("elite_vision")'.
+# Srednik w stringu (" ;" wystepuje w plikach gry) komentarzem nie jest,
+# stad przepuszczanie stringow. Znaki nowej linii zostaja, zeby numery
+# wierszy w komunikatach zgadzaly sie z plikiem.
 print "--- nawiasy ---\n";
 my $sklejki = 0;
 for my $f (@mine) {
     next unless $f =~ /\.(inc|set|reg|ext|pattern|def|mi)$/i;
     open(my $h,'<:raw',$f) or next; local $/; my $raw = <$h>; close $h;
     my $c = $raw;
-    $c =~ s{;/\*.*?\*/}{}gs;      # komentarz blokowy
-    $c =~ s{;//[^\n]*}{}g;        # komentarz do konca wiersza
+    $c =~ s/("(?:[^"\\\n]|\\.)*")|;[^\n]*/defined $1 ? $1 : ''/ge;
     my $o = ($c =~ tr/{//); my $z = ($c =~ tr/}//);
     my $p = ($c =~ tr/(//); my $q = ($c =~ tr/)//);
     my $n = short($f);

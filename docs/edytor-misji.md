@@ -21,7 +21,7 @@ PDF nie ma warstwy tekstowej do wygodnego czytania; tekst wyciąga
 
 | nasze ustalenie | podręcznik mówi |
 |---|---|
-| `air_state` działa **przyrostowo** | `altitude` to **wysokość lotu w metrach**, wartość bezwzględna |
+| `air_state` działa **przyrostowo** | `altitude` to **wysokość lotu w metrach** — o przyroście ani słowa; nasza obserwacja wymaga ponownego pomiaru |
 | `emit` „nie działa na samolot" | `emit` **wysadza aktorów na wskazanym waypoincie** — bez waypointa nie ma gdzie ich postawić |
 | numeracja graczy jest zagadką | strony są numerowane **player 0 … player 7**, a edytor pozwala nadać im aliasy i relacje |
 | selektor nie umie czytać właściciela | Local selector ma pole **`player`** — „entities of the indicated player only are selected" |

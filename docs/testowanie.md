@@ -4,7 +4,7 @@ Są dwie pętle. Wybór między nimi jest najważniejszą decyzją w całym dniu
 
 | | laboratorium | konkwista |
 |---|---|---|
-| jeden przebieg | **kilkanaście sekund** | kilka minut |
+| jeden przebieg | **cel: poniżej minuty** (jeszcze niezmierzone, #12) | kilka minut |
 | co trzeba zrobić | Reload, Start | restart gry, wejście w bitwę, zakup |
 | prędkość gry | **10× … 0,1×** | 1× |
 | co da się testować | triggery, skrypty encji, własność, fizyka | to samo + ekonomia i sklep |
@@ -62,7 +62,7 @@ w ogóle się wykonuje.
 |---|---|---|
 | celowy błędny klucz | ścieżka ładowania, plik, numer linii, token z `«` | parsowanie |
 | `{waypoint "999999"}` | `Waypoint 999999 not found` | czas gry, log |
-| nieistniejąca kość w `{spawn}` | `Bone X not found in Y` | czas gry, log |
+| nieistniejąca kość w `{spawn}` | `Bone X not found in Y` — **niezweryfikowane** | czas gry, log |
 | `{"timer" {time N}}` | liczba na HUD | czas gry, ekran |
 
 Gotowe bloki do wklejenia: **[`test/sondy.inc`](../test/sondy.inc)**.
@@ -106,7 +106,8 @@ Kończy werdyktem `>>> mozesz testowac` albo `>>> NIE ODPALAJ`.
 | pliki spoza patcha | eksperymenty nie mogą wyciec do wersji produkcyjnej |
 | czy gra chodzi | mody montują się przy starcie, zmiany w trakcie nie wejdą |
 
-Komentarze są wycinane przed liczeniem nawiasów — pliki GEM2 zawierają wiersze
+Komentarze (średnik do końca wiersza, poza stringami) są wycinane przed liczeniem
+nawiasów — pliki GEM2 zawierają wiersze
 w rodzaju `;//{state`, czyli komentarz z niesparowanym nawiasem.
 
 Dwie kontrole mają **znane fałszywe alarmy** i zgłaszają ostrzeżenie zamiast

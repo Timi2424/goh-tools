@@ -324,15 +324,20 @@ sub owner_map {
 # To ZAWEZENIE LISTY KANDYDATOW, nie dowod. Jedynym dowodem na dopuszczalnosc
 # jest wystapienie w prawdziwym pliku tego samego typu - od tego jest
 # test/kontekst.pl.
+#
+# Musi sie zgadzac z %REJESTRY w test/gem2.pm - to ta sama klasyfikacja,
+# ktorej uzywa preflight. Rozjazd znaczylby, ze slownik mowi "trigger",
+# a kontrola traktuje nazwe jak term warunku.
 sub kontekst {
     my ($modul, $cls) = @_;
     $modul //= '?'; $cls //= '-';
 
     return 'warunek'   if $cls   =~ /^Helper::eTerm_/
-                       || $modul =~ /^eHelperConditionTerm/;
+                       || $modul =~ /^eHelperConditionTerm/
+                       || $modul =~ /^eHelperWaypointSelector/;
     return 'trigger'   if $cls   =~ /^Helper::/
                        || $modul =~ /^eHelperCommand/
-                       || $modul =~ /^eHelperWaypointSelector/;
+                       || $modul =~ /^eHelperThreadStatement/;
     return 'encja'     if $cls   =~ /^Interaction::/
                        || $modul =~ /^eIA_/ || $modul eq 'eIC.cpp';
     return 'rozkaz'    if $cls   =~ /^Order::/     || $modul =~ /^eOrder/;

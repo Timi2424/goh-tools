@@ -122,12 +122,23 @@ if (opendir(my $dh, $DUMPS)) {
         say_(sprintf("  najnowszy: %s", $f[-1]));
         say_(sprintf("  z %s, %d B, lacznie plikow: %d",
              strftime("%Y-%m-%d %H:%M", localtime $s[9]), $s[7], scalar @f));
-        if (open(my $h, '<', $last)) { @crashlog = <$h>; close $h }
+
+        # Pliki crasha zostaja na zawsze, wiec "najnowszy" bywa sprzed tygodnia.
+        # Bez tego sprawdzenia kazdy raport pokazywalby trafienie sondy z dawno
+        # zakonczonej sesji, jakby padlo przed chwila. Crash z BIEZACEJ sesji
+        # konczy tez game.log - ich czasy modyfikacji leza blisko siebie.
+        my $log_mtime = -f $LOG ? (stat $LOG)[9] : 0;
+        if ($log_mtime && abs($s[9] - $log_mtime) > 120) {
+            say_("  STARY - z poprzedniej sesji, nie z tej, ktora zapisala game.log.");
+            say_("  Sondy z niego pomijam.");
+        } elsif (open(my $h, '<', $last)) { @crashlog = <$h>; close $h }
 
         my $d = "$ROOT/data/logi"; mkdir $d unless -d $d;
         my $n = "$d/crash_" . strftime("%m%d_%H%M", localtime $s[9]) . ".log";
+        # kopiujemy plik, nie @crashlog - przy starym crashu tablica jest pusta
         unless (-f $n) {
-            if (open(my $w, '>', $n)) { print $w @crashlog; close $w; say_("  kopia: $n") }
+            require File::Copy;
+            File::Copy::copy($last, $n) and say_("  kopia: $n");
         }
     } else { say_("  brak plikow crasha (dobrze)") }
 } else { say_("  brak katalogu $DUMPS") }

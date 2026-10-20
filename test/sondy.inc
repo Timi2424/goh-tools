@@ -30,8 +30,11 @@
 ;// PLIK, NUMER LINII i sam token oznaczony znakiem <<.
 ;//
 ;// Gdzie: byle gdzie w badanym .def / .ext / .inc
-;// Szukaj w logu: "unexpected token (eResource.cpp:102)"
-;//                albo "(eInteractionEntityInfo.cpp:66)"
+;// Szukaj: "unexpected token (eResource.cpp:102)"
+;//         albo "(eInteractionEntityInfo.cpp:66)"
+;// UWAGA: to NIE trafia do game.log, tylko do
+;//   Documents/My Games/gates of hell/log/minidumps/*.crash.mdmp.log
+;// test/raport.pl czyta oba pliki (sekcja SONDY).
 ;// Odczyt: komunikat jest = plik zyje. Brak komunikatu = plik MARTWY.
 ;//
 ;// UWAGA: to celowo wywala wczytywanie. Usun po odczycie.
@@ -75,6 +78,10 @@
 ;//
 ;// Gdzie: {actions} badanego triggera
 ;// Szukaj w logu: "Waypoint 999999 not found"
+;//
+;// Warunek: selektor musi zlapac CHOCIAZ JEDNA jednostke. Bez nikogo,
+;// kogo mozna wyslac, silnik moze w ogole nie szukac waypointa i sonda
+;// zamilknie mimo wykonania triggera. W laboratorium tag to _lab.
 ;//-------------------------------------------------------------------*/
 
 	{"waypoint"
@@ -200,17 +207,22 @@
 ;/*---------------------------------------------------------------------
 ;// SONDA 6: CZY SKRYPT ENCJI DOSZEDL DO TEGO MIEJSCA?
 ;//
+;// !!! NIEZWERYFIKOWANA - sprawdz najpierw w laboratorium !!!
+;//
 ;// Kontekst skryptu encji (.inc, blok {on ...}) - tu nie ma triggerow
-;// ani zegara. Nieistniejaca kosc daje wpis w logu.
+;// ani zegara. Pomysl: nieistniejaca kosc, a binarka ma komunikat
+;// "Bone %s not found in %s" (0x010cfed0). Nie wiemy jednak, czy ten
+;// komunikat leci akurat ze spawnu na kosci, czy z czegos innego -
+;// a nieistniejaca ENCJA w {spawn} to najczestsza przyczyna crasha.
+;//
+;// Dlatego encja jest prawdziwa: spheredust_norm, 12 uzyc w gamelogic.pak
+;// jako {spawn "spheredust_norm" "fx_sandbag2"}. Falszywa jest tylko kosc.
 ;//
 ;// Gdzie: wewnatrz {on "nazwa"} w set/interaction_entity/*.inc
-;// Szukaj w logu: "Bone HF_SONDA not found in"
-;//
-;// Zaleta nad celowym bledem skladni: NIE wywala wczytywania, wiec
-;// test idzie dalej i widac, co dzieje sie potem.
+;// Szukaj w logu: "Bone HF_SONDA_KOSC not found in"
 ;//-------------------------------------------------------------------*/
 
-	{spawn "dummy" "HF_SONDA_KOSC"}
+	{spawn "spheredust_norm" "HF_SONDA_KOSC"}
 
 
 ;/*---------------------------------------------------------------------

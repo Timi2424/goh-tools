@@ -103,13 +103,45 @@ die "uzycie: perl test/kontekst.pl <nazwa> [...]\n       perl test/kontekst.pl -
     unless @szukane;
 buduj() unless -f "$CACHE/.gotowe";
 
+# Korpus jest migawka. Po update gry albo Hortena przestaje odpowiadac temu,
+# co silnik naprawde wczytuje - mowimy to wprost zamiast cicho klamac.
+{
+    my $kiedy = (stat "$CACHE/.gotowe")[9] // 0;
+    my @nowsze = grep { -f $_->[1] && (stat $_->[1])[9] > $kiedy } @PAKI;
+    if (@nowsze) {
+        printf "UWAGA: %d pak(ow) nowszych niz korpus (%s...) - odpal --odswiez\n",
+            scalar @nowsze, $nowsze[0][0];
+    }
+}
+
 # ---------- zbierz pliki ----------
+# NASZE PLIKI NIE SA DOWODEM. Luzne nadpisania z paczki patcha i misje
+# laboratorium leza w katalogu Hortena; liczenie ich jako "wystapienia w grze"
+# to dowodzenie skladni wlasnym kodem - dokladnie to, przed czym ten skrypt
+# ma chronic.
+my $PATCH = '/c/Users/PC/Documents/goh-hf-patch/resource';
+my %nasze;
+if (-d $PATCH) {
+    find(sub {
+        return unless -f;
+        (my $rel = $File::Find::name) =~ s{^\Q$PATCH\E/}{};
+        $nasze{"$HF/$rel"} = 1;
+    }, $PATCH);
+}
 my @pliki;
+my $pominiete = 0;
 for my $d ($CACHE, $HF, $GAME) {
     next unless -d $d;
-    find(sub { push @pliki, $File::Find::name if -f && /$ROZSZ/ }, $d);
+    find(sub {
+        return unless -f && /$ROZSZ/;
+        my $p = $File::Find::name;
+        if ($nasze{$p} || $p =~ m{/hf_lab[^/]*\.mi$}i || $p =~ m{/eksperymenty/}) {
+            $pominiete++; return;
+        }
+        push @pliki, $p;
+    }, $d);
 }
-printf "korpus: %d plikow\n", scalar @pliki;
+printf "korpus: %d plikow (pominiete nasze: %d)\n", scalar @pliki, $pominiete;
 
 # ---------- slownik ----------
 sub ze_slownika {
@@ -186,8 +218,13 @@ for my $nazwa (@szukane) {
 
     print "\n-- wystapienia w prawdziwych plikach --\n";
     if (!$razem) {
-        print "  ZADNEGO. Nazwa z binarki bez ani jednego uzycia w grze to\n";
-        print "  KANDYDAT, nie skladnia - patrz TravelAltitude.\n";
+        if (@d) {
+            print "  ZADNEGO. Silnik zna te nazwe, ale gra jej nigdzie nie uzywa -\n";
+            print "  to KANDYDAT, nie potwierdzona skladnia. Sprawdz w laboratorium.\n";
+        } else {
+            print "  ZADNEGO. Ani w binarce, ani w plikach gry - NIE ISTNIEJE.\n";
+            print "  (tak wygladal TravelAltitude przed crashem)\n";
+        }
         next;
     }
     my $suma = sub { my $h = shift; ($h->{klucz}//0) + ($h->{blok}//0) + ($h->{par}//0) };
