@@ -15,8 +15,34 @@ co kilka tygodni — po update przegeneruj, nie przepisuj.
 
 | plik | co zawiera |
 |---|---|
-| `tablice.txt` | 110 rejestrów, 738 nazw: akcja/term → klasa C++ → przyjmowane parametry |
+| `tablice.txt` | 110 rejestrów, 738 nazw: akcja/term → klasa C++ → **kontekst** → przyjmowane parametry |
 | `enumy.txt` | 76 tablic nazw zakończonych NULL-em (wartości dla `{mode …}`, `{state …}` itp.) |
+
+### Kolumna `kontekst`
+
+Mówi, **w jakim pliku** wolno nazwy użyć. Tablice w `.rdata` mieszają co najmniej
+cztery rodzaje nazw i sama nazwa niczego nie rozstrzyga.
+
+| wartość | znaczenie |
+|---|---|
+| `trigger` | komenda w `{actions}` misji albo `dcg_script.inc` |
+| `warunek` | term warunku (`Helper::eTerm_*`) |
+| `encja` | akcja skryptu encji w `set/interaction_entity/*.inc` |
+| `rozkaz` | wewnętrzny rozkaz silnika, nie składnia skryptu |
+| `interfejs` | akcja UI |
+| `dane?` | **prawdopodobnie** klucz pliku danych — znak zapytania jest celowy |
+| `obce` | Lua, Xerces, alokatory — nie nasza składnia |
+| `?` | nierozstrzygnięte |
+
+Kontekst wyprowadzamy z klasy C++ i z pliku źródłowego, w którym leży string.
+To **zawężenie listy kandydatów, nie dowód** — `TravelAltitude` z tablicy podwozia
+`airborne` wyglądał jak klucz `.ext`, a wpisany do `.ext` wywalił grę.
+
+Dowód daje dopiero wystąpienie w prawdziwym pliku tego samego typu:
+
+```bash
+perl test/kontekst.pl <nazwa>
+```
 
 > **Nie wszystko tu jest GEM2.** 18 rejestrów z modułem `?` (228 nazw) to biblioteka
 > standardowa Lua (`0x0115xxxx` — `io`, `os`, `string`, `bit32`) i parser XML Xerces

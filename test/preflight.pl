@@ -42,18 +42,36 @@ my @mine = grep { !m{/(interface/splash|map/testing_ground|message\.txt)} } @loo
 
 print "=== pliki luzne w modzie: ", scalar @loose, " (nasze: ", scalar @mine, ") ===\n\n";
 
-# ---------- 1. nawiasy ----------
+# ---------- 1. nawiasy i sklejone wiersze ----------
+# Komentarze wycinamy PRZED liczeniem: pliki GEM2 zawieraja wiersze w rodzaju
+# ";//{state", czyli komentarz z niesparowanym nawiasem. Silnik je pomija,
+# wiec liczenie surowego tekstu dawaloby falszywy alarm.
 print "--- nawiasy ---\n";
+my $sklejki = 0;
 for my $f (@mine) {
-    next unless $f =~ /\.(inc|set|reg|ext|pattern|def)$/i;
-    open(my $h,'<:raw',$f) or next; local $/; my $c = <$h>; close $h;
+    next unless $f =~ /\.(inc|set|reg|ext|pattern|def|mi)$/i;
+    open(my $h,'<:raw',$f) or next; local $/; my $raw = <$h>; close $h;
+    my $c = $raw;
+    $c =~ s{;/\*.*?\*/}{}gs;      # komentarz blokowy
+    $c =~ s{;//[^\n]*}{}g;        # komentarz do konca wiersza
     my $o = ($c =~ tr/{//); my $z = ($c =~ tr/}//);
     my $p = ($c =~ tr/(//); my $q = ($c =~ tr/)//);
     my $n = short($f);
     if ($o != $z) { bad "$n  klamry $o/$z" }
     elsif ($p != $q) { bad "$n  nawiasy okragle $p/$q" }
+
+    # Sklejka }{"nazwa" BILANSUJE SIE POPRAWNIE i domyka do zera, wiec zadna
+    # kontrola glebokosci jej nie zlapie - a parser po cichu polyka caly blok.
+    # Zero bledow w logu, zero efektu w grze. Kosztowalo piec przebiegow.
+    my $ln = 0;
+    for my $line (split /\n/, $c) {
+        $ln++;
+        next unless $line =~ /\}[ \t]*\{"/;
+        bad "$n:$ln  sklejony wiersz }{\"nazwa\" - parser polknie ten blok";
+        $sklejki++;
+    }
 }
-ok "wszystkie zbilansowane" unless $err;
+ok "wszystkie zbilansowane, brak sklejek" unless $err;
 
 # ---------- 2. niepodstawione makra ----------
 print "\n--- niepodstawione parametry makr ---\n";

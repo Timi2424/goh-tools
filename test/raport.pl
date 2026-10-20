@@ -20,7 +20,9 @@ my $PATCH = 'C:/Users/PC/Documents/goh-hf-patch';
 my $MOD   = 'C:/Program Files (x86)/Steam/steamapps/workshop/content/400750/3359417100';
 my $GAME  = 'C:/Program Files (x86)/Steam/steamapps/common/Call to Arms - Gates of Hell';
 my $LOG   = "$ENV{USERPROFILE}/Documents/My Games/gates of hell/log/game.log";
+my $DUMPS = "$ENV{USERPROFILE}/Documents/My Games/gates of hell/log/minidumps";
 my $OUT   = "$ROOT/data/raport.txt";
+my $GAMELOG = [];   # tresc game.log, wypelniana nizej, czytana przez sekcje SONDY
 
 mkdir "$ROOT/data" unless -d "$ROOT/data";
 open(my $R, '>', $OUT) or die "$OUT: $!";
@@ -95,11 +97,76 @@ if (-f $LOG) {
         say_(''); say_("  --- encje (ostatnie 20) ---");
         say_("  " . ($_ =~ s/\s+$//r)) for @e[($#e > 19 ? $#e-19 : 0) .. $#e];
     }
+
+    $GAMELOG = \@t;
     # archiwum
     my $d = "$ROOT/data/logi"; mkdir $d unless -d $d;
     my $n = "$d/game_" . strftime("%m%d_%H%M", localtime) . ".log";
     if (open(my $w, '>', $n)) { print $w @t; close $w; say_(''); say_("  kopia: $n") }
 } else { say_("  brak logu") }
+
+# ---------- log crasha ----------
+# NAJWAZNIEJSZE ZNALEZISKO HARNESSU: komunikat "unexpected token" ze sciezka
+# ladowania, nazwa pliku, numerem linii i tokenem oznaczonym << NIE TRAFIA do
+# game.log. Siedzi w log/minidumps/*.crash.mdmp.log. Przez to najmocniejsza
+# sonda, jaka mamy, byla przez caly czas poza raportem.
+hdr("LOG CRASHA (minidumps)");
+my @crashlog;
+if (opendir(my $dh, $DUMPS)) {
+    my @f = sort { (stat "$DUMPS/$a")[9] <=> (stat "$DUMPS/$b")[9] }
+            grep { /\.crash\.mdmp\.log$/ } readdir $dh;
+    closedir $dh;
+    if (@f) {
+        my $last = "$DUMPS/$f[-1]";
+        my @s = stat $last;
+        say_(sprintf("  najnowszy: %s", $f[-1]));
+        say_(sprintf("  z %s, %d B, lacznie plikow: %d",
+             strftime("%Y-%m-%d %H:%M", localtime $s[9]), $s[7], scalar @f));
+        if (open(my $h, '<', $last)) { @crashlog = <$h>; close $h }
+
+        my $d = "$ROOT/data/logi"; mkdir $d unless -d $d;
+        my $n = "$d/crash_" . strftime("%m%d_%H%M", localtime $s[9]) . ".log";
+        unless (-f $n) {
+            if (open(my $w, '>', $n)) { print $w @crashlog; close $w; say_("  kopia: $n") }
+        }
+    } else { say_("  brak plikow crasha (dobrze)") }
+} else { say_("  brak katalogu $DUMPS") }
+
+# ---------- sondy ----------
+# Osobna sekcja, bo to jedyne wpisy, ktore znacza "kod DOSZEDL tutaj".
+# Reszta logu mowi, co sie zepsulo; sondy mowia, co sie wykonalo.
+# Katalog blokow do wklejenia: test/sondy.inc
+hdr("SONDY");
+my @sondy = (
+    ['plik zyje (blad parsowania)' => qr/unexpected token/,       'ladowanie dotarlo do pliku', 20],
+    ['sonda waypointa'             => qr/Waypoint \S+ not found/, 'akcja triggera sie wykonala', 0],
+    ['sonda kosci'                 => qr/Bone \S+ not found/,     'skrypt encji doszedl do spawnu', 0],
+    ['nieznana komenda skryptu'    => qr/unknown script command/, 'nazwa akcji nie istnieje', 0],
+    ['nieznany squad'              => qr/Squad "\S+" not found/,  'akcja squad sie wykonala', 0],
+    ['nasz znacznik hf_sonda'      => qr/hf_sonda/i,              'cokolwiek nazwanego hf_sonda', 0],
+);
+my $trafien = 0;
+for my $zrodlo (['game.log', $GAMELOG], ['crash.mdmp.log', \@crashlog]) {
+    my ($skad, $lines) = @$zrodlo;
+    next unless @$lines;
+    for my $s (@sondy) {
+        my ($nazwa, $re, $znaczy, $ctx) = @$s;
+        my @hit = grep { $_ =~ $re } @$lines;
+        next unless @hit;
+        $trafien += @hit;
+        say_('');
+        say_(sprintf("  [%s] %d x  w %s  - %s", $nazwa, scalar @hit, $skad, $znaczy));
+        for my $i (0 .. $#$lines) {
+            next unless $lines->[$i] =~ $re;
+            my $do = $i + $ctx; $do = $#$lines if $do > $#$lines;
+            say_("    " . ($_ =~ s/\s+$//r)) for @{$lines}[$i .. $do];
+            last;
+        }
+    }
+}
+say_('');
+say_($trafien ? "  RAZEM trafien sond: $trafien"
+              : "  zadna sonda nie trafila - albo nie wpieta, albo kod NIE DOCHODZI");
 
 close $R;
 print "\n\nzapisane: $OUT\n";

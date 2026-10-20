@@ -314,6 +314,39 @@ sub owner_map {
     \%own;
 }
 
+# ---------- kontekst: W JAKIM PLIKU wolno uzyc tej nazwy ----------
+# Tablice w .rdata mieszaja co najmniej cztery rodzaje nazw: akcje triggerow,
+# termy warunkow, akcje skryptow encji i klucze plikow danych. Sama nazwa
+# niczego nie rozstrzyga - "TravelAltitude" z tablicy podwozia airborne
+# wygladal jak klucz .ext, a wpisany do .ext dal crash.
+#
+# Wyprowadzamy kontekst z klasy C++ i z pliku zrodlowego, w ktorym string lezy.
+# To ZAWEZENIE LISTY KANDYDATOW, nie dowod. Jedynym dowodem na dopuszczalnosc
+# jest wystapienie w prawdziwym pliku tego samego typu - od tego jest
+# test/kontekst.pl.
+sub kontekst {
+    my ($modul, $cls) = @_;
+    $modul //= '?'; $cls //= '-';
+
+    return 'warunek'   if $cls   =~ /^Helper::eTerm_/
+                       || $modul =~ /^eHelperConditionTerm/;
+    return 'trigger'   if $cls   =~ /^Helper::/
+                       || $modul =~ /^eHelperCommand/
+                       || $modul =~ /^eHelperWaypointSelector/;
+    return 'encja'     if $cls   =~ /^Interaction::/
+                       || $modul =~ /^eIA_/ || $modul eq 'eIC.cpp';
+    return 'rozkaz'    if $cls   =~ /^Order::/     || $modul =~ /^eOrder/;
+    return 'interfejs' if $cls   =~ /^Interface::/ || $modul =~ /^eInterfaceAction/
+                       || $modul =~ /^ui_/        || $modul =~ /^mp_/;
+    return 'obce'      if $cls   =~ /^xercesc/     || $modul =~ /^e(Heap|Referenced)/;
+
+    # Klucze plikow danych. ZNAK ZAPYTANIA JEST CELOWY: te moduly serializuja
+    # i .ext, i stan gry, i API skryptowe - rozroznic tego z binarki nie umiemy.
+    return 'dane?'     if $modul =~ /^e(Chassis|HumanBreed|Actor|Entity|GameEntity|Body|Material|Scene|Human|Inventory)/
+                       || $cls   =~ /^(Actor|Entity|Scene|Human|Inventory|GameControl|DDA|User)::/;
+    '?';
+}
+
 # ================= komendy =================
 if ($cmd eq 'tablice' || $cmd eq 'enumy' || $cmd eq 'gen') {
     my @t = scan_tables();
@@ -326,7 +359,8 @@ if ($cmd eq 'tablice' || $cmd eq 'enumy' || $cmd eq 'gen') {
             for my $en (@{$tb->{ent}}) {
                 my ($vt,$cls) = factory($en->[1]);
                 my @p = class_params($vt, $m);
-                $out_tab .= sprintf "  %-32s %-38s %s\n", $en->[0], $cls // '-', join(' ', @p);
+                $out_tab .= sprintf "  %-32s %-38s %-10s %s\n",
+                    $en->[0], $cls // '-', kontekst($m, $cls), join(' ', @p);
             }
         }
         $out_tab .= sprintf "\nrazem tablic: %d\n", scalar @t;
@@ -343,8 +377,12 @@ if ($cmd eq 'tablice' || $cmd eq 'enumy' || $cmd eq 'gen') {
             $by{$h->[1]}{ $own->{$fs} // module_of($fs) } = 1;
         }
         for my $e (@en) {
-            $out_en .= sprintf "0x%08x  %-44s %s\n", $e->{rva},
-                (join(',', sort keys %{$by{$e->{rva}} || {}}) || '?'),
+            my @src = sort keys %{$by{$e->{rva}} || {}};
+            my %k; $k{ kontekst($_, $_) } = 1 for (@src ? @src : ('?'));
+            delete $k{'?'} if keys %k > 1;
+            $out_en .= sprintf "0x%08x  %-44s %-10s %s\n", $e->{rva},
+                (join(',', @src) || '?'),
+                join('/', sort keys %k),
                 join(' ', map { "\"$_\"" } @{$e->{v}});
         }
     }
