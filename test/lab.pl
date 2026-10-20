@@ -222,13 +222,20 @@ if ($cmd eq 'wynik') {
     # Odczyt liczby przez numer waypointa: 9xxxxx. Zegar okazal sie zlym
     # wyswietlaczem (odlicza w dol, "11" znika po 11 s). Konwencja z hf_lab.mi:
     # 900000+N = gracz N, 909999 = selektor nie zlapal nikogo.
-    # Tylko 900000-909999 - szerszy wzorzec lapal sonde B (999999) jako "gracz 99999".
+    # Konwencja kodow (pierwsze dwie cyfry = co mierzymy, cztery ostatnie = wartosc):
+    #   90NNNN  wlasciciel: gracz N (909999 = selektor nie zlapal nikogo)  - hf_lab.mi
+    #   91NNNN  samolot A: N skoczkow na spadochronach                    - hf_lab_zrzut.mi
+    #   92NNNN  samolot B: N skoczkow na spadochronach                    - hf_lab_zrzut.mi
+    # 999999 to sonda B, nie odczyt - stad jawna lista prefiksow, nie "9xxxxx".
+    my %CO = ('90' => 'wlasciciel: gracz', '91' => 'samolot A - skoczkow na spadochronach:',
+              '92' => 'samolot B - skoczkow na spadochronach:');
     my %kody;
-    for (@nowe) { $kody{$1}++ if /Waypoint 90(\d{4}) not found/ }
+    for (@nowe) { $kody{"$1$2"}++ if /Waypoint (9[0-2])(\d{4}) not found/ }
     for my $k (sort keys %kody) {
-        my $n = $k + 0;
-        $p->(sprintf "  ODCZYT: %s  (%d x)\n",
-             $n == 9999 ? 'zaden - selektor z {player "N"} nie zlapal nikogo' : "gracz $n", $kody{$k});
+        my ($pre, $n) = (substr($k, 0, 2), substr($k, 2) + 0);
+        my $opis = ($pre eq '90' && $n == 9999) ? 'wlasciciel: zaden - selektor z {player "N"} nie zlapal nikogo'
+                                                : "$CO{$pre} $n";
+        $p->(sprintf "  ODCZYT: %s  (%d x)\n", $opis, $kody{$k});
     }
 
     # --- zrzuty ekranu od znacznika ---
