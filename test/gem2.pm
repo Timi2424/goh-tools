@@ -30,7 +30,82 @@ use strict; use warnings;
 # Komentarze wycinamy bez zjadania '\n', wiec liczba nowych linii przed danym
 # offsetem w tekscie obcietym jest ta sama co w oryginale - numery linii zgadzaja
 # sie mimo przesunietych offsetow.
-sub bez_komentarzy { my $t = shift; $t =~ s/;[^\n]*//g; $t }
+#
+# Srednik w stringu NIE jest komentarzem - w plikach gry wystepuje " ;".
+# Bez tego wyjatku obciety string zostawial niesparowany cudzyslow i tokenizer
+# czytal reszte wiersza jak smieci.
+sub bez_komentarzy {
+    my $t = shift;
+    $t =~ s/("(?:[^"\\\n]|\\.)*")|;[^\n]*/defined $1 ? $1 : ''/ge;
+    $t;
+}
+
+# ---------- kontrola pliku ----------
+# JEDYNA kopia tej kontroli. Wczesniej byly trzy (preflight.pl, zbuduj.sh,
+# zainstaluj.sh) i rozjechaly sie: blad z tabulatorem zyl w jednej, wycinanie
+# komentarzy w dwoch. Skrypty powloki wolaja test/sprawdz-plik.pl.
+#
+# Zwraca liste problemow: { poziom => 'blad'|'uwaga', linia => N, opis => ... }
+# (linia 0 = caly plik).
+sub sprawdz_tekst {
+    my $raw = shift;
+    my @p;
+    my $t = bez_komentarzy($raw);
+
+    # Do liczenia nawiasow wycinamy tez TRESC stringow - "{" w napisie to nie blok.
+    (my $bez_nap = $t) =~ s/"(?:[^"\\\n]|\\.)*"/""/g;
+
+    my $o = ($bez_nap =~ tr/{//);  my $z = ($bez_nap =~ tr/}//);
+    my $po = ($bez_nap =~ tr/(//); my $pz = ($bez_nap =~ tr/)//);
+    push @p, { poziom => 'blad', linia => 0, opis => "klamry $o otwierajacych, $z zamykajacych" }
+        if $o != $z;
+    # Okragle to UWAGA, nie blad - zmierzone, nie zgadniete. Na 16 tys.
+    # plikow gry i Hortena klamry nie rozjezdzaja sie ani razu, a okragle
+    # w jednym: stockowy set/multiplayer/units/early/units_eng.set ma
+    # literowke deweloperow "t()))" w czterech wierszach (2975 "(" na 2980 ")")
+    # i gra wczytuje go bez problemu. Twardy blad blokowalby plik, ktory
+    # silnik przyjmuje - a nasze zmiany ekonomii dotykaja wlasnie units_*.set.
+    push @p, { poziom => 'uwaga', linia => 0,
+               opis => "nawiasy okragle $po/$pz (gra toleruje, ale sprawdz, czy to Twoja zmiana)" }
+        if $po != $pz;
+
+    # Glebokosc ponizej zera: zamkniecie bez otwarcia. Bilans moze sie zgadzac
+    # w sumie, a plik i tak byc zly - stad osobny przebieg po wierszach.
+    my ($gl, $ln, $ujemna) = (0, 0, 0);
+    for my $w (split /\n/, $bez_nap, -1) {
+        $ln++;
+        for my $ch ($w =~ /[{}]/g) {
+            $gl += $ch eq '{' ? 1 : -1;
+            if ($gl < 0 && !$ujemna) {
+                push @p, { poziom => 'blad', linia => $ln, opis => 'zamkniecie } bez otwarcia' };
+                $ujemna = 1;
+            }
+        }
+    }
+
+    # Sklejka }{"nazwa" bilansuje sie poprawnie i domyka do zera - zadna kontrola
+    # glebokosci jej nie zlapie, a parser po cichu polyka caly blok. Szukamy
+    # w tekscie bez komentarzy, wiec przyklad w komentarzu nie alarmuje.
+    # Perl, nie grep -E: w Git Bash "[ \t]" nie lapie tabulatora.
+    $ln = 0;
+    for my $w (split /\n/, $t, -1) {
+        $ln++;
+        push @p, { poziom => 'blad', linia => $ln,
+                   opis => 'sklejony wiersz }{"nazwa" - parser polknie ten blok' }
+            if $w =~ /\}[ \t]*\{"/;
+    }
+
+    # Znaki spoza ASCII poza komentarzami. Polskie litery wyciekly nam juz raz
+    # do pliku GEM2. Uwaga, nie blad - nie mamy dowodu, ze psuja parsowanie.
+    $ln = 0;
+    for my $w (split /\n/, $t, -1) {
+        $ln++;
+        next unless $w =~ /[^\x00-\x7f]/;
+        push @p, { poziom => 'uwaga', linia => $ln, opis => 'znaki spoza ASCII poza komentarzem' };
+        last;
+    }
+    @p;
+}
 
 sub parse {
     my $txt = bez_komentarzy(shift);

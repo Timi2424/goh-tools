@@ -38,45 +38,36 @@ sub walk { my $d = shift;
     closedir $h;
 }
 walk("$MOD/resource");
-my @mine = grep { !m{/(interface/splash|map/testing_ground|message\.txt)} } @loose;
+# testing_ground* to katalogi Hortena - ale nasze misje laboratorium leza
+# wlasnie tam (obok jego terenu), wiec hf_lab*.mi sa NASZE i musza przejsc
+# kontrole. Wczesniej wypadaly razem z calym katalogiem.
+my @mine = grep {
+    m{/map/testing_ground[^/]*/hf_lab[^/]*\.mi$}i
+    || !m{/(interface/splash|map/testing_ground|message\.txt)}
+} @loose;
+my @lab = grep { m{/hf_lab[^/]*\.mi$}i } @mine;
 
-print "=== pliki luzne w modzie: ", scalar @loose, " (nasze: ", scalar @mine, ") ===\n\n";
+print "=== pliki luzne w modzie: ", scalar @loose, " (nasze: ", scalar @mine,
+      (@lab ? ", w tym laboratorium: " . scalar @lab : ''), ") ===\n\n";
 
 # ---------- 1. nawiasy i sklejone wiersze ----------
-# Komentarze wycinamy PRZED liczeniem: pliki GEM2 zawieraja wiersze w rodzaju
-# ";//{state", czyli komentarz z niesparowanym nawiasem. Silnik je pomija,
-# wiec liczenie surowego tekstu dawaloby falszywy alarm.
-#
-# Komentarzem jest SAM srednik do konca wiersza - ";//" i ";/*" to tylko
-# konwencja. Gra ma wiersze "; Presets for health..." i ';("elite_vision")'.
-# Srednik w stringu (" ;" wystepuje w plikach gry) komentarzem nie jest,
-# stad przepuszczanie stringow. Znaki nowej linii zostaja, zeby numery
-# wierszy w komunikatach zgadzaly sie z plikiem.
-print "--- nawiasy ---\n";
-my $sklejki = 0;
+# Cala logika w gem2::sprawdz_tekst - ta sama, ktora wola test/sprawdz-plik.pl
+# ze skryptow powloki. Komentarze (srednik do konca wiersza, poza stringami)
+# sa wycinane przed kontrola; sklejka }{"nazwa" jest szukana osobno, bo
+# bilansuje sie poprawnie i parser po cichu polyka caly blok.
+print "--- nawiasy i sklejki ---\n";
+my $n_bl = 0;
 for my $f (@mine) {
     next unless $f =~ /\.(inc|set|reg|ext|pattern|def|mi)$/i;
     open(my $h,'<:raw',$f) or next; local $/; my $raw = <$h>; close $h;
-    my $c = $raw;
-    $c =~ s/("(?:[^"\\\n]|\\.)*")|;[^\n]*/defined $1 ? $1 : ''/ge;
-    my $o = ($c =~ tr/{//); my $z = ($c =~ tr/}//);
-    my $p = ($c =~ tr/(//); my $q = ($c =~ tr/)//);
     my $n = short($f);
-    if ($o != $z) { bad "$n  klamry $o/$z" }
-    elsif ($p != $q) { bad "$n  nawiasy okragle $p/$q" }
-
-    # Sklejka }{"nazwa" BILANSUJE SIE POPRAWNIE i domyka do zera, wiec zadna
-    # kontrola glebokosci jej nie zlapie - a parser po cichu polyka caly blok.
-    # Zero bledow w logu, zero efektu w grze. Kosztowalo piec przebiegow.
-    my $ln = 0;
-    for my $line (split /\n/, $c) {
-        $ln++;
-        next unless $line =~ /\}[ \t]*\{"/;
-        bad "$n:$ln  sklejony wiersz }{\"nazwa\" - parser polknie ten blok";
-        $sklejki++;
+    for my $p (gem2::sprawdz_tekst($raw)) {
+        my $gdzie = $p->{linia} ? "$n:$p->{linia}" : $n;
+        if ($p->{poziom} eq 'blad') { bad "$gdzie  $p->{opis}"; $n_bl++ }
+        else                        { warn_ "$gdzie  $p->{opis}" }
     }
 }
-ok "wszystkie zbilansowane, brak sklejek" unless $err;
+ok "wszystkie zbilansowane, brak sklejek" unless $n_bl;
 
 # ---------- 2. niepodstawione makra ----------
 print "\n--- niepodstawione parametry makr ---\n";
@@ -208,7 +199,9 @@ if (-d $PKG) {
     my @pkg; walk_pkg($PKG, '', \@pkg);
     my %inpkg = map { $_ => 1 } @pkg;
     my @extra;
+    my %lab = map { $_ => 1 } @lab;
     for my $f (@mine) {
+        next if $lab{$f};
         my $rel = $f; $rel =~ s{^\Q$MOD\E/resource/}{};
         push @extra, $rel unless $inpkg{$rel};
     }
@@ -216,6 +209,10 @@ if (-d $PKG) {
         warn_ "pliki poza paczka (eksperymenty): " . scalar @extra;
         print "          $_\n" for @extra;
     } else { ok "mod == paczka, zero eksperymentow" }
+    # Misje laboratorium tez sa poza paczka, ale to nie wyciek: to osobne
+    # misje edytora na mapie testowej, kolega ich nie dostaje, konkwista
+    # ich nie wczytuje. Liczone osobno, zeby nie zagluszaly prawdziwych.
+    ok "laboratorium: " . scalar(@lab) . " misja(e) - poza paczka, nie dotyka co-opa" if @lab;
     for my $rel (@pkg) {
         my $a = "$PKG/$rel"; my $b = "$MOD/resource/$rel";
         if (!-f $b) {

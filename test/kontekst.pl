@@ -40,6 +40,14 @@ my @PAKI = (
     [ 'gra-vehicle'    => "$GAME/entity/-vehicle.pak"  ],
     [ 'gra-entity'     => "$GAME/entity/entity.pak"    ],
     [ 'gra-inventory'  => "$GAME/entity/inventory.pak" ],
+    # DLC maja wlasna skladnie: 241 plikow tekstowych lacznie. Bez nich
+    # nazwa uzywana tylko w DLC wychodzila jako "nie istnieje" (#18).
+    [ 'gra-dlc1'       => "$GAME/dlc1.pak"             ],
+    [ 'gra-dlc2'       => "$GAME/dlc2.pak"             ],
+    [ 'gra-dlc3'       => "$GAME/dlc3.pak"             ],
+    [ 'gra-dlc4'       => "$GAME/dlc4.pak"             ],
+    [ 'gra-dlc5'       => "$GAME/dlc5.pak"             ],
+    [ 'gra-dlc7'       => "$GAME/_dlc7.pak"            ],
     [ 'hf-gamelogic'   => "$HF/gamelogic.pak"          ],
     [ 'hf-properties'  => "$HF/properties.pak"         ],
     [ 'hf-multi'       => "$HF/map/multi.pak"          ],
@@ -56,11 +64,22 @@ sub buduj {
     print "buduje korpus w $CACHE\n";
     mkdir "$ROOT/data" unless -d "$ROOT/data";
     mkdir $CACHE       unless -d $CACHE;
+    my $poprz = (stat "$CACHE/.gotowe")[9] // 0;
 
     for my $p (@PAKI) {
         my ($nazwa, $pak) = @$p;
         unless (-f $pak) { printf "  %-16s brak paka, pomijam\n", $nazwa; next }
         my $dir = "$CACHE/$nazwa";
+
+        # Przyrostowo: pak niezmieniony od ostatniej budowy i juz rozpakowany
+        # = nic do roboty. Pelna budowa trwa ~2 min, glownie przez -vehicle.pak.
+        if (-d $dir && $poprz && (stat $pak)[9] <= $poprz) {
+            printf "  %-16s bez zmian\n", $nazwa; next;
+        }
+        if (-d $dir) {      # pak sie zmienil - stare pliki mogly zniknac
+            require File::Path;
+            File::Path::remove_tree($dir);
+        }
 
         my @wpisy;
         open my $l, '-|', 'unzip', '-l', $pak or do { print "  $nazwa: unzip padl\n"; next };
