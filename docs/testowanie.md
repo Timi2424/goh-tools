@@ -96,8 +96,10 @@ Kończy werdyktem `>>> mozesz testowac` albo `>>> NIE ODPALAJ`.
 
 | kontrola | dlaczego |
 |---|---|
-| nawiasy `{}` i `()` | literówka cicho psuje parsowanie całego pliku |
+| klamry `{}` i głębokość | literówka cicho psuje parsowanie całego pliku |
+| nawiasy `()` | tylko **uwaga** — sama gra ma `t()))` w `units/early/units_eng.set` i wczytuje go |
 | **sklejony wiersz `}{"nazwa"`** | **bilansuje się poprawnie, parser połyka cały blok** |
+| znaki spoza ASCII | tylko uwaga — gra ma je w `textures.set` |
 | niepodstawione `%param` | dosłowny `%crew8` poleciał jako nazwa jednostki i **wywalił grę** |
 | arność `squad_vehicleN` | makro na 10 załóg z siedmioma to ten sam crash |
 | `{spawn "X"}` bez encji | brak `.def` → null → **crash**, najczęstsza przyczyna |
@@ -107,8 +109,22 @@ Kończy werdyktem `>>> mozesz testowac` albo `>>> NIE ODPALAJ`.
 | czy gra chodzi | mody montują się przy starcie, zmiany w trakcie nie wejdą |
 
 Komentarze (średnik do końca wiersza, poza stringami) są wycinane przed liczeniem
-nawiasów — pliki GEM2 zawierają wiersze
-w rodzaju `;//{state`, czyli komentarz z niesparowanym nawiasem.
+nawiasów — pliki GEM2 zawierają wiersze w rodzaju `;//{state`, czyli komentarz
+z niesparowanym nawiasem. Treść stringów też: `"{"` w napisie to nie blok.
+
+Ta kontrola istnieje **w jednym miejscu** — `gem2::sprawdz_tekst`. Skrypty
+powłoki wołają ją przez:
+
+```bash
+perl test/sprawdz-plik.pl <plik>...
+```
+
+Wcześniej były trzy kopie i się rozjechały: jedna przepuszczała sklejki
+z tabulatorem. Sprawdzona na ~24 tys. plików gry i Hortena: **zero błędów**,
+czyli zero fałszywych alarmów na kodzie, który silnik przyjmuje.
+
+Misje laboratorium (`hf_lab*.mi` w katalogach `testing_ground*`) preflight
+traktuje jako nasze i sprawdza — mimo że reszta tych katalogów należy do Hortena.
 
 Dwie kontrole mają **znane fałszywe alarmy** i zgłaszają ostrzeżenie zamiast
 błędu: indeks encji bywa niepełny, a porównanie końców linii przez shell zawodzi.
