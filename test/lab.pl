@@ -1,11 +1,25 @@
 #!/usr/bin/perl
 # lab.pl - petla laboratorium: edytor misji zamiast konkwisty
 #
-#   perl test/lab.pl start [-- <opcje edytora>]   kontrola + instalacja + znacznik + uruchomienie edytora
+#   perl test/lab.pl start [--mody <lista>] [-- <opcje edytora>]
+#                                                 kontrola + instalacja + mody + znacznik + uruchomienie
+#   perl test/lab.pl mody <lista>                 samo ustawienie aktywnych modow (gra zamknieta!)
 #   perl test/lab.pl przeladuj                    kontrola + instalacja + nowy znacznik
 #   perl test/lab.pl wynik                        co sie stalo od ostatniego znacznika
 #   perl test/lab.pl stan                         czy edytor chodzi, kiedy byl znacznik
 #   perl test/lab.pl stop                         zamknij edytor (grzecznie, jak krzyzykiem)
+#
+# LISTA MODOW: nazwy po przecinku, dokladnie takie, jakie widac w game.log
+# przy "Mod: activate". Workshop to "mod_<id>", mod lokalny to nazwa katalogu
+# w mods/.
+#   --mody mod_3359417100             sam Horten
+#   --mody mod_3359417100,lab_vfs     Horten + mod lokalny
+#   --mody ""                         wszystkie wylaczone
+#
+# Lista siedzi w profiles/<id>/options.set, w bloku {mods}. Gra zapisuje ten
+# plik przy WYJSCIU, wiec ruszamy go tylko przy zamknietej grze - inaczej
+# nadpisze nam zmiane swoim stanem. Dlatego "mody" i "start" odmawiaja pracy,
+# gdy cokolwiek chodzi.
 #
 # PODZIAL PRACY
 # Asystent poprawia misje i czyta wyniki; czlowiek klika w edytorze. Narzedzie
@@ -70,6 +84,48 @@ sub czytaj_znacznik {
     close $h; \%z;
 }
 
+sub plik_opcji {
+    my $kat = "$MOJE/profiles";
+    opendir my $d, $kat or return;
+    my @p = grep { -f "$kat/$_/options.set" } grep { !/^\./ } readdir $d;
+    closedir $d;
+    return unless @p;
+    # gdyby profili bylo kilka, bierzemy ostatnio ruszany
+    my @s = sort { -M "$kat/$a/options.set" <=> -M "$kat/$b/options.set" } @p;
+    "$kat/$s[0]/options.set";
+}
+
+# Przepisuje blok {mods} w options.set. Pusta lista = wszystko wylaczone.
+sub ustaw_mody {
+    my @chciane = @_;
+    my $plik = plik_opcji();
+    unless ($plik) { print "  mody: nie znalazlem options.set - pomijam\n"; return 1 }
+
+    open my $h, '<:raw', $plik or do { print "  mody: $plik: $!\n"; return 0 };
+    my $tresc = do { local $/; <$h> };
+    close $h;
+
+    my $eol = $tresc =~ /\r\n/ ? "\r\n" : "\n";
+    my ($wciecie) = $tresc =~ /^([ \t]*)\{mods\b/m;
+    $wciecie = "\t" unless defined $wciecie;
+
+    my $wpisy = join '', map { "$wciecie\t\"$_:0\"$eol" } @chciane;
+    my $blok  = "$wciecie\{mods$eol$wpisy$wciecie\}";
+
+    if ($tresc =~ /^[ \t]*\{mods\b.*?^[ \t]*\}/ms) {
+        $tresc =~ s/^[ \t]*\{mods\b.*?^[ \t]*\}/$blok/ms;
+    } else {
+        # brak bloku - dokladamy przed ostatnia klamra pliku
+        $tresc =~ s/(\}\s*)\z/$blok$eol$1/s;
+    }
+
+    open my $w, '>:raw', $plik or do { print "  mody: $plik: $!\n"; return 0 };
+    print $w $tresc;
+    close $w;
+    print "  mody: ", (@chciane ? join(', ', @chciane) : 'wszystkie wylaczone'), "\n";
+    1;
+}
+
 sub kontrola_i_instalacja {
     print "--- kontrola i instalacja misji laboratorium ---\n";
     # zainstaluj.sh wola wspolna kontrole (sprawdz-plik.pl) i nie kopiuje
@@ -94,6 +150,34 @@ sub postaw_znacznik {
 }
 
 # ---------- komendy ----------
+# --mody wyjmujemy z @arg, zanim reszta pojdzie do edytora jako jego opcje
+my ($mody_podane, @mody) = (0);
+{
+    my @reszta;
+    while (@arg) {
+        my $a = shift @arg;
+        if ($a eq '--mody') {
+            $mody_podane = 1;
+            my $v = shift @arg;
+            @mody = grep { length } split /[,\s]+/, (defined $v ? $v : '');
+        } else {
+            push @reszta, $a;
+        }
+    }
+    @arg = @reszta;
+}
+
+if ($cmd eq 'mody') {
+    for my $exe ('call_to_arms.exe', 'call_to_arms_ed.exe') {
+        next unless dziala($exe);
+        print "BLAD: chodzi $exe - zapisze options.set przy wyjsciu i nadpisze zmiane.\n";
+        exit 1;
+    }
+    ustaw_mody($mody_podane ? @mody : grep { length } split /[,\s]+/, join(',', @arg)) or exit 1;
+    print ">>> mody ustawione, mozesz uruchamiac\n";
+    exit 0;
+}
+
 if ($cmd eq 'start') {
     if (dziala('call_to_arms.exe')) {
         print "BLAD: chodzi gra (call_to_arms.exe). Zamknij ja - mody montuja sie przy starcie.\n";
@@ -105,6 +189,9 @@ if ($cmd eq 'start') {
     } else {
         print "UWAGA: Steam nie dziala - edytor moze nie wystartowac\n" unless dziala('steam.exe');
         kontrola_i_instalacja() or do { print "\n>>> NIE URUCHAMIAM, popraw bledy\n"; exit 1 };
+        if ($mody_podane) {
+            ustaw_mody(@mody) or do { print "\n>>> NIE URUCHAMIAM, nie udalo sie ustawic modow\n"; exit 1 };
+        }
         postaw_znacznik();
         shift @arg if @arg && $arg[0] eq '--';
         my @ps = ('-FilePath', "'" . win($EXE_ED) . "'",
@@ -112,7 +199,8 @@ if ($cmd eq 'start') {
         push @ps, '-ArgumentList', "'" . join(' ', @arg) . "'" if @arg;
         system('powershell.exe', '-NoProfile', '-Command', "Start-Process @ps");
         print "\n>>> edytor uruchomiony", (@arg ? " z opcjami: @arg" : ''), "\n";
-        print "  1. opcje modow: Horten wlaczony (i patch, jesli testujesz)\n";
+        print "  1. opcje modow: Horten wlaczony (i patch, jesli testujesz)",
+              ($mody_podane ? " - ustawione przez --mody\n" : "\n");
         print "  2. mapa testing_ground_800x800\n";
         print "  3. tytul misji (gorna linia) -> Load other mission -> hf_lab\n";
         print "  4. Start (prawy dolny rog)\n";
