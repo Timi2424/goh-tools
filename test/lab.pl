@@ -237,8 +237,13 @@ if ($cmd eq 'wynik') {
     #   81 wlasciciel znacznika, 82 id_1st_player$, 83/84 wlasciciel skoczkow przed/po
     %CO = (%CO, '81' => 'znacznik zrzutu nalezy do gracza', '82' => 'id_1st_player$ =',
                 '83' => 'skoczkowie PRZED ustawieniem: gracz', '84' => 'skoczkowie PO set+autoassign: gracz');
+    # 71-74: samoloty zrzutu 3 s po starcie (sama rezerwa orderow), 75-78: nad celem
+    %CO = (%CO, '71' => 'start: samolotow zrzutu wszystkich', '72' => 'start: z nich hidden',
+                '73' => 'start: z nich inactive', '74' => 'start: z nich moveable',
+                '75' => 'nad celem: samolotow zrzutu wszystkich', '76' => 'nad celem: z nich hidden',
+                '77' => 'nad celem: z nich inactive', '78' => 'nad celem: z nich moveable');
     my %kody;
-    for (@nowe) { $kody{"$1$2"}++ if /Waypoint (9[0-6]|8[1-4])(\d{4}) not found/ }
+    for (@nowe) { $kody{"$1$2"}++ if /Waypoint (9[0-6]|8[1-4]|7[1-8])(\d{4}) not found/ }
     for my $k (sort keys %kody) {
         my ($pre, $n) = (substr($k, 0, 2), substr($k, 2) + 0);
         my $opis = $n != 9999        ? "$CO{$pre} $n"
