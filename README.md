@@ -50,6 +50,31 @@ Dwie rzeczy, które oszczędzają najwięcej czasu:
 
 Potrzebne: `perl`, `git`, `unzip`.
 
+## Claude Code: skille i strażnik
+
+Wspólne dla projektów moddujących GoH; projekt podpina je u siebie.
+
+| co | gdzie | po co |
+|---|---|---|
+| skill `gem2-modding` | `.claude/skills/` | zasady pracy z formatami GEM2: składnia tylko z prawdziwego pliku gry, co powoduje crash, czytanie logu, binarka |
+| skill `zapis-kampanii` | `.claude/skills/` | bezpieczna edycja `.sav` dynamicznej kampanii (co gdzie siedzi, kopia poza grą, `mkpak.pl`) |
+| strażnik | `hooks/straznik.pl` | hook PreToolUse: nic nie trafia do instalacji gry ani modów z Workshopu z pominięciem skryptów projektu; zero kopii zapasowych w katalogach gry. Wyjątek: `# straznik: <powód>` → log |
+
+```bash
+bash instaluj-skille.sh       # skille -> ~/.claude/skills
+perl test/straznik.t.pl       # testy straznika
+```
+
+Strażnika podpina projekt w `.claude/settings.json` z własną konfiguracją
+(dodatkowe ścieżki, dozwolone skrypty, log, podpowiedź) — format w nagłówku
+`hooks/straznik.pl`:
+
+```json
+{"hooks": {"PreToolUse": [{"matcher": "Bash|PowerShell|Write|Edit|NotebookEdit",
+  "hooks": [{"type": "command",
+             "command": "perl \"<goh-tools>/hooks/straznik.pl\" \"$CLAUDE_PROJECT_DIR/straznik.conf\""}]}]}}
+```
+
 ## Do zrobienia
 
 [Issues](../../issues) — etykiety `modyfikacja`, `harness`, `upstream-fix`.
