@@ -280,7 +280,7 @@ print "\n--- proces gry ---\n";
 # grze. Wylaczamy konwersje argumentow. Sprawdzamy tez edytor: to ta sama gra
 # z tymi samymi modami.
 my $run = do { local $ENV{MSYS2_ARG_CONV_EXCL} = '*';
-               `tasklist /FI "IMAGENAME eq call_to_arms*" /NH 2>NUL` };
+               `tasklist /FI "IMAGENAME eq call_to_arms*" /NH 2>/dev/null` };
 if    ($run =~ /call_to_arms_ed\.exe/) { warn_ "EDYTOR CHODZI - zmiany w modzie nie zostana wczytane do nastepnego startu" }
 elsif ($run =~ /call_to_arms\.exe/)    { warn_ "GRA CHODZI - zmiany nie zostana wczytane, mody montuja sie na starcie" }
 else { ok "gra zamknieta, mozna odpalac" }

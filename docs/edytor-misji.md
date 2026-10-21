@@ -47,6 +47,18 @@ Czyli pętla wygląda tak:
 edytuj .mi na dysku  ->  Reload  ->  Start  ->  patrz  ->  Stop
 ```
 
+**Różnice w buildzie 1.067, sprawdzone w praktyce:**
+
+| podręcznik | w rzeczywistości |
+|---|---|
+| Start w prawym dolnym rogu | **START** — zielony, **lewy górny róg** ekranu |
+| (brak) | **F2** edytor mapy, **F3** edytor misji, **F1** chowa panel |
+| (brak) | po Stop edytor wraca do **swojej kopii** misji; bez Reload zmiany z dysku nie wchodzą |
+
+Edytor można też uruchomić od razu na mapie: podręcznik mapy podaje
+`theGame.exe edit <nazwa mapy>`, a binarka ma `cmdline/edit`. Jeszcze
+niesprawdzone.
+
 **Bez restartu gry, bez wchodzenia w bitwę, bez kupowania jednostek.** Do tego
 w edytorze *view* siedzi regulacja **prędkości gry od 10× do 0,1×** — zrzut,
 który trwa pół minuty, da się obejrzeć w trzy sekundy albo w zwolnionym tempie.

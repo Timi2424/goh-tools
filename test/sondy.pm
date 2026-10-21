@@ -19,6 +19,15 @@ our @WZORCE = (
     ['nieznana komenda skryptu'    => qr/unknown script command/, 'nazwa akcji nie istnieje',        0],
     ['nieznany squad'              => qr/Squad "\S+" not found/,  'akcja squad sie wykonala',        0],
     ['nasz znacznik hf_sonda'      => qr/hf_sonda/i,              'cokolwiek nazwanego hf_sonda',    0],
+    # Znalezione w laboratorium: {player "255"} w selektorze. Podaje plik
+    # i wiersz, a misja dziala dalej - czyli wartosc jest po cichu odrzucana.
+    ['wartosc spoza enuma'         => qr/value "[^"]*" is invalid for enum/, 'parametr dostal niedozwolona wartosc - zignorowany', 0],
+    # Znalezione w lab: {count {op ">>"}} - operator wziety od Hortena, gra go
+    # nie zna. Asercja podaje plik i wiersz, a warunek po cichu nie dziala.
+    ['asercja enuma (plik:wiersz)' => qr/Assertion failed : tvalue != EnumInvalidId/, 'nieznana wartosc enuma - ten fragment NIE DZIALA', 0],
+    # Znalezione w lab: waypoint lotu z wysokoscia 0 - oba samoloty polecialy
+    # do jednego punktu i rozbily sie.
+    ['ruch do zera'                => qr/Moving to zero bug/,     'rozkaz ruchu ze zlym celem - sprawdz pozycje waypointa', 0],
 );
 
 # Zwraca liste trafien: { nazwa, znaczy, ile, kontekst => [wiersze] }

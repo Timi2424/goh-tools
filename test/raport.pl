@@ -49,7 +49,7 @@ for my $p ("$MOD/resource/gamelogic.pak", "$MOD/resource/map/multi.pak") {
 # Bez MSYS2_ARG_CONV_EXCL Git Bash zamienia "/FI" na sciezke i tasklist
 # zwraca puste - raport zawsze pisal "zamknieta".
 my $run = do { local $ENV{MSYS2_ARG_CONV_EXCL} = '*';
-               `tasklist /FI "IMAGENAME eq call_to_arms*" /NH 2>NUL` };
+               `tasklist /FI "IMAGENAME eq call_to_arms*" /NH 2>/dev/null` };
 say_("  gra          : " . ($run =~ /call_to_arms\.exe/ ? "URUCHOMIONA" : "zamknieta"));
 say_("  edytor       : " . ($run =~ /call_to_arms_ed\.exe/ ? "URUCHOMIONY" : "zamkniety"));
 
