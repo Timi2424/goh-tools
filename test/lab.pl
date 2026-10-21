@@ -60,7 +60,7 @@ sub dziala {
     # sie "C:/Program Files/Git/FI" i tasklist zwraca puste - wszystko wygladalo
     # na wylaczone, nawet dzialajacy Steam. Wylaczamy te konwersje.
     local $ENV{MSYS2_ARG_CONV_EXCL} = '*';
-    my $out = `tasklist /FI "IMAGENAME eq $obraz" /NH 2>NUL`;
+    my $out = `tasklist /FI "IMAGENAME eq $obraz" /NH 2>/dev/null`;
     $out =~ /\Q$obraz\E/i;
 }
 
