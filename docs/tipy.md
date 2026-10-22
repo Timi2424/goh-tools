@@ -94,6 +94,16 @@ Narracja i dowody siedzą w [lekcje.md](lekcje.md), [mapa-mozliwosci.md](mapa-mo
 - `set/difficulty/multiplayer.dl` — `health`, `death_delay_min/max`. Wspólny dla całego multi.
 - Szczegóły: [mapa-mozliwosci.md](mapa-mozliwosci.md) §B.
 
+## Fortyfikacje inżyniera
+
+- `interface.pak` → `action/fortify.set` — **jedno miejsce** na wszystkie wpisy panelu inżyniera: encja, `{Cost}`, czas, animacja, `{TerrainRestrictions}`, `{Spacing}`, `{AbleDrag}`, `{AbleRotate}`. Luźno: `resource/interface/action/fortify.set` (nikt go nie `(include)`-uje, więc podmianka wchodzi). Plik sam pisze, że wymaga restartu gry.
+- `{AbleDrag}` = przeciąganie linii, `{Spacing}` = odstęp elementów. W vanilli dragują tylko `barricade`, `barricade_sq`, `hedgehog`, `barbwire`; okopy (`foxhole`, `foxhole_big`, `mortar_pit`, `tank_cover`) chodzą przez `entrenchment_rotate`, które podaje puste `d()`.
+- **Vanilla makro `entrenchment` jest zepsute** — ma `d({AbleDrag})`, ale nie podaje `e()`, więc `%e` poleciałoby do silnika dosłownie. Do przeciągania okopów potrzebna własna kopia `entrenchment_rotate` z `d({AbleDrag}) ... e()`.
+- `{AbleDrag}`/`{AbleRotate}`/`{HideLdragArrow}` parsuje `eInterfaceActionCustom.cpp` (wspólne dla każdego `{Action}`); `{Spacing}`/`{Cost}`/`{Rotation}`/`{AbleEnqueue}`/`{TerrainRestrictions}` — tablica zdolności `fortifications` człowieka. Perk nadający wpisy: `set/breed/presets/perks/skills.inc`, panel: `set/panel_control/right_emplacement.set`.
+- Skala `spacing`: ~24 jednostki modelu `.mdl` na 1 spacing, żeby elementy się stykały (worek 50 j. → 2.1, drut 63 j. → 1.4 czyli zakładka, jeż 46 j. → 3.15 czyli luzy). Rozmiar czytaj z `{area "cut"}`/`{obb2}` w `.mdl`.
+- `{extender "fortification"}` (np. `entity/service/-multiplayer/fortification/*.def`, `flag_point_fortification.inc`) to drugi mechanizm: jedna encja rozstawia N elementów po `steps`/`radius`/`angle`/`azimuth`/`skip`, etapami `{level}`. Tym są robione umocnienia przy flagach — geometria kołowa, nie linia.
+- Workshop (2026-10-22): przeciągania okopów nikt nie włączył na wpisach gry; „Fixed Emplacement" / „Panzergrenadier" (3495417827, lokalnie w `workshop/content/400750`) dokładają makro `digging_trench` i przeciągają **krótki modułowy segment** `euro_log_trench_dirt_straight_short` ze `spacing(2)`. Segmenty modułowe (`landscape/cut_entity/trenches/log/*`) są w vanilli.
+
 ## Dokumentacja — czego używać, a czego nie
 
 - `mods/tools/mission_editor(eng).pdf` (37 stron) i `map_editor(eng).pdf` (12) — oficjalne, nasze, starsze niż build. Tekst wyciąga `test/pdftext.ps1`.
