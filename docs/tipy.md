@@ -49,6 +49,7 @@ Narracja i dowody siedzą w [lekcje.md](lekcje.md), [mapa-mozliwosci.md](mapa-mo
 - W edytorze *view* jest **prędkość gry od 10× do 0,1×** — pół minuty zrzutu obejrzysz w trzy sekundy.
 - Mapa z linii poleceń: `theGame.exe edit <nazwa mapy>` (jest `cmdline/edit` w binarce, u nas niesprawdzone).
 - Tryby edytora mapy: Entity, Anchor, Land, **Clip** (ogranicznik ruchu jednostek i kamery), **Edifice** (budynki ze znikającym dachem).
+- **Podpisy w edytorze misji:** strefa `{zone "circle" {position x y 0}{Name "tekst"}{Radius r}}` w `{Helpers}` — edytor rysuje ją z nazwą (sprawdzone 2026-10-23 na `hf_galeria.mi`, 301 podpisów). Encje rekwizytów w misji jak w pliku `map`: `{Entity "x" 0x80NN {Position x y}{xform zl OBR scale S}}`; okopy z edytora map mają `{AreaDisable "cut"}` (wycięcie wpalone w teren), w misji bez tego.
 - Zrzuty ekranu: **PrintScreen w grze** → `My Games/gates of hell/screenshots/`. Z PowerShella nie robimy — blokuje Defender.
 
 ## Log
