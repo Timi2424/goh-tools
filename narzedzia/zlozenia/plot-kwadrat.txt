@@ -1,0 +1,23 @@
+# Przyklad zlozenia: kwadratowe stanowisko z 7 elementow trench_modular + siatka maskujaca.
+# Uruchom: perl narzedzia/podglad.pl --zlozenie narzedzia/zlozenia/plot-kwadrat.txt -o plot.png
+#
+# trench_modular: scianka z desek = przeszkoda "body", srodek (5.6, 5.3), dlugosc 58.7 j.;
+# deski od strony +y encji, nasyp od -y. kotwica=body -> x,y to srodek scianki.
+# Bok kwadratu = 2 scianki = 117.4 j. (polowa 58.7). Deski do srodka, nasyp na zewnatrz.
+tytul plot: kwadrat 7x trench_modular + netting_square 1.6 (przyklad)
+siatka 20
+
+# polnoc (gora widoku, -y): +y encji ma patrzec do srodka -> obr 0
+trench_modular  x=-29.35 y=-58.7  obr=0    kotwica=body
+trench_modular  x=29.35  y=-58.7  obr=0    kotwica=body
+# wschod (+x): +y encji w strone -x -> obr 90
+trench_modular  x=58.7   y=-29.35 obr=90   kotwica=body
+trench_modular  x=58.7   y=29.35  obr=90   kotwica=body
+# zachod (-x): obr -90
+trench_modular  x=-58.7  y=-29.35 obr=-90  kotwica=body
+trench_modular  x=-58.7  y=29.35  obr=-90  kotwica=body
+# poludnie (+y): jedna scianka, druga polowa boku = wejscie
+trench_modular  x=-29.35 y=58.7   obr=180  kotwica=body
+
+# siatka na srodku, 6 j. pod z=0 (jak w patchu v8)
+netting_square  x=0 y=0 z=-6 skala=1.6 nazwa=siatka
