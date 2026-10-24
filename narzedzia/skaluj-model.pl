@@ -32,11 +32,11 @@ if ($S =~ /,/) {    # skala osobno na osie - tryb z drzewem modelu (nizej, po fu
 }
 die "skala musi byc liczba > 0\n" unless $S =~ /^\d*\.?\d+$/ && $S > 0;
 
+use FindBin; use lib $FindBin::Bin; use Pak;   # odczyt z paka w Perlu (bez procesu unzip na plik)
 sub z_paka {
     my ($wpis) = @_;
-    open my $h, '-|', 'unzip', '-p', $PAK, $wpis or die "unzip: $!";
-    binmode $h; local $/; my $t = <$h>; close $h;
-    die "brak $wpis w $PAK\n" unless defined $t && length $t;
+    my $t = Pak::czytaj($PAK, $wpis);
+    die "brak $wpis w $PAK\n" unless length $t;
     return $t;
 }
 sub l { my $v = $_[0] * $S; my $t = sprintf '%.4f', $v; $t =~ s/\.?0+$//; $t eq '-0' ? '0' : $t }
